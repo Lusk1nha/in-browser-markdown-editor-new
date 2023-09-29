@@ -30,13 +30,17 @@ const DarkTheme: IStyledComponentsTheme = {
       documentDate: Colors.HTMLCSSGray,
       documentIcon: Colors.White,
       documentName: Colors.White,
-      documentNameHover: Colors.FireOpal,
-      toggleBackground: Colors.BlackCoral,
-      toggleBallBackground: Colors.White,
-      toggleSunIconActivated: Colors.White,
-      toggleSunIconInactivated: Colors.BlackCoral,
-      toggleMoonIconActivated: Colors.White,
-      toggleMoonIconInactivated: Colors.BlackCoral
+      documentNameHover: Colors.FireOpal
+    },
+    input: {
+      toggle: {
+        background: Colors.BlackCoral,
+        ballBackground: Colors.White,
+        sunIconActivated: Colors.White,
+        sunIconInactivated: Colors.BlackCoral,
+        moonIconActivated: Colors.White,
+        moonIconInactivated: Colors.BlackCoral
+      }
     }
   }
 }

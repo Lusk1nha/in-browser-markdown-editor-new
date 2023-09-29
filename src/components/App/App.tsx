@@ -9,18 +9,22 @@ import { StyledApp } from './styles';
 
 function App() {
   const [isLightTheme, setIsLightTheme] = React.useState<boolean>(true);
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState<boolean>(false);
 
   const onThemeChange = React.useCallback(() => {
     setIsLightTheme(prevTheme => !prevTheme)
   }, [])
 
+  const onSidebarChange = React.useCallback(() => {
+    setIsSidebarOpen(prevState => !prevState)
+  }, [])
+
   return (
     <AppThemeProvider isLightTheme={isLightTheme}>
       <StyledApp>
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} onThemeChange={onThemeChange} />
         <Wrapper>
-          <Menu />
-          <button onClick={onThemeChange}>Mudar tema</button>
+          <Menu onSidebarChange={onSidebarChange} />
           <div></div>
         </Wrapper>
 
