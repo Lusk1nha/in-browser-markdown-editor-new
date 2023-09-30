@@ -1,7 +1,7 @@
 import React from "react"
 import { GlobalStyle } from "../../styles/globalStyle"
-import App from "../App/App"
-
+import { RouteHandler } from "../RouteHandler/RouteHandler"
+import { RepoProvider } from "../../contexts/RepoProvider/RepoProvider"
 
 function Providers() {
 
@@ -9,9 +9,13 @@ function Providers() {
     <React.Fragment>
       <GlobalStyle />
 
-      <App />
+      <RepoProvider>
+        <RouteHandler />
+      </RepoProvider>
     </React.Fragment>
   )
 }
 
-export { Providers }
+export {
+  Providers
+}

@@ -16,7 +16,7 @@ const TextContainer = styled.div`
 
 
 type BallContainerProps = {
-  on: boolean;
+  $on: boolean;
 }
 
 const BallContainer = styled.div`
@@ -42,7 +42,7 @@ const Ball = styled.div<BallContainerProps>`
   border-radius: 50%;
 
   position: absolute;
-  left: ${props => !props.on ? '25%' : '75%'};
+  left: ${props => !props.$on ? '25%' : '75%'};
   transform: translateX(-50%);
   transition: all 300ms;
 `
