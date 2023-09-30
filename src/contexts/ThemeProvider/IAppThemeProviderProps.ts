@@ -2,6 +2,6 @@
 
 
 export interface IAppThemeProviderProps {
-  isLightTheme: boolean;
+  isDarkTheme: boolean;
   children?: React.ReactNode;
 }

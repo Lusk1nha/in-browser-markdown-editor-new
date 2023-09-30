@@ -2,8 +2,9 @@
 
 export interface IStyledComponentsTheme {
   colors: {
-    menu: Menu;
     background: string;
+    menu: Menu;
+    input: Inputs;
   };
   font?: Font;
 }
@@ -34,12 +35,19 @@ export interface Menu {
   documentIcon: string;
   documentName: string;
   documentNameHover: string;
-  toggleBackground: string;
-  toggleBallBackground: string;
-  toggleSunIconActivated: string;
-  toggleSunIconInactivated: string;
-  toggleMoonIconActivated: string;
-  toggleMoonIconInactivated: string;
+}
+
+export interface Inputs {
+  toggle: Toggle
+}
+
+export interface Toggle {
+  background: string,
+  ballBackground: string,
+  sunIconActivated: string,
+  sunIconInactivated: string,
+  moonIconActivated: string,
+  moonIconInactivated: string
 }
 
 export interface Font {
