@@ -3,11 +3,15 @@ import styled from "styled-components";
 
 const ToggleContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
 `
 
 const TextContainer = styled.div`
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 

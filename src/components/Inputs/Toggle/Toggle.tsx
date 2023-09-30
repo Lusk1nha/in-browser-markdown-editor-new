@@ -4,16 +4,16 @@ import { IToggle } from "./IToggle";
 
 
 
-function Toggle({ onClick, value }: IToggle) {
+function Toggle({ onClick, value, offContent, offContentActive, onContent, onContentActive }: IToggle) {
   const [isOn, setIsOn] = useState<boolean>(value ?? false);
 
   return (
     <ToggleContainer onClick={() => { setIsOn(prevState => !prevState); onClick() }}>
-      <TextContainer>Off</TextContainer>
+      <TextContainer>{isOn === false ? offContentActive : offContent}</TextContainer>
       <BallContainer>
         <Ball on={isOn} />
       </BallContainer>
-      <TextContainer>On</TextContainer>
+      <TextContainer>{isOn === true ? onContentActive : onContent}</TextContainer>
     </ToggleContainer>
   )
 }

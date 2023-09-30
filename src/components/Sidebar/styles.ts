@@ -18,7 +18,7 @@ const StyledSideBar = styled.aside<StyledSideBarProps>`
 
   gap: 27px;
 
-  transition: width 80ms linear;
+  /* transition: width 80ms linear; */
 
   ${props => !props.on && `
     * {

@@ -28,6 +28,8 @@ const DocumentName = styled.h5`
 
   transition: color 100ms ease;
 
+  cursor: pointer;
+
   &:hover {
     color: ${props => props.theme.colors.menu.documentNameValueHover};
   }

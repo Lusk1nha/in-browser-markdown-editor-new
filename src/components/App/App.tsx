@@ -5,14 +5,15 @@ import { Menu } from '../Menu/Menu';
 import { Wrapper } from '../../styles/reusables-styles';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { StyledApp } from './styles';
+import { Content } from '../Content/Content';
 
 
 function App() {
-  const [isLightTheme, setIsLightTheme] = React.useState<boolean>(true);
+  const [isDarkTheme, setIsDarkTheme] = React.useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = React.useState<boolean>(false);
 
   const onThemeChange = React.useCallback(() => {
-    setIsLightTheme(prevTheme => !prevTheme)
+    setIsDarkTheme(prevTheme => !prevTheme)
   }, [])
 
   const onSidebarChange = React.useCallback(() => {
@@ -20,14 +21,14 @@ function App() {
   }, [])
 
   return (
-    <AppThemeProvider isLightTheme={isLightTheme}>
+    <AppThemeProvider isDarkTheme={isDarkTheme}>
       <StyledApp>
         <Sidebar isOpen={isSidebarOpen} onThemeChange={onThemeChange} />
-        <Wrapper>
-          <Menu onSidebarChange={onSidebarChange} />
-          <div></div>
-        </Wrapper>
 
+        <Wrapper>
+          <Menu isOpen={isSidebarOpen} onSidebarChange={onSidebarChange} />
+          <Content />
+        </Wrapper>
       </StyledApp>
     </AppThemeProvider>
   )

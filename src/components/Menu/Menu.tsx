@@ -1,25 +1,36 @@
 import { DocumentItem } from "../DocumentItem/DocumentItem"
-import { ExpandButton, RemoveButton, StyledMenu } from "./styles"
+import { ExpandButton, RemoveButton, SaveButton, Separator, StyledMenu, Title } from "./styles"
 
 
-function Menu({ onSidebarChange }: IMenuProps) {
+function Menu({ isOpen, onSidebarChange }: IMenuProps) {
 
   return (
     <StyledMenu>
       <ExpandButton type="button" aria-label="Click here to expand sidebar" title="Click here to expand sidebar" onClick={onSidebarChange}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
-          <rect width="72" height="72" fill="none" />
-          <rect x="21" y="27" width="30" height="2" fill="white" />
-          <rect x="21" y="35" width="30" height="2" fill="white" />
-          <rect x="21" y="43" width="30" height="2" fill="white" />
-        </svg>
+        {
+          isOpen
+            ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2.10049" y="0.686523" width="30" height="2" transform="rotate(45 2.10049 0.686523)" fill="white" />
+                <rect x="0.686279" y="21.8999" width="30" height="2" transform="rotate(-45 0.686279 21.8999)" fill="white" />
+              </svg>
+            )
+            : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <rect width="72" height="72" fill="none" />
+                <rect x="21" y="27" width="30" height="2" fill="white" />
+                <rect x="21" y="35" width="30" height="2" fill="white" />
+                <rect x="21" y="43" width="30" height="2" fill="white" />
+              </svg>
+            )
+        }
       </ExpandButton>
-      {/* 
+
       <Title>
         MARKDOWN
       </Title>
 
-      <Separator /> */}
+      <Separator />
 
       <DocumentItem label="Document Name" name="welcome.md" />
 
@@ -29,14 +40,14 @@ function Menu({ onSidebarChange }: IMenuProps) {
         </svg>
       </RemoveButton>
 
-      {/* <SaveButton type="button">
+      <SaveButton type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
           <rect width="40" height="40" rx="4" fill="none" />
           <path fill-rule="evenodd" clip-rule="evenodd" d="M22.4089 12.2578L27.7422 17.5911C27.9086 17.7589 28.0014 17.986 28 18.2222V25.3333C28 26.8061 26.8061 28 25.3333 28H14.6667C13.1939 28 12 26.8061 12 25.3333V14.6667C12 13.1939 13.1939 12 14.6667 12H21.7778C21.8967 12.0022 22.0142 12.0263 22.1244 12.0711C22.2304 12.1144 22.327 12.1778 22.4089 12.2578ZM20.8889 13.7778H17.3333V15.5556H20.8889V13.7778ZM22.6667 26.2222H17.3333V23.5556C17.3333 23.0646 17.7313 22.6667 18.2222 22.6667H21.7778C22.2687 22.6667 22.6667 23.0646 22.6667 23.5556V26.2222ZM25.3333 26.2222C25.8243 26.2222 26.2222 25.8243 26.2222 25.3333V18.5867L22.6667 15.0311V16.4444C22.6667 16.9354 22.2687 17.3333 21.7778 17.3333H16.4444C15.9535 17.3333 15.5556 16.9354 15.5556 16.4444V13.7778H14.6667C14.1757 13.7778 13.7778 14.1757 13.7778 14.6667V25.3333C13.7778 25.8243 14.1757 26.2222 14.6667 26.2222H15.5556V23.5556C15.5556 22.0828 16.7495 20.8889 18.2222 20.8889H21.7778C23.2505 20.8889 24.4444 22.0828 24.4444 23.5556V26.2222H25.3333Z" fill="white" />
         </svg>
 
         Save Changes
-      </SaveButton> */}
+      </SaveButton>
     </StyledMenu>
   )
 }
