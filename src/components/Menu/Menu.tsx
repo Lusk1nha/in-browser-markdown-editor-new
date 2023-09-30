@@ -1,4 +1,4 @@
-import { DocumentItem } from "../DocumentItem/DocumentItem"
+import { EditableDocumentItem } from "../EditableDocumentItem/EditableDocumentItem"
 import { ExpandButton, RemoveButton, SaveButton, Separator, StyledMenu, Title } from "./styles"
 
 
@@ -32,7 +32,7 @@ function Menu({ isOpen, onSidebarChange }: IMenuProps) {
 
       <Separator />
 
-      <DocumentItem label="Document Name" name="welcome.md" />
+      <EditableDocumentItem name="DocumentName" label="Document Name" fileName="welcome.md" />
 
       <RemoveButton type="button" aria-label="Click here to remove document" title="Click here to remove document">
         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">

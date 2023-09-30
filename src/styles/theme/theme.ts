@@ -5,6 +5,7 @@ export interface IStyledComponentsTheme {
     background: string;
     menu: Menu;
     input: Inputs;
+    content: Content;
   };
   font?: Font;
 }
@@ -39,6 +40,16 @@ export interface Menu {
 
 export interface Inputs {
   toggle: Toggle
+}
+
+export interface Content {
+  topLabel: TopLabel;
+  separator: string;
+}
+
+export interface TopLabel {
+  background: string;
+  text: string;
 }
 
 export interface Toggle {

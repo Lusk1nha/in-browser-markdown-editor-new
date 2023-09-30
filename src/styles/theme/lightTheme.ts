@@ -41,6 +41,13 @@ const LightTheme: IStyledComponentsTheme = {
         moonIconActivated: Colors.White,
         moonIconInactivated: Colors.BlackCoral
       }
+    },
+    content: {
+      topLabel: {
+        background: Colors.Cultured,
+        text: Colors.HTMLCSSGray
+      },
+      separator: Colors.Platinum
     }
   }
 }

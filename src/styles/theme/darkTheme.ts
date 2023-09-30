@@ -41,6 +41,13 @@ const DarkTheme: IStyledComponentsTheme = {
         moonIconActivated: Colors.White,
         moonIconInactivated: Colors.BlackCoral
       }
+    },
+    content: {
+      topLabel: {
+        background: Colors.DarkJungleGreen,
+        text: Colors.LavenderGray
+      },
+      separator: Colors.BlackCoral
     }
   }
 }

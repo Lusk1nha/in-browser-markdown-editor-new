@@ -1,0 +1,50 @@
+import styled from "styled-components";
+
+
+const DocumentContainer = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-grow: 1;
+`
+
+const DocumentLabel = styled.h5`
+  color: ${props => props.theme.colors.menu.documentNameLabel};
+  font-family: Roboto;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+`
+
+const DocumentName = styled.input`
+  background: none;
+
+  color: ${props => props.theme.colors.menu.documentNameValue};
+
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  transition: color 100ms ease;
+
+  border: none;
+  outline: none;
+
+  caret-color: ${props => props.theme.colors.menu.documentNameValueHover};
+
+  transition: all 100ms ease;
+
+  &:hover,
+  &:focus {
+    border-bottom: 1px solid white;
+  }
+`
+
+export {
+  DocumentContainer,
+  DocumentLabel,
+  DocumentName
+}
