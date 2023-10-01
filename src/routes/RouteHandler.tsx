@@ -1,22 +1,21 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Root from "../../pages/Root/Root";
+import Layout from "../pages/Layout/Layout";
 
-import { NewMarkdownPage } from "../../pages/NewMarkdownPage/NewMarkdownPage";
-import { ErrorPage } from "../../pages/ErrorPage/ErrorPage";
-
+import NewMarkdown from "../pages/NewMarkdown/NewMarkdown";
+import { ErrorPage } from "../pages/ErrorPage/ErrorPage";
 
 function RouteHandler() {
-
   const router = createBrowserRouter([
     {
       path: '/',
-      element: Root.Page,
+      element: Layout.Page,
       errorElement: <ErrorPage />,
-      loader: Root.Loader,
+      loader: Layout.Loader,
       children: [
         {
           path: '/',
-          element: <NewMarkdownPage />,
+          element: NewMarkdown.Page,
+          loader: NewMarkdown.Loader
         }
       ]
     }

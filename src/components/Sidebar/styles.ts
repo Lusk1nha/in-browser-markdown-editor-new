@@ -86,13 +86,6 @@ const SidebarNewDocumentButton = styled(RawButton)`
   }
 `
 
-const SidebarDocumentRender = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 30px;
-`
-
 const SidebarThemeContainer = styled.div`
   display: flex;
   margin-top: auto;
@@ -106,6 +99,5 @@ export {
   SidebarMyDocumentsContainer,
   SidebarMyDocumentsTitle,
   SidebarNewDocumentButton,
-  SidebarDocumentRender,
   SidebarThemeContainer
 }

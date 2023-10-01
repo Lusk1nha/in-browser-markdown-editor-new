@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { AppThemeProvider } from '../../contexts/ThemeProvider/AppThemeProvider';
+import React from 'react';
 import { Menu } from '../../components/Menu/Menu';
 
 import { Wrapper } from '../../styles/reusables-styles';
@@ -30,39 +29,25 @@ const loader: LoaderFunction = async () => {
   })
 }
 
-function Root() {
+function Layout() {
   const data: LoaderResponse = useLoaderData() as any;
 
-  const [isDarkTheme, setIsDarkTheme] = React.useState<boolean>(true);
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState<boolean>(false);
-
-  const onThemeChange = React.useCallback(() => {
-    setIsDarkTheme(prevTheme => !prevTheme)
-  }, [])
-
-  const onSidebarChange = React.useCallback(() => {
-    setIsSidebarOpen(prevState => !prevState)
-  }, [])
-
   return (
-    <AppThemeProvider isDarkTheme={isDarkTheme}>
-      <MarkdownProvider markdowns={data.markdowns}>
-        <StyledApp>
-          <Sidebar isOpen={isSidebarOpen} onThemeChange={onThemeChange} />
+    <MarkdownProvider markdowns={data.markdowns}>
+      <StyledApp>
+        <Sidebar />
 
-          <Wrapper>
-            <Menu isOpen={isSidebarOpen} onSidebarChange={onSidebarChange} />
-            <Outlet />
-          </Wrapper>
-        </StyledApp>
-      </MarkdownProvider>
-    </AppThemeProvider>
+        <Wrapper as="section">
+          <Outlet />
+        </Wrapper>
+      </StyledApp>
+    </MarkdownProvider>
   )
 }
 
 
 export default Object.assign({
-  Page: (<Root />),
+  Page: (<Layout />),
   Loader: loader
 }) as {
   Page: React.ReactNode;

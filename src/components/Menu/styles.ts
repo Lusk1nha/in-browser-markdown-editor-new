@@ -7,7 +7,7 @@ const StyledMenu = styled.nav`
   background: ${props => props.theme.colors.menu.navbar};
 
   width: 100%;
-  height: 72px;
+  min-height: 72px;
 
   display: flex;
   align-items: center;

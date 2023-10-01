@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 
-const DocumentContainer = styled.div`
+const DocumentContainer = styled.li`
   display: flex;
   gap: 16px;
   align-items: center;
   flex-grow: 1;
+
+  list-style: none;
 `
 
 const DocumentLabel = styled.h5`

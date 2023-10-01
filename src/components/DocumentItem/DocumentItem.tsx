@@ -1,7 +1,10 @@
 import { Wrapper } from "../../styles/reusables-styles";
 import { DocumentContainer, DocumentLabel, DocumentName } from "./styles";
 
-import { IDocumentItemProps } from "./IDocumentItemProps";
+interface IDocumentItemProps {
+  label: string;
+  name: string;
+}
 
 function DocumentItem({ label, name }: IDocumentItemProps) {
 
@@ -20,5 +23,6 @@ function DocumentItem({ label, name }: IDocumentItemProps) {
 }
 
 export {
-  DocumentItem
+  DocumentItem,
+  IDocumentItemProps
 }

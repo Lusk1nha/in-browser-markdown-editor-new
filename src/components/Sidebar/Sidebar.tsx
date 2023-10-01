@@ -1,18 +1,19 @@
 import { useContext } from "react"
 
-import { DocumentItem } from "../DocumentItem/DocumentItem"
 import { Toggle } from "../Inputs/Toggle/Toggle"
-import { ISidebarProps } from "./ISidebarProps"
-import { StyledSideBar, SidebarHeader, HeaderTitle, SidebarMyDocumentsContainer, SidebarMyDocumentsTitle, SidebarNewDocumentButton, SidebarDocumentRender, SidebarThemeContainer } from "./styles"
+
+import { StyledSideBar, SidebarHeader, HeaderTitle, SidebarMyDocumentsContainer, SidebarMyDocumentsTitle, SidebarNewDocumentButton, SidebarThemeContainer } from "./styles"
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider"
-import { IMarkdown } from "../../shared/types/IMarkdown"
 
-function Sidebar({ isOpen, onThemeChange }: ISidebarProps) {
+import DocumentRender from "../DocumentRender/DocumentRender"
+import { AppThemeContext } from "../../contexts/ThemeProvider/AppThemeProvider"
+import { SidebarContext } from "../../contexts/SidebarProvider/SidebarProvider"
+
+function Sidebar() {
+  const { onThemeChange } = useContext(AppThemeContext);
+  const { isOpen } = useContext(SidebarContext);
+
   const markdowns = useContext(MarkdownContext);
-
-  function generateDocumentItem(documents: IMarkdown[]) {
-    return documents?.map(doc => <DocumentItem key={doc.id} label={doc.created.toLocaleDateString()} name={doc.name} />)
-  }
 
   return (
     <StyledSideBar $on={isOpen}>
@@ -29,9 +30,7 @@ function Sidebar({ isOpen, onThemeChange }: ISidebarProps) {
           + New Document
         </SidebarNewDocumentButton>
 
-        <SidebarDocumentRender>
-          {generateDocumentItem(markdowns)}
-        </SidebarDocumentRender>
+        <DocumentRender />
       </SidebarMyDocumentsContainer>
 
       <SidebarThemeContainer>
