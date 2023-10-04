@@ -1,5 +1,4 @@
 import React from 'react';
-import { Menu } from '../../components/Menu/Menu';
 
 import { Wrapper } from '../../styles/reusables-styles';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
