@@ -15,7 +15,8 @@ function RouteHandler() {
         {
           path: '/',
           element: NewMarkdown.Page,
-          loader: NewMarkdown.Loader
+          loader: NewMarkdown.Loader,
+          action: NewMarkdown.Action
         }
       ]
     }

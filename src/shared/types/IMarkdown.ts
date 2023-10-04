@@ -5,7 +5,7 @@ export interface IMarkdown {
   id: string;
   name: string;
   content: string;
-  created: Date;
+  created: string;
   lastModified: Date;
   createdBy: string;
 }

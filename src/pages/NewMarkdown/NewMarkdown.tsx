@@ -1,45 +1,46 @@
-import { useState } from "react"
 import { Preview } from "../../components/Preview/Preview"
 import { TextArea } from "../../components/TextArea/TextArea"
 import { StyledContent, StyledForm } from "./styles"
 import { Menu } from "../../components/Menu/Menu";
-import { ActionFunction, Form, LoaderFunction, defer } from "react-router-dom";
+import { ActionFunction, LoaderFunction } from "react-router-dom";
+import { CreateMarkdown } from "../../services/CreateMarkdown";
 
 
-const loader: LoaderFunction = async () => {
+const action: ActionFunction = async ({ request }) => {
+  const createMarkdown = new CreateMarkdown();
 
-  return defer({
+  let formData = await request.formData();
 
-  })
-}
+  const name = await formData.get('name') as string;
+  const content = await formData.get('content') as string;
 
-const action: ActionFunction = async () => {
-  
+  const markdown = await createMarkdown.execute({ name, content });
+  console.log(markdown)
+  return
 }
 
 function NewMarkdown() {
-  const [markdown, setMarkdown] = useState<string>('');
-
   function onSave() {
     return
   }
 
   return (
-    <Form method="post" action="/">
-      <Menu onSave={onSave} />
+    <StyledForm method="post" >
+      <Menu name="name" onSave={onSave} />
 
       <StyledContent>
         <TextArea />
         <Preview />
       </StyledContent>
-    </Form>
+    </StyledForm>
   )
 }
 
 export default Object.assign({
   Page: (<NewMarkdown />),
-  Loader: loader
+  Action: action
 }) as {
   Page: React.ReactNode;
   Loader: LoaderFunction<any>;
+  Action: ActionFunction<any>
 }

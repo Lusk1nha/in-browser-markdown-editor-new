@@ -2,13 +2,17 @@ import { Suspense } from "react";
 
 import { StyledDocumentRender } from "./styles";
 import { DocumentItem } from "../DocumentItem/DocumentItem";
+import { IMarkdown } from "../../shared/types/IMarkdown";
 
+interface IDocumentRenderProps {
+  markdowns?: IMarkdown[];
+}
 
-export default function DocumentRender() {
+export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
 
-  const documents: any[] = [];
+  markdowns = markdowns?.sort((markdownA, markdownB) => markdownB.created.localeCompare(markdownA.created))
 
-  if (documents?.length === 0) {
+  if (markdowns?.length === 0) {
     return null
   }
 
@@ -16,7 +20,7 @@ export default function DocumentRender() {
     <StyledDocumentRender>
       <Suspense fallback={<div>is Loading</div>}>
         {
-          documents?.map((doc: any) => <DocumentItem key={doc.id} label={doc.created.toLocaleDateString()} name={doc.name} />)
+          markdowns?.map((doc: any) => <DocumentItem key={doc.id} label={new Date(doc.created).toLocaleString()} name={doc.name} />)
         }
       </Suspense>
     </StyledDocumentRender>

@@ -30,7 +30,7 @@ function Sidebar() {
           + New Document
         </SidebarNewDocumentButton>
 
-        <DocumentRender />
+        <DocumentRender markdowns={markdowns} />
       </SidebarMyDocumentsContainer>
 
       <SidebarThemeContainer>

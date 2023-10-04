@@ -45,9 +45,15 @@ export interface Inputs {
 export interface Content {
   topLabel: TopLabel;
   separator: string;
+  textArea: TextArea;
 }
 
 export interface TopLabel {
+  background: string;
+  text: string;
+}
+
+export interface TextArea {
   background: string;
   text: string;
 }

@@ -47,7 +47,11 @@ const DarkTheme: IStyledComponentsTheme = {
         background: Colors.DarkJungleGreen,
         text: Colors.LavenderGray
       },
-      separator: Colors.BlackCoral
+      separator: Colors.BlackCoral,
+      textArea: {
+        background: Colors.ChineseBlack,
+        text: Colors.LavenderGray
+      }
     }
   }
 }

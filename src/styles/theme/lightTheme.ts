@@ -47,7 +47,11 @@ const LightTheme: IStyledComponentsTheme = {
         background: Colors.Cultured,
         text: Colors.HTMLCSSGray
       },
-      separator: Colors.Platinum
+      separator: Colors.Platinum,
+      textArea: {
+        background: Colors.White,
+        text: Colors.Onyx
+      }
     }
   }
 }

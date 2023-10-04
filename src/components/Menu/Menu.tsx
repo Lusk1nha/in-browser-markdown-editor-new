@@ -4,10 +4,11 @@ import { ExpandButton, RemoveButton, SaveButton, Separator, StyledMenu, Title } 
 import { SidebarContext } from "../../contexts/SidebarProvider/SidebarProvider"
 
 interface IMenuProps {
+  name: string;
   onSave: () => void;
 }
 
-function Menu({ onSave }: IMenuProps) {
+function Menu({ name, onSave }: IMenuProps) {
   const { isOpen, onSidebarOpenChange } = useContext(SidebarContext);
 
   return (
@@ -38,7 +39,7 @@ function Menu({ onSave }: IMenuProps) {
 
       <Separator />
 
-      <EditableDocumentItem name="DocumentName" label="Document Name" fileName="welcome.md" />
+      <EditableDocumentItem name={name} label="Document Name" fileName="welcome.md" />
 
       <RemoveButton type="button" aria-label="Click here to remove document" title="Click here to remove document">
         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">

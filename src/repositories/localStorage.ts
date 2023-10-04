@@ -22,19 +22,22 @@ class LocalStorage {
         throw new Error(error.message)
       }
 
-      throw new Error('Unknown error')
+      throw new Error('Unexpected error!')
     }
   }
 
-  async set(key: string, value: any, callback?: ((err: any, value: any) => void) | undefined): Promise<void> {
+  async create(key: string, value: any, callback?: ((err: any, value: any) => void) | undefined): Promise<unknown> {
     try {
       await this.storage.setItem(key, value, callback);
+      const response = this.storage.getItem(key);
+
+      return response
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message)
       }
 
-      throw new Error('Unknown error')
+      throw new Error('Unexpected error!')
     }
   }
 }

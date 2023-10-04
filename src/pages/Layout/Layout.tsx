@@ -24,6 +24,8 @@ const loader: LoaderFunction = async () => {
     markdowns = []
   }
 
+  console.log(markdowns)
+
   return defer({
     markdowns
   })
