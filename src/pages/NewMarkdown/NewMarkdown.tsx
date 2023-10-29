@@ -4,6 +4,8 @@ import { StyledContent, StyledForm } from "./styles"
 import { Menu } from "../../components/Menu/Menu";
 import { ActionFunction, LoaderFunction } from "react-router-dom";
 import { CreateMarkdown } from "../../services/CreateMarkdown";
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 
 const action: ActionFunction = async ({ request }) => {
@@ -14,25 +16,32 @@ const action: ActionFunction = async ({ request }) => {
   const name = await formData.get('name') as string;
   const content = await formData.get('content') as string;
 
-  const markdown = await createMarkdown.execute({ name, content });
-  console.log(markdown)
+  await createMarkdown.execute({ name, content });
+  
   return
 }
 
 function NewMarkdown() {
+  const [isPreview, setIsPreview] = useState(false);
+
+  const formInstance = useForm();
+
   function onSave() {
-    return
+    const currentValues = formInstance.getValues();
+    return console.log({ currentValues })
   }
 
   return (
-    <StyledForm method="post" >
-      <Menu name="name" onSave={onSave} />
+    <FormProvider {...formInstance}>
+      <StyledForm method="post">
+        <Menu name="name" onSave={onSave} />
 
-      <StyledContent>
-        <TextArea />
-        <Preview />
-      </StyledContent>
-    </StyledForm>
+        <StyledContent>
+          {!isPreview && <TextArea />}
+          <Preview setIsPreview={setIsPreview} />
+        </StyledContent>
+      </StyledForm>
+    </FormProvider>
   )
 }
 

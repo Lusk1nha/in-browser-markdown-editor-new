@@ -1,10 +1,13 @@
 import { useState } from "react"
 import { TopLabel } from "../TopLabel/TopLabel"
 import { StyledTextArea, Writable } from "./styles"
+import { useFormContext } from "react-hook-form";
 
 
 
 function TextArea() {
+  const { control, register } = useFormContext();
+
   const [value, setValue] = useState<string>('');
 
   function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -26,8 +29,7 @@ function TextArea() {
     <StyledTextArea>
       <TopLabel text="MARKDOWN" />
       <Writable
-        name="content"
-        onChange={onChange}
+        {...register('content')}
       />
     </StyledTextArea>
   )

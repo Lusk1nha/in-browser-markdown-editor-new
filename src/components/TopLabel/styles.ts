@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { RawButton } from "../../styles/reusables-styles";
 
 
 const StyledTopLabel = styled.div`
@@ -8,7 +9,6 @@ const StyledTopLabel = styled.div`
   height: 42px;
 
   display: flex;
-  align-items: center;
 
   padding: 0 1rem;
 `
@@ -24,7 +24,30 @@ const Label = styled.h4`
   letter-spacing: 2px;
 `
 
+const LeftElement = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  flex-grow: 1;
+`
+
+const FunctionalitiesRender = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+`
+
+const ExpandButton = styled(RawButton)`
+  cursor: pointer;
+`
+
 export {
   StyledTopLabel,
-  Label
+  Label,
+  LeftElement,
+  FunctionalitiesRender,
+  ExpandButton
 }
