@@ -7,22 +7,27 @@ import { CreateMarkdown } from "../../services/CreateMarkdown";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { Functionality } from "../../shared/types/Functionality";
+import { RemoveButton, SaveButton } from "../../styles/reusables-styles";
+import { TrashBinIcon } from "../../components/Icons/TrashBinIcon";
+import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
+
 
 const action: ActionFunction = async ({ request }) => {
   const createMarkdown = new CreateMarkdown();
 
-  let formData = await request.formData();
+  const formData = await request.formData();
 
   const name = await formData.get('name') as string;
   const content = await formData.get('content') as string;
 
   await createMarkdown.execute({ name, content });
-  
+
   return
 }
 
 function NewMarkdown() {
-  const [isPreview, setIsPreview] = useState(false);
+  const [isPreviewFullScreen, setIsPreviewFullScreen] = useState<boolean>(false);
 
   const formInstance = useForm();
 
@@ -31,14 +36,42 @@ function NewMarkdown() {
     return console.log({ currentValues })
   }
 
+  const menuFunctionalities: Functionality[] = [
+    {
+      onRender: (key) => (
+        <RemoveButton key={key} type="button" aria-label="Click here to remove document" title="Click here to remove document">
+          <TrashBinIcon className="trashBin" />
+        </RemoveButton>
+      )
+    },
+    {
+      onRender: (key) => (
+        <SaveButton key={key} type="button" aria-label="Click here to save the document" title="Click here to save the document" onClick={onSave}>
+          <FileSaveIcon className="fileSave" />
+          Save Changes
+        </SaveButton>
+      )
+    }
+  ]
+
   return (
     <FormProvider {...formInstance}>
       <StyledForm method="post">
-        <Menu name="name" onSave={onSave} />
+        <Menu
+          title="Markdown"
+          name="name"
+          functionalities={menuFunctionalities}
+        />
 
         <StyledContent>
-          {!isPreview && <TextArea />}
-          <Preview setIsPreview={setIsPreview} />
+          <TextArea
+            name="content"
+          />
+
+          <Preview
+            isPreview={isPreviewFullScreen}
+            setIsPreview={setIsPreviewFullScreen}
+          />
         </StyledContent>
       </StyledForm>
     </FormProvider>
@@ -50,6 +83,6 @@ export default Object.assign({
   Action: action
 }) as {
   Page: React.ReactNode;
-  Loader: LoaderFunction<any>;
-  Action: ActionFunction<any>
+  Loader: LoaderFunction<unknown>;
+  Action: ActionFunction<unknown>
 }

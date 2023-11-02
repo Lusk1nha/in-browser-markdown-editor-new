@@ -14,7 +14,7 @@ class MarkdownsRepo {
   async getAll() {
     const items = await this._storage.get(this.table);
 
-    if (!items?.length) {
+    if (!items) {
       return []
     }
 
@@ -22,9 +22,9 @@ class MarkdownsRepo {
   }
 
   async create(obj: unknown) {
-    let items: any[] = await this._storage.get(this.table);
+    let items = await this._storage.get(this.table);
 
-    if(!items?.length) {
+    if(!items) {
       items = []
     }
 

@@ -1,12 +1,11 @@
 
+
 type Functionality = {
-  name: string;
+  name?: string;
   title?: string;
   icon?: React.ReactNode;
   onClick?: () => unknown;
+  onRender?: (key: number) => React.ReactNode;
 }
 
-interface ITopLabel {
-  text: string;
-  functionalities?: Functionality[];
-}
+export { Functionality }

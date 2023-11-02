@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Wrapper } from '../../styles/reusables-styles';
-import { Sidebar } from '../../components/Sidebar/Sidebar';
+import { Sidebar } from '../../components/Preview/Sidebar/Sidebar';
 import { StyledApp } from './styles';
 
 import { LoaderFunction, Outlet, defer, useLoaderData } from 'react-router-dom';
@@ -17,13 +17,13 @@ interface LoaderResponse {
 
 const loader: LoaderFunction = async () => {
   const storage = new LocalStorage('markdowns-app');
-  let markdowns: IMarkdown[] = await storage.get('markdowns');
-
-  if (markdowns === undefined || markdowns === null) {
+  let markdowns = await storage.get('markdowns') as IMarkdown[];
+  
+  if (!markdowns) {
     markdowns = []
   }
 
-  console.log(markdowns)
+  console.log({ markdowns })
 
   return defer({
     markdowns
@@ -31,7 +31,7 @@ const loader: LoaderFunction = async () => {
 }
 
 function Layout() {
-  const data: LoaderResponse = useLoaderData() as any;
+  const data = useLoaderData() as LoaderResponse;
 
   return (
     <MarkdownProvider markdowns={data.markdowns}>
@@ -52,5 +52,5 @@ export default Object.assign({
   Loader: loader
 }) as {
   Page: React.ReactNode;
-  Loader: LoaderFunction<any>;
+  Loader: LoaderFunction<unknown>;
 }

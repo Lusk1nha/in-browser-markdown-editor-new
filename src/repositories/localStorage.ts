@@ -13,10 +13,10 @@ class LocalStorage {
     })
   }
 
-  async get(key: string): Promise<any> {
+  async get(key: string): Promise<unknown[]> {
     try {
       const item = await this.storage.getItem(key);
-      return item;
+      return item as unknown[];
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message)
@@ -26,7 +26,7 @@ class LocalStorage {
     }
   }
 
-  async create(key: string, value: any, callback?: ((err: any, value: any) => void) | undefined): Promise<unknown> {
+  async create(key: string, value: unknown, callback?: ((err: string, value: unknown) => void) | undefined): Promise<unknown> {
     try {
       await this.storage.setItem(key, value, callback);
       const response = this.storage.getItem(key);

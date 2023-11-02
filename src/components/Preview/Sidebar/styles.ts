@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RawButton } from "../../styles/reusables-styles";
+import { RawButton } from "../../../styles/reusables-styles";
 
 type StyledSideBarProps = {
   $on: boolean;

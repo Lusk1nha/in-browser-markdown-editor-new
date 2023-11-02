@@ -10,9 +10,11 @@ function Toggle({ onClick, value, offContent, offContentActive, onContent, onCon
   return (
     <ToggleContainer onClick={() => { setIsOn(prevState => !prevState); onClick() }}>
       <TextContainer>{isOn === false ? offContentActive : offContent}</TextContainer>
+
       <BallContainer>
         <Ball $on={isOn} />
       </BallContainer>
+
       <TextContainer>{isOn === true ? onContentActive : onContent}</TextContainer>
     </ToggleContainer>
   )

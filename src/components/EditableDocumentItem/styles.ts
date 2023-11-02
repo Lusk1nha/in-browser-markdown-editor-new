@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Wrapper } from "../../styles/reusables-styles";
 
 
 const DocumentContainer = styled.div`
@@ -6,6 +7,29 @@ const DocumentContainer = styled.div`
   gap: 16px;
   align-items: center;
   flex-grow: 1;
+`
+
+interface IDocumentWrapper {
+  $isActive?: boolean;
+}
+
+const DocumentWrapper = styled(Wrapper) <IDocumentWrapper>`
+  position: relative;
+  
+  ${({ $isActive }) => $isActive && `
+    &::after {
+      content: '';
+
+      width: 100%;
+      height: 1px;
+
+      bottom: -3px;
+
+      background: white;
+
+      position: absolute;
+    }  
+  `}
 `
 
 const DocumentLabel = styled.h5`
@@ -36,15 +60,11 @@ const DocumentName = styled.input`
   caret-color: ${props => props.theme.colors.menu.documentNameValueHover};
 
   transition: all 100ms ease;
-
-  &:hover,
-  &:focus {
-    border-bottom: 1px solid white;
-  }
 `
 
 export {
   DocumentContainer,
+  DocumentWrapper,
   DocumentLabel,
   DocumentName
 }

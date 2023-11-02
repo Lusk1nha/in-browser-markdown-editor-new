@@ -27,7 +27,7 @@ function AppSidebarProvider({ children }: ISidebarProviderProps) {
 
   const onSidebarOpenChange = React.useCallback(() => {
     setOn(prevState => !prevState)
-  }, [on])
+  }, [])
 
   return (
     <AppSidebarContext.Provider value={{ on, onSidebarOpenChange }}>

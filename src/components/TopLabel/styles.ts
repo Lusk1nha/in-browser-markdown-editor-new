@@ -22,6 +22,7 @@ const Label = styled.h4`
   font-weight: 500;
   line-height: normal;
   letter-spacing: 2px;
+  text-transform: uppercase;
 `
 
 const LeftElement = styled.div`
@@ -34,12 +35,6 @@ const LeftElement = styled.div`
   flex-grow: 1;
 `
 
-const FunctionalitiesRender = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-`
-
 const ExpandButton = styled(RawButton)`
   cursor: pointer;
 `
@@ -48,6 +43,5 @@ export {
   StyledTopLabel,
   Label,
   LeftElement,
-  FunctionalitiesRender,
   ExpandButton
 }

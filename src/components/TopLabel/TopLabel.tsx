@@ -1,19 +1,13 @@
-import { ExpandButton, FunctionalitiesRender, Label, LeftElement, StyledTopLabel } from "./styles";
+import { Label, LeftElement, StyledTopLabel } from "./styles";
+import { Functionality } from "../../shared/types/Functionality";
+import { FunctionalitiesRender } from "../FunctionalitiesRender/FunctionalitiesRender";
 
+interface ITopLabelProps {
+  text: string;
+  functionalities?: Functionality[];
+}
 
-function TopLabel({ text, functionalities }: ITopLabel) {
-
-  function renderFunctionalities() {
-    return functionalities?.map((func, id) => {
-      const { name, title, onClick, icon } = func
-
-      return (
-        <ExpandButton key={id} id={name} name={name} type="button" title={title} onClick={onClick}>
-          {icon}
-        </ExpandButton>
-      )
-    });
-  }
+function TopLabel({ text, functionalities }: ITopLabelProps) {
 
   return (
     <StyledTopLabel>
@@ -21,9 +15,13 @@ function TopLabel({ text, functionalities }: ITopLabel) {
         <Label>{text}</Label>
       </LeftElement>
 
-      <FunctionalitiesRender>
-        {renderFunctionalities()}
-      </FunctionalitiesRender>
+      <FunctionalitiesRender
+        name="topLabel"
+        buttons={functionalities}
+        styles={{
+          gap: "0.65rem"
+        }}
+      />
     </StyledTopLabel>
   )
 }

@@ -1,35 +1,31 @@
-import { useState } from "react"
 import { TopLabel } from "../TopLabel/TopLabel"
 import { StyledTextArea, Writable } from "./styles"
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
+
+interface ITextAreaProps {
+  name: string;
+}
 
 
-
-function TextArea() {
-  const { control, register } = useFormContext();
-
-  const [value, setValue] = useState<string>('');
-
-  function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    const inputValue = event.currentTarget.value;
-
-    if (!inputValue) {
-      setValue('')
-      return
-    }
-
-    if (inputValue === value) {
-      return
-    }
-
-    setValue(inputValue)
-  }
+function TextArea({ name }: ITextAreaProps) {
+  const { control } = useFormContext();
 
   return (
     <StyledTextArea>
-      <TopLabel text="MARKDOWN" />
-      <Writable
-        {...register('content')}
+      <TopLabel text="Markdown" />
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onBlur, onChange, value } }) => {
+          return (
+            <Writable
+              name={name}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+            />
+          )
+        }}
       />
     </StyledTextArea>
   )

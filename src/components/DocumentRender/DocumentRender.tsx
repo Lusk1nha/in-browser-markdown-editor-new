@@ -20,7 +20,7 @@ export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
     <StyledDocumentRender>
       <Suspense fallback={<div>is Loading</div>}>
         {
-          markdowns?.map((doc: any) => <DocumentItem key={doc.id} label={new Date(doc.created).toLocaleString()} name={doc.name} />)
+          markdowns?.map(doc => <DocumentItem key={doc.id} label={new Date(doc.created).toLocaleString()} name={doc.name} />)
         }
       </Suspense>
     </StyledDocumentRender>
