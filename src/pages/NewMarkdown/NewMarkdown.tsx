@@ -3,7 +3,7 @@ import { TextArea } from "../../components/TextArea/TextArea"
 import { StyledContent, StyledForm } from "./styles"
 import { Menu } from "../../components/Menu/Menu";
 import { ActionFunction, LoaderFunction } from "react-router-dom";
-import { CreateMarkdown } from "../../services/CreateMarkdown";
+
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -12,41 +12,63 @@ import { RemoveButton, SaveButton } from "../../styles/reusables-styles";
 import { TrashBinIcon } from "../../components/Icons/TrashBinIcon";
 import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 
+import Markdown from "../../services/Markdown";
+import { SaveMarkdown } from "../../services/SaveMarkdown";
+
 
 const action: ActionFunction = async ({ request }) => {
-  const createMarkdown = new CreateMarkdown();
+  // const createMarkdown = new CreateMarkdown();
 
-  const formData = await request.formData();
+  // const formData = await request.formData();
 
-  const name = await formData.get('name') as string;
-  const content = await formData.get('content') as string;
+  // const name = await formData.get('name') as string;
+  // const content = await formData.get('content') as string;
 
-  await createMarkdown.execute({ name, content });
+  // await createMarkdown.execute({ name, content });
 
   return
 }
 
 function NewMarkdown() {
+  const formInstance = useForm({
+    defaultValues: {
+      id: null,
+      name: "",
+      content: ""
+    }
+  });
+
   const [isPreviewFullScreen, setIsPreviewFullScreen] = useState<boolean>(false);
 
-  const formInstance = useForm();
+  async function onSave() {
+    const saveMarkdown = new SaveMarkdown();
 
-  function onSave() {
-    const currentValues = formInstance.getValues();
-    return console.log({ currentValues })
+    const { name, content } = formInstance.getValues();
+    const markdown = new Markdown(name, content);
+
+    const savedMarkdown = await saveMarkdown.execute({ markdown });
+
+    console.log({ savedMarkdown })
+  }
+
+  function onRemove() {
+    formInstance.reset({
+      name: "",
+      content: ""
+    })
   }
 
   const menuFunctionalities: Functionality[] = [
     {
       onRender: (key) => (
-        <RemoveButton key={key} type="button" aria-label="Click here to remove document" title="Click here to remove document">
+        <RemoveButton key={key} id="removeButton" type="button" aria-label="Click here to remove document" title="Click here to remove document" onClick={onRemove}>
           <TrashBinIcon className="trashBin" />
         </RemoveButton>
       )
     },
     {
       onRender: (key) => (
-        <SaveButton key={key} type="button" aria-label="Click here to save the document" title="Click here to save the document" onClick={onSave}>
+        <SaveButton key={key} id="saveButton" type="button" aria-label="Click here to save the document" title="Click here to save the document" onClick={onSave}>
           <FileSaveIcon className="fileSave" />
           Save Changes
         </SaveButton>

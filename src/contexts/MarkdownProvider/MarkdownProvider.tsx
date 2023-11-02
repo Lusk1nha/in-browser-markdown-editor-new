@@ -1,10 +1,10 @@
 import React, { createContext } from "react";
-import { IMarkdown } from "../../shared/types/IMarkdown";
+import Markdown from "../../services/Markdown";
 
-const MarkdownContext = createContext<IMarkdown[]>([]);
+const MarkdownContext = createContext<Markdown[]>([]);
 
 interface IMarkdownProviderProps {
-  markdowns: IMarkdown[];
+  markdowns: Markdown[];
   children?: React.ReactNode;
 }
 

@@ -3,6 +3,7 @@
 export interface IStyledComponentsTheme {
   colors: {
     background: string;
+    spinner: Spinner;
     menu: Menu;
     input: Inputs;
     content: Content;
@@ -36,6 +37,11 @@ export interface Menu {
   documentIcon: string;
   documentName: string;
   documentNameHover: string;
+}
+
+export interface Spinner {
+  content: string;
+  bar: string;
 }
 
 export interface Inputs {

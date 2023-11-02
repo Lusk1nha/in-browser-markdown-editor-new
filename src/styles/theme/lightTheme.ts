@@ -5,6 +5,10 @@ import { IStyledComponentsTheme } from "./theme";
 const LightTheme: IStyledComponentsTheme = {
   colors: {
     background: Colors.White,
+    spinner: {
+      content: Colors.ChineseBlack,
+      bar: Colors.FireOpal
+    },
     menu: {
       navbar: Colors.CharlestonGreen,
       sidebar: Colors.DarkJungleGreen,

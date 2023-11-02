@@ -6,18 +6,19 @@ import { StyledApp } from './styles';
 
 import { LoaderFunction, Outlet, defer, useLoaderData } from 'react-router-dom';
 import { LocalStorage } from '../../repositories/localStorage';
-import { IMarkdown } from '../../shared/types/IMarkdown';
 import { MarkdownProvider } from '../../contexts/MarkdownProvider/MarkdownProvider';
+
+import Markdown from '../../services/Markdown';
 
 
 interface LoaderResponse {
-  markdowns: IMarkdown[]
+  markdowns: Markdown[]
 }
 
 
 const loader: LoaderFunction = async () => {
   const storage = new LocalStorage('markdowns-app');
-  let markdowns = await storage.get('markdowns') as IMarkdown[];
+  let markdowns = await storage.get('markdowns') as Markdown[];
   
   if (!markdowns) {
     markdowns = []

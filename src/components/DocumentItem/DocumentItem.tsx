@@ -3,19 +3,24 @@ import { DocumentIcon } from "../Icons/DocumentIcon";
 import { DocumentContainer, DocumentLabel, DocumentName } from "./styles";
 
 interface IDocumentItemProps {
-  label: string;
+  id: string;
+  title?: string;
+  label: {
+    text: string;
+    title?: string;
+  };
   name: string;
 }
 
-function DocumentItem({ label, name }: IDocumentItemProps) {
+function DocumentItem({ id, title, label, name }: IDocumentItemProps) {
 
   return (
-    <DocumentContainer>
+    <DocumentContainer data-document-id={id} data-document-name={name} title={title}>
       <DocumentIcon className="document" />
 
       <Wrapper>
-        <DocumentLabel>{label}</DocumentLabel>
-        <DocumentName>{name}</DocumentName>
+        <DocumentLabel title={label.title}>{label.text}</DocumentLabel>
+        <DocumentName title={name}>{name}</DocumentName>
       </Wrapper>
     </DocumentContainer>
   )

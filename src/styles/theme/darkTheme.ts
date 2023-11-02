@@ -5,6 +5,10 @@ import { IStyledComponentsTheme } from "./theme";
 const DarkTheme: IStyledComponentsTheme = {
   colors: {
     background: Colors.ChineseBlack,
+    spinner: {
+      content: Colors.ChineseBlack,
+      bar: Colors.FireOpal
+    },
     menu: {
       navbar: Colors.CharlestonGreen,
       sidebar: Colors.DarkJungleGreen,

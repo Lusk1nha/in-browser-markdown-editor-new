@@ -1,6 +1,5 @@
+import Markdown from "../services/Markdown";
 import { LocalStorage } from "./localStorage";
-
-
 
 class MarkdownsRepo {
   private _storage: LocalStorage;
@@ -21,7 +20,7 @@ class MarkdownsRepo {
     return items
   }
 
-  async create(obj: unknown) {
+  async create(obj: Markdown) {
     let items = await this._storage.get(this.table);
 
     if(!items) {
