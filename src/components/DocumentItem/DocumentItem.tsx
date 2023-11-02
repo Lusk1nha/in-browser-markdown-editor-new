@@ -5,6 +5,7 @@ import { DocumentContainer, DocumentLabel, DocumentName } from "./styles";
 interface IDocumentItemProps {
   id: string;
   title?: string;
+  redirectLink: (id: string) => void;
   label: {
     text: string;
     title?: string;
@@ -12,15 +13,14 @@ interface IDocumentItemProps {
   name: string;
 }
 
-function DocumentItem({ id, title, label, name }: IDocumentItemProps) {
-
+function DocumentItem({ id, title, redirectLink, label, name }: IDocumentItemProps) {
   return (
     <DocumentContainer data-document-id={id} data-document-name={name} title={title}>
       <DocumentIcon className="document" />
 
       <Wrapper>
         <DocumentLabel title={label.title}>{label.text}</DocumentLabel>
-        <DocumentName title={name}>{name}</DocumentName>
+        <DocumentName title={name} onClick={() => redirectLink(id)}>{name}</DocumentName>
       </Wrapper>
     </DocumentContainer>
   )

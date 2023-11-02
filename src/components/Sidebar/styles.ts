@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { RawButton } from "../../../styles/reusables-styles";
+import { RawButton } from "../../styles/reusables-styles";
 
 type StyledSideBarProps = {
   $on: boolean;
 }
 
 const StyledSideBar = styled.aside<StyledSideBarProps>`
-  max-width: 250px;
-  width: ${props => props.$on === true ? '250px' : '0'};
+  max-width: 280px;
+  width: ${props => props.$on === true ? '280px' : '0'};
   background: ${props => props.theme.colors.menu.sidebar};
   height: 100%;
 

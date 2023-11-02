@@ -19,7 +19,7 @@ const GroupTitleSeparator = styled.div`
   height: 100%;
   gap: 24px;
 
-  @media screen and (max-width: 970px) {
+  @media screen and (max-width: 1050px) {
     display: none;
   }
 `

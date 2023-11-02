@@ -2,7 +2,7 @@ import { Preview } from "../../components/Preview/Preview"
 import { TextArea } from "../../components/TextArea/TextArea"
 import { StyledContent, StyledForm } from "./styles"
 import { Menu } from "../../components/Menu/Menu";
-import { ActionFunction, LoaderFunction } from "react-router-dom";
+import { ActionFunction, LoaderFunction, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -15,21 +15,11 @@ import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 import Markdown from "../../services/Markdown";
 import { SaveMarkdown } from "../../services/SaveMarkdown";
 
+import { useGoToEdit } from "../../hooks/useGoToEdit";
 
-const action: ActionFunction = async ({ request }) => {
-  // const createMarkdown = new CreateMarkdown();
+function NewMarkdownPage() {
+  const navigate = useNavigate();
 
-  // const formData = await request.formData();
-
-  // const name = await formData.get('name') as string;
-  // const content = await formData.get('content') as string;
-
-  // await createMarkdown.execute({ name, content });
-
-  return
-}
-
-function NewMarkdown() {
   const formInstance = useForm({
     defaultValues: {
       id: null,
@@ -46,9 +36,9 @@ function NewMarkdown() {
     const { name, content } = formInstance.getValues();
     const markdown = new Markdown(name, content);
 
-    const savedMarkdown = await saveMarkdown.execute({ markdown });
+    const { id } = await saveMarkdown.execute({ markdown });
 
-    console.log({ savedMarkdown })
+    useGoToEdit({ id, navigate })
   }
 
   function onRemove() {
@@ -85,7 +75,7 @@ function NewMarkdown() {
           functionalities={menuFunctionalities}
         />
 
-        <StyledContent>
+        <StyledContent id="content">
           <TextArea
             name="content"
             title="Insert the document content here"
@@ -102,8 +92,7 @@ function NewMarkdown() {
 }
 
 export default Object.assign({
-  Page: (<NewMarkdown />),
-  Action: action
+  Page: (<NewMarkdownPage />)
 }) as {
   Page: React.ReactNode;
   Loader: LoaderFunction<unknown>;

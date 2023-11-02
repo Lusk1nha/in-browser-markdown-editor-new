@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Wrapper } from '../../styles/reusables-styles';
-import { Sidebar } from '../../components/Preview/Sidebar/Sidebar';
+import { Sidebar } from '../../components/Sidebar/Sidebar';
 import { StyledApp } from './styles';
 
 import { LoaderFunction, Outlet, defer, useLoaderData } from 'react-router-dom';
@@ -36,10 +36,10 @@ function Layout() {
 
   return (
     <MarkdownProvider markdowns={data.markdowns}>
-      <StyledApp>
+      <StyledApp id="app">
         <Sidebar />
 
-        <Wrapper as="section">
+        <Wrapper id="document" as="section">
           <Outlet />
         </Wrapper>
       </StyledApp>

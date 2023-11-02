@@ -20,7 +20,7 @@ function Menu({ title, name, functionalities }: IMenuProps) {
   const { on, onSidebarOpenChange } = useContext(AppSidebarContext);
 
   return (
-    <StyledMenu>
+    <StyledMenu id="menu">
       <ExpandButton type="button" aria-label="Click here to expand sidebar" title="Click here to expand sidebar" onClick={onSidebarOpenChange}>
         {
           on
