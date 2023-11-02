@@ -1,19 +1,27 @@
 import styled from "styled-components";
 
-import { RawButton } from "../../styles/reusables-styles";
-
-
 const StyledMenu = styled.nav`
   background: ${props => props.theme.colors.menu.navbar};
 
   width: 100%;
-  height: 72px;
+  min-height: 72px;
 
   display: flex;
   align-items: center;
   gap: 24px;
 
   padding-right: 16px;
+`
+
+const GroupTitleSeparator = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 24px;
+
+  @media screen and (max-width: 1050px) {
+    display: none;
+  }
 `
 
 const Title = styled.h1`
@@ -25,6 +33,7 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: 5px;
   margin-right: 5px;
+  text-transform: uppercase;
 `
 
 const Separator = styled.div`
@@ -33,67 +42,11 @@ const Separator = styled.div`
   height: 60%;
 `;
 
-const ExpandButton = styled(RawButton)`
-  background: ${props => props.theme.colors.menu.expandButtonBackground};
 
-  width: 72px;
-  height: 100%;
-
-  color: ${props => props.theme.colors.menu.expandButtonText};
-
-  align-items: center;
-  justify-content: center;
-
-  transition: background 200ms linear;
-
-  &:hover {
-    background: ${props => props.theme.colors.menu.expandButtonBackgroundHover};
-    cursor: pointer;
-  }
-`
-
-const RemoveButton = styled(RawButton)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-`
-
-const SaveButton = styled(RawButton)`
-  background: ${props => props.theme.colors.menu.saveButtonBackground};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: ${props => props.theme.colors.menu.saveButtonText};
-  
-  font-family: Roboto;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-
-  padding-right: 16px;
-  
-  border-radius: 4px;
-
-  transition: background 200ms linear;
-
-  &:hover {
-    background: ${props => props.theme.colors.menu.saveButtonBackgroundHover};
-    cursor: pointer;
-  }
-`
 
 export {
   StyledMenu,
+  GroupTitleSeparator,
   Title,
-  Separator,
-  ExpandButton,
-  RemoveButton,
-  SaveButton
+  Separator
 }

@@ -2,25 +2,25 @@ import styled from "styled-components";
 import { RawButton } from "../../styles/reusables-styles";
 
 type StyledSideBarProps = {
-  on: boolean;
+  $on: boolean;
 }
 
 const StyledSideBar = styled.aside<StyledSideBarProps>`
-  max-width: 250px;
-  width: ${props => props.on === true ? '250px' : '0'};
+  max-width: 280px;
+  width: ${props => props.$on === true ? '280px' : '0'};
   background: ${props => props.theme.colors.menu.sidebar};
   height: 100%;
 
   display: flex;
   flex-direction: column;
 
-  padding: ${props => props.on === true ? '27px' : '0'};
+  padding: ${props => props.$on === true ? '27px' : '0'};
 
   gap: 27px;
 
   /* transition: width 80ms linear; */
 
-  ${props => !props.on && `
+  ${props => !props.$on && `
     * {
       visibility: hidden;
       opacity: 0;
@@ -86,13 +86,6 @@ const SidebarNewDocumentButton = styled(RawButton)`
   }
 `
 
-const SidebarDocumentRender = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 30px;
-`
-
 const SidebarThemeContainer = styled.div`
   display: flex;
   margin-top: auto;
@@ -106,6 +99,5 @@ export {
   SidebarMyDocumentsContainer,
   SidebarMyDocumentsTitle,
   SidebarNewDocumentButton,
-  SidebarDocumentRender,
   SidebarThemeContainer
 }

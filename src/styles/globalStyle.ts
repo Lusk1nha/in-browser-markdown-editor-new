@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
 
     margin: 0;
     padding: 0;
+
+    transition-property: color, background, border;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
   }
 
   body {

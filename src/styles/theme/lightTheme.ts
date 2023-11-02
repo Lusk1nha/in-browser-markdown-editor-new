@@ -5,6 +5,10 @@ import { IStyledComponentsTheme } from "./theme";
 const LightTheme: IStyledComponentsTheme = {
   colors: {
     background: Colors.White,
+    spinner: {
+      content: Colors.ChineseBlack,
+      bar: Colors.FireOpal
+    },
     menu: {
       navbar: Colors.CharlestonGreen,
       sidebar: Colors.DarkJungleGreen,
@@ -40,6 +44,17 @@ const LightTheme: IStyledComponentsTheme = {
         sunIconInactivated: Colors.BlackCoral,
         moonIconActivated: Colors.White,
         moonIconInactivated: Colors.BlackCoral
+      }
+    },
+    content: {
+      topLabel: {
+        background: Colors.Cultured,
+        text: Colors.HTMLCSSGray
+      },
+      separator: Colors.Platinum,
+      textArea: {
+        background: Colors.White,
+        text: Colors.Onyx
       }
     }
   }

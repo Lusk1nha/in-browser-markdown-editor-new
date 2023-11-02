@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 
-const DocumentContainer = styled.div`
+const DocumentContainer = styled.li`
   display: flex;
   gap: 16px;
   align-items: center;
   flex-grow: 1;
+
+  text-decoration: none;
+  list-style: none;
 `
 
 const DocumentLabel = styled.h5`
@@ -18,17 +21,22 @@ const DocumentLabel = styled.h5`
 `
 
 const DocumentName = styled.h5`
+  width: 160px;
+  text-overflow: ellipsis;
+  
   color: ${props => props.theme.colors.menu.documentNameValue};
-
+  
   font-family: Roboto;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
+  
   transition: color 100ms ease;
-
+  
   cursor: pointer;
+  
+  overflow: hidden;
 
   &:hover {
     color: ${props => props.theme.colors.menu.documentNameValueHover};

@@ -1,36 +1,21 @@
-import React from 'react';
-import { AppThemeProvider } from '../../contexts/ThemeProvider/AppThemeProvider';
-import { Menu } from '../Menu/Menu';
+import React from "react"
+import { GlobalStyle } from "../../styles/globalStyle"
+import { RouteHandler } from "../../routes/RouteHandler"
 
-import { Wrapper } from '../../styles/reusables-styles';
-import { Sidebar } from '../Sidebar/Sidebar';
-import { StyledApp } from './styles';
-import { Content } from '../Content/Content';
-
+import { AppThemeProvider } from "../../contexts/ThemeProvider/AppThemeProvider";
+import { AppSidebarProvider } from "../../contexts/SidebarProvider/AppSidebarProvider";
 
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = React.useState<boolean>(true);
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState<boolean>(false);
-
-  const onThemeChange = React.useCallback(() => {
-    setIsDarkTheme(prevTheme => !prevTheme)
-  }, [])
-
-  const onSidebarChange = React.useCallback(() => {
-    setIsSidebarOpen(prevState => !prevState)
-  }, [])
-
   return (
-    <AppThemeProvider isDarkTheme={isDarkTheme}>
-      <StyledApp>
-        <Sidebar isOpen={isSidebarOpen} onThemeChange={onThemeChange} />
+    <React.Fragment>
+      <GlobalStyle />
 
-        <Wrapper>
-          <Menu isOpen={isSidebarOpen} onSidebarChange={onSidebarChange} />
-          <Content />
-        </Wrapper>
-      </StyledApp>
-    </AppThemeProvider>
+      <AppThemeProvider>
+        <AppSidebarProvider>
+          <RouteHandler />
+        </AppSidebarProvider>
+      </AppThemeProvider>
+    </React.Fragment>
   )
 }
 

@@ -5,6 +5,10 @@ import { IStyledComponentsTheme } from "./theme";
 const DarkTheme: IStyledComponentsTheme = {
   colors: {
     background: Colors.ChineseBlack,
+    spinner: {
+      content: Colors.ChineseBlack,
+      bar: Colors.FireOpal
+    },
     menu: {
       navbar: Colors.CharlestonGreen,
       sidebar: Colors.DarkJungleGreen,
@@ -40,6 +44,17 @@ const DarkTheme: IStyledComponentsTheme = {
         sunIconInactivated: Colors.BlackCoral,
         moonIconActivated: Colors.White,
         moonIconInactivated: Colors.BlackCoral
+      }
+    },
+    content: {
+      topLabel: {
+        background: Colors.DarkJungleGreen,
+        text: Colors.LavenderGray
+      },
+      separator: Colors.BlackCoral,
+      textArea: {
+        background: Colors.ChineseBlack,
+        text: Colors.LavenderGray
       }
     }
   }

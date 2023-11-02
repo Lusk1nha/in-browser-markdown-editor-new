@@ -3,8 +3,10 @@
 export interface IStyledComponentsTheme {
   colors: {
     background: string;
+    spinner: Spinner;
     menu: Menu;
     input: Inputs;
+    content: Content;
   };
   font?: Font;
 }
@@ -37,8 +39,29 @@ export interface Menu {
   documentNameHover: string;
 }
 
+export interface Spinner {
+  content: string;
+  bar: string;
+}
+
 export interface Inputs {
   toggle: Toggle
+}
+
+export interface Content {
+  topLabel: TopLabel;
+  separator: string;
+  textArea: TextArea;
+}
+
+export interface TopLabel {
+  background: string;
+  text: string;
+}
+
+export interface TextArea {
+  background: string;
+  text: string;
 }
 
 export interface Toggle {
