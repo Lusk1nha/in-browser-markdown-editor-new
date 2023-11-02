@@ -4,10 +4,11 @@ import { Controller, useFormContext } from "react-hook-form";
 
 interface ITextAreaProps {
   name: string;
+  title?: string;
 }
 
 
-function TextArea({ name }: ITextAreaProps) {
+function TextArea({ title, name }: ITextAreaProps) {
   const { control } = useFormContext();
 
   return (
@@ -19,6 +20,7 @@ function TextArea({ name }: ITextAreaProps) {
         render={({ field: { onBlur, onChange, value } }) => {
           return (
             <Writable
+              title={title}
               name={name}
               onBlur={onBlur}
               onChange={onChange}

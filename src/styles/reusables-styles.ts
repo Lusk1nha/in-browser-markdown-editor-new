@@ -35,12 +35,18 @@ const ExpandButton = styled(RawButton)`
 `
 
 const RemoveButton = styled(RawButton)`
+  width: 40px;
+  height: 40px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  cursor: pointer;
+  border-radius: 4px;
 
   &:hover {
-    cursor: pointer;
+    background: #1D1F22;
   }
 `
 

@@ -13,6 +13,17 @@ const StyledMenu = styled.nav`
   padding-right: 16px;
 `
 
+const GroupTitleSeparator = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 24px;
+
+  @media screen and (max-width: 970px) {
+    display: none;
+  }
+`
+
 const Title = styled.h1`
   color: ${props => props.theme.colors.menu.title};
   font-family: Commissioner;
@@ -35,6 +46,7 @@ const Separator = styled.div`
 
 export {
   StyledMenu,
+  GroupTitleSeparator,
   Title,
   Separator
 }

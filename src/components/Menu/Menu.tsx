@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { EditableDocumentItem } from "../EditableDocumentItem/EditableDocumentItem"
-import { Separator, StyledMenu, Title } from "./styles"
+import { GroupTitleSeparator, Separator, StyledMenu, Title } from "./styles"
 
 import { AppSidebarContext } from "../../contexts/SidebarProvider/AppSidebarProvider"
 
@@ -29,11 +29,13 @@ function Menu({ title, name, functionalities }: IMenuProps) {
         }
       </ExpandButton>
 
-      <Title>
-        {title}
-      </Title>
+      <GroupTitleSeparator>
+        <Title>
+          {title}
+        </Title>
 
-      <Separator />
+        <Separator />
+      </GroupTitleSeparator>
 
       <EditableDocumentItem
         name={name}
@@ -46,7 +48,7 @@ function Menu({ title, name, functionalities }: IMenuProps) {
         name="menu"
         buttons={functionalities}
         styles={{
-          gap: "1.5rem"
+          gap: "1rem"
         }}
       />
     </StyledMenu>

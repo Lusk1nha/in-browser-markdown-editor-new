@@ -7,7 +7,7 @@ const StyledDocumentRender = styled.ul`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 30px;
+  gap: 1.625rem;
 `
 
 

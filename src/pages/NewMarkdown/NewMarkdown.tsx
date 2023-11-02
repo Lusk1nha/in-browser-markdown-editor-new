@@ -88,6 +88,7 @@ function NewMarkdown() {
         <StyledContent>
           <TextArea
             name="content"
+            title="Insert the document content here"
           />
 
           <Preview
