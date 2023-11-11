@@ -11,7 +11,6 @@ import {
   SidebarNewDocumentButton,
   SidebarThemeContainer,
 } from "./styles";
-import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 
 import DocumentRender from "../DocumentRender/DocumentRender";
 
@@ -20,36 +19,48 @@ import { AppSidebarContext } from "../../contexts/SidebarProvider/AppSidebarProv
 import { MoonIcon } from "../Icons/MoonIcon";
 import { SunIcon } from "../Icons/SunIcon";
 import { useNavigate } from "react-router-dom";
-import { Paths } from "../../shared/enums/Paths";
 
+import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
+import { useGoToNew } from "../../hooks/useGoToNew";
+
+// Sidebar component to render a sidebar with header, document section, and theme toggle
 function Sidebar() {
+  // Access various contexts and hooks for data and functionality
+  const { markdowns } = useContext(MarkdownContext);
   const { onThemeChange } = useContext(AppThemeContext);
   const { on } = useContext(AppSidebarContext);
-  const markdowns = useContext(MarkdownContext);
-
   const navigate = useNavigate();
 
+  // Function to redirect to the new document page
   function redirectToNewDocument() {
-    navigate(Paths.NewMarkdown);
+    useGoToNew({ navigate });
   }
 
   return (
     <StyledSideBar id="sidebar" $on={on}>
+      {/* SidebarHeader is a styled component for the sidebar header */}
       <SidebarHeader>
+        {/* HeaderTitle is a styled component for rendering the header title */}
         <HeaderTitle>MARKDOWN</HeaderTitle>
       </SidebarHeader>
 
+      {/* SidebarMyDocumentsContainer is a styled component for the document section */}
       <SidebarMyDocumentsContainer>
+        {/* SidebarMyDocumentsTitle is a styled component for the document section title */}
         <SidebarMyDocumentsTitle>MY DOCUMENTS</SidebarMyDocumentsTitle>
 
+        {/* SidebarNewDocumentButton is a styled button for creating a new document */}
         <SidebarNewDocumentButton type="button" onClick={redirectToNewDocument}>
           + New Document
         </SidebarNewDocumentButton>
 
+        {/* DocumentRender component for rendering the list of documents */}
         <DocumentRender markdowns={markdowns} />
       </SidebarMyDocumentsContainer>
 
+      {/* SidebarThemeContainer is a styled component for the theme toggle section */}
       <SidebarThemeContainer>
+        {/* Toggle component for rendering the theme toggle */}
         <Toggle
           onClick={onThemeChange}
           value={on}
@@ -65,4 +76,5 @@ function Sidebar() {
   );
 }
 
+// Export the Sidebar component for usage in other parts of the application
 export { Sidebar };

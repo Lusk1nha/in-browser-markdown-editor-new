@@ -1,14 +1,23 @@
+import { useFormContext } from "react-hook-form";
 import { EyeCrossedIcon } from "../Icons/EyeCrossedIcon";
 import { EyeIcon } from "../Icons/EyeIcon";
 import { TopLabel } from "../TopLabel/TopLabel";
-import { StyledPreview } from "./styles";
+import { PreviewContainer, StyledPreview } from "./styles";
 
 interface IPreviewProps {
+  name: string;
   isPreview: boolean;
   setIsPreview: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Preview({ isPreview, setIsPreview }: IPreviewProps) {
+function Preview({ name, isPreview, setIsPreview }: IPreviewProps) {
+  const formInstance = useFormContext();
+
+  const { watch } = formInstance;
+
+  const text = watch(name);
+  console.log(text);
+
   const componentIcon = !isPreview ? (
     <EyeIcon className="eye" />
   ) : (
@@ -30,6 +39,8 @@ function Preview({ isPreview, setIsPreview }: IPreviewProps) {
           },
         ]}
       />
+
+      <PreviewContainer></PreviewContainer>
     </StyledPreview>
   );
 }

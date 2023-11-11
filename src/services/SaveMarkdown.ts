@@ -6,17 +6,18 @@ interface ISaveMarkdownRequest {
 }
 
 class SaveMarkdown {
+  // Save a Markdown document to the repository
   async execute({ markdown }: ISaveMarkdownRequest) {
     try {
       const markdownsRepo = new MarkdownsRepo();
       const { id, name, content, created, lastModified } = markdown;
 
-      // Generate error when file name is empty
+      // Generate an error when the file name is empty
       if (!name) {
         throw new Error("File name cannot be empty!");
       }
 
-      // Create markdown with name and content
+      // Create or save the Markdown document in the repository
       await markdownsRepo.create({
         id,
         name,
@@ -25,13 +26,16 @@ class SaveMarkdown {
         lastModified,
       });
 
+      // Return the saved Markdown document
       return markdown;
     } catch (error) {
+      // Handle errors and throw a more specific error message
       if (error instanceof Error) {
-        throw error.message;
+        throw new Error(`Failed to save Markdown: ${error.message}`);
       }
 
-      throw new Error("Unexpected error!");
+      // Throw a generic error message for unexpected errors
+      throw new Error("Unexpected error while saving Markdown!");
     }
   }
 }

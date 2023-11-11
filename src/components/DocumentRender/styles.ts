@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledDocumentRender = styled.ul`
-  max-height: 670px;
+  max-height: 615px;
   min-height: 200px;
 
   display: flex;

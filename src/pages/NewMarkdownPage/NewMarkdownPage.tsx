@@ -1,4 +1,4 @@
-import { StyledForm } from "./styles";
+import { StyledContainerLoading, StyledForm } from "./styles";
 import { Menu } from "../../components/Menu/Menu";
 import { ActionFunction, LoaderFunction, useNavigate } from "react-router-dom";
 
@@ -14,10 +14,19 @@ import { SaveMarkdown } from "../../services/SaveMarkdown";
 
 import { useGoToEdit } from "../../hooks/useGoToEdit";
 import { Content } from "../../components/Content/Content";
+import { Suspense, useContext } from "react";
+import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
+import { Spinner } from "../../components/Spinner/Spinner";
 
+// NewMarkdownPage component for creating a new markdown document
 function NewMarkdownPage() {
+  // Access the MarkdownContext to get the loader function
+  const { loader } = useContext(MarkdownContext);
+
+  // React Router's navigate function for navigation
   const navigate = useNavigate();
 
+  // Create a form instance using react-hook-form
   const formInstance = useForm({
     defaultValues: {
       id: null,
@@ -26,27 +35,41 @@ function NewMarkdownPage() {
     },
   });
 
-  const { isDirty } = formInstance.formState;
+  // Destructure formState from formInstance for checking form dirtiness
+  const {
+    formState: { isDirty },
+  } = formInstance;
 
+  // Handler for saving the new markdown document
   async function onSave() {
-    const saveMarkdown = new SaveMarkdown();
-
     const { name, content } = formInstance.getValues();
     const markdown = new Markdown(name, content);
 
-    const { id } = await saveMarkdown.execute({ markdown });
+    // Execute the SaveMarkdown service to save the new markdown
+    const { id } = await new SaveMarkdown().execute({ markdown });
 
+    // Trigger the loader to refresh the markdown list
+    loader();
+
+    // Navigate to the edit page for the newly created markdown
     useGoToEdit({ id, navigate });
   }
 
+  // Handler for removing content from the form
   function onRemove() {
+    // Reset the form values
     formInstance.reset({
       name: "",
       content: "",
     });
+
+    // Trigger the loader to refresh the markdown list
+    loader();
   }
 
+  // Define menu functionalities based on form dirtiness
   const menuFunctionalities: (Functionality | null)[] = [
+    // Remove button is rendered only if the form is dirty
     isDirty
       ? {
           onRender: (key) => (
@@ -63,6 +86,7 @@ function NewMarkdownPage() {
           ),
         }
       : null,
+    // Save button is always rendered
     {
       onRender: (key) => (
         <SaveButton
@@ -80,26 +104,41 @@ function NewMarkdownPage() {
     },
   ];
 
+  // Render the NewMarkdownPage component with a suspense fallback
   return (
-    <FormProvider {...formInstance}>
-      <StyledForm method="post">
-        <Menu
-          title="Markdown"
-          name="name"
-          functionalities={menuFunctionalities}
-        />
+    <Suspense
+      fallback={
+        <StyledContainerLoading>
+          <Spinner />
+        </StyledContainerLoading>
+      }
+    >
+      <FormProvider {...formInstance}>
+        <StyledForm method="post">
+          {/* Suspense is used to handle asynchronous loading with a fallback */}
+          <Suspense fallback={<Spinner />}>
+            {/* Menu component for rendering the markdown menu */}
+            <Menu
+              title="Markdown"
+              name="name"
+              functionalities={menuFunctionalities}
+            />
 
-        <Content
-          textArea={{
-            name: "content",
-            title: "Insert the document content here",
-          }}
-        />
-      </StyledForm>
-    </FormProvider>
+            {/* Content component for rendering the document content */}
+            <Content
+              textArea={{
+                name: "content",
+                title: "Insert the document content here",
+              }}
+            />
+          </Suspense>
+        </StyledForm>
+      </FormProvider>
+    </Suspense>
   );
 }
 
+// Export an object with properties Page, Loader, and Action for React Router usage
 export default Object.assign({
   Page: <NewMarkdownPage />,
 }) as {

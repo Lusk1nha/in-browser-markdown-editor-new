@@ -2,22 +2,31 @@ import { TopLabel } from "../TopLabel/TopLabel";
 import { StyledTextArea, Writable } from "./styles";
 import { Controller, useFormContext } from "react-hook-form";
 
+// Define the properties that the TextArea component accepts
 interface ITextAreaProps {
   name: string;
   title?: string;
+  isFullScreen?: boolean;
 }
 
-function TextArea({ title, name }: ITextAreaProps) {
+// TextArea component to render a text area input with optional top label
+function TextArea({ title, name, isFullScreen }: ITextAreaProps) {
+  // Access the form context to get the control function from react-hook-form
   const { control } = useFormContext();
 
   return (
-    <StyledTextArea>
+    // StyledTextArea is a styled component that wraps the entire text area
+    <StyledTextArea $isFullScreen={isFullScreen}>
+      {/* TopLabel component for rendering an optional top label */}
       <TopLabel text="Markdown" />
+
+      {/* Controller from react-hook-form for managing the controlled input */}
       <Controller
         control={control}
         name={name}
         render={({ field: { onBlur, onChange, value } }) => {
           return (
+            // Writable is a styled component for the text area input
             <Writable
               title={title}
               name={name}
@@ -32,4 +41,5 @@ function TextArea({ title, name }: ITextAreaProps) {
   );
 }
 
+// Export the TextArea component and its properties for usage in other parts of the application
 export { TextArea, ITextAreaProps };

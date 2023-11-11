@@ -1,9 +1,21 @@
 import styled from "styled-components";
 
-const StyledTextArea = styled.div`
-  flex: 1;
+type StyledTextAreaProps = {
+  $isFullScreen?: boolean;
+};
+const StyledTextArea = styled.div<StyledTextAreaProps>`
+  width: ${({ $isFullScreen }) => ($isFullScreen ? "0px" : "100%")};
   display: flex;
   flex-direction: column;
+
+  overflow: hidden;
+
+  transition-property: width, border;
+  transition-duration: 150ms;
+  transition-timing-function: linear;
+
+  border-right: ${({ $isFullScreen }) => ($isFullScreen ? "0px" : "1px")} solid
+    ${(props) => props.theme.colors.content.separator};
 `;
 
 const Writable = styled.textarea`
