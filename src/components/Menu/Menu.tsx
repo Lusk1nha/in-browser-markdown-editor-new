@@ -1,8 +1,8 @@
-import { useContext } from "react"
-import { EditableDocumentItem } from "../EditableDocumentItem/EditableDocumentItem"
-import { GroupTitleSeparator, Separator, StyledMenu, Title } from "./styles"
+import { useContext } from "react";
+import { EditableDocumentItem } from "../EditableDocumentItem/EditableDocumentItem";
+import { GroupTitleSeparator, Separator, StyledMenu, Title } from "./styles";
 
-import { AppSidebarContext } from "../../contexts/SidebarProvider/AppSidebarProvider"
+import { AppSidebarContext } from "../../contexts/SidebarProvider/AppSidebarProvider";
 
 import { Functionality } from "../../shared/types/Functionality";
 import { FunctionalitiesRender } from "../FunctionalitiesRender/FunctionalitiesRender";
@@ -21,18 +21,21 @@ function Menu({ title, name, functionalities }: IMenuProps) {
 
   return (
     <StyledMenu id="menu">
-      <ExpandButton type="button" aria-label="Click here to expand sidebar" title="Click here to expand sidebar" onClick={onSidebarOpenChange}>
-        {
-          on
-            ? <CrossIcon className="cross" />
-            : <HamburgerMenuIcon className="hamburgerMenu" />
-        }
+      <ExpandButton
+        type="button"
+        aria-label="Click here to expand sidebar"
+        title="Click here to expand sidebar"
+        onClick={onSidebarOpenChange}
+      >
+        {on ? (
+          <CrossIcon className="cross" />
+        ) : (
+          <HamburgerMenuIcon className="hamburgerMenu" />
+        )}
       </ExpandButton>
 
       <GroupTitleSeparator>
-        <Title>
-          {title}
-        </Title>
+        <Title>{title}</Title>
 
         <Separator />
       </GroupTitleSeparator>
@@ -48,13 +51,11 @@ function Menu({ title, name, functionalities }: IMenuProps) {
         name="menu"
         buttons={functionalities}
         styles={{
-          gap: "1rem"
+          gap: "1rem",
         }}
       />
     </StyledMenu>
-  )
+  );
 }
 
-export {
-  Menu
-}
+export { Menu };

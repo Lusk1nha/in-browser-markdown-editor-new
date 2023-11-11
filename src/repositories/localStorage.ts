@@ -1,7 +1,5 @@
 import localforage from "localforage";
 
-
-
 class LocalStorage {
   public storage: LocalForage;
 
@@ -9,8 +7,8 @@ class LocalStorage {
     this.storage = localforage.createInstance({
       driver: localforage.INDEXEDDB,
       name,
-      description
-    })
+      description,
+    });
   }
 
   async get(key: string): Promise<unknown[]> {
@@ -19,29 +17,31 @@ class LocalStorage {
       return item as unknown[];
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(error.message)
+        throw new Error(error.message);
       }
 
-      throw new Error('Unexpected error!')
+      throw new Error("Unexpected error!");
     }
   }
 
-  async create(key: string, value: unknown, callback?: ((err: string, value: unknown) => void) | undefined): Promise<unknown> {
+  async create(
+    key: string,
+    value: unknown,
+    callback?: ((err: string, value: unknown) => void) | undefined,
+  ): Promise<unknown> {
     try {
       await this.storage.setItem(key, value, callback);
       const response = this.storage.getItem(key);
 
-      return response
+      return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(error.message)
+        throw new Error(error.message);
       }
 
-      throw new Error('Unexpected error!')
+      throw new Error("Unexpected error!");
     }
   }
 }
 
-export {
-  LocalStorage
-}
+export { LocalStorage };

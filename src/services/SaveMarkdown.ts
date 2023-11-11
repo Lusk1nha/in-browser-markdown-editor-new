@@ -1,5 +1,5 @@
 import { MarkdownsRepo } from "../repositories/markdowns";
-import Markdown from './Markdown';
+import Markdown from "./Markdown";
 
 interface ISaveMarkdownRequest {
   markdown: Markdown;
@@ -13,7 +13,7 @@ class SaveMarkdown {
 
       // Generate error when file name is empty
       if (!name) {
-        throw new Error('File name cannot be empty!')
+        throw new Error("File name cannot be empty!");
       }
 
       // Create markdown with name and content
@@ -22,18 +22,18 @@ class SaveMarkdown {
         name,
         content,
         created,
-        lastModified
-      })
+        lastModified,
+      });
 
-      return markdown
+      return markdown;
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message
+        throw error.message;
       }
 
-      throw new Error('Unexpected error!')
+      throw new Error("Unexpected error!");
     }
   }
 }
 
-export { SaveMarkdown }
+export { SaveMarkdown };

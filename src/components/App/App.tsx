@@ -1,6 +1,6 @@
-import React from "react"
-import { GlobalStyle } from "../../styles/globalStyle"
-import { RouteHandler } from "../../routes/RouteHandler"
+import React from "react";
+import { GlobalStyle } from "../../styles/globalStyle";
+import { RouteHandler } from "../../routes/RouteHandler";
 
 import { AppThemeProvider } from "../../contexts/ThemeProvider/AppThemeProvider";
 import { AppSidebarProvider } from "../../contexts/SidebarProvider/AppSidebarProvider";
@@ -16,7 +16,7 @@ function App() {
         </AppSidebarProvider>
       </AppThemeProvider>
     </React.Fragment>
-  )
+  );
 }
 
-export default App
+export default App;

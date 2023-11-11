@@ -1,12 +1,11 @@
-import { TopLabel } from "../TopLabel/TopLabel"
-import { StyledTextArea, Writable } from "./styles"
+import { TopLabel } from "../TopLabel/TopLabel";
+import { StyledTextArea, Writable } from "./styles";
 import { Controller, useFormContext } from "react-hook-form";
 
 interface ITextAreaProps {
   name: string;
   title?: string;
 }
-
 
 function TextArea({ title, name }: ITextAreaProps) {
   const { control } = useFormContext();
@@ -26,15 +25,11 @@ function TextArea({ title, name }: ITextAreaProps) {
               onChange={onChange}
               value={value}
             />
-          )
+          );
         }}
       />
     </StyledTextArea>
-  )
+  );
 }
 
-
-export {
-  TextArea,
-  ITextAreaProps
-}
+export { TextArea, ITextAreaProps };

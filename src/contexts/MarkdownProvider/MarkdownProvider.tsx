@@ -13,11 +13,7 @@ function MarkdownProvider({ markdowns, children }: IMarkdownProviderProps) {
     <MarkdownContext.Provider value={markdowns}>
       {children}
     </MarkdownContext.Provider>
-  )
+  );
 }
 
-
-export {
-  MarkdownContext,
-  MarkdownProvider
-}
+export { MarkdownContext, MarkdownProvider };

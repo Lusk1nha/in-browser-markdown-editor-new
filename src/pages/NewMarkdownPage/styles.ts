@@ -6,8 +6,6 @@ const StyledForm = styled(Form)`
   height: 100%;
   display: flex;
   flex-direction: column;
-`
+`;
 
-export {
-  StyledForm,
-}
+export { StyledForm };

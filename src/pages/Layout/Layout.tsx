@@ -1,35 +1,33 @@
-import React from 'react';
+import React from "react";
 
-import { Wrapper } from '../../styles/reusables-styles';
-import { Sidebar } from '../../components/Sidebar/Sidebar';
-import { StyledApp } from './styles';
+import { Wrapper } from "../../styles/reusables-styles";
+import { Sidebar } from "../../components/Sidebar/Sidebar";
+import { StyledApp } from "./styles";
 
-import { LoaderFunction, Outlet, defer, useLoaderData } from 'react-router-dom';
-import { LocalStorage } from '../../repositories/localStorage';
-import { MarkdownProvider } from '../../contexts/MarkdownProvider/MarkdownProvider';
+import { LoaderFunction, Outlet, defer, useLoaderData } from "react-router-dom";
+import { LocalStorage } from "../../repositories/localStorage";
+import { MarkdownProvider } from "../../contexts/MarkdownProvider/MarkdownProvider";
 
-import Markdown from '../../services/Markdown';
-
+import Markdown from "../../services/Markdown";
 
 interface LoaderResponse {
-  markdowns: Markdown[]
+  markdowns: Markdown[];
 }
-
 
 const loader: LoaderFunction = async () => {
-  const storage = new LocalStorage('markdowns-app');
-  let markdowns = await storage.get('markdowns') as Markdown[];
-  
+  const storage = new LocalStorage("markdowns-app");
+  let markdowns = (await storage.get("markdowns")) as Markdown[];
+
   if (!markdowns) {
-    markdowns = []
+    markdowns = [];
   }
 
-  console.log({ markdowns })
+  console.log({ markdowns });
 
   return defer({
-    markdowns
-  })
-}
+    markdowns,
+  });
+};
 
 function Layout() {
   const data = useLoaderData() as LoaderResponse;
@@ -44,14 +42,13 @@ function Layout() {
         </Wrapper>
       </StyledApp>
     </MarkdownProvider>
-  )
+  );
 }
 
-
 export default Object.assign({
-  Page: (<Layout />),
-  Loader: loader
+  Page: <Layout />,
+  Loader: loader,
 }) as {
   Page: React.ReactNode;
   Loader: LoaderFunction<unknown>;
-}
+};

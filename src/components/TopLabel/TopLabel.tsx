@@ -8,7 +8,6 @@ interface ITopLabelProps {
 }
 
 function TopLabel({ text, functionalities }: ITopLabelProps) {
-
   return (
     <StyledTopLabel>
       <LeftElement>
@@ -19,13 +18,11 @@ function TopLabel({ text, functionalities }: ITopLabelProps) {
         name="topLabel"
         buttons={functionalities}
         styles={{
-          gap: "0.65rem"
+          gap: "0.65rem",
         }}
       />
     </StyledTopLabel>
-  )
+  );
 }
 
-export {
-  TopLabel
-}
+export { TopLabel };

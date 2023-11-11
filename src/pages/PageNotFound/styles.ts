@@ -7,16 +7,13 @@ const StyledPageNotFound = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const Text = styled.h1`
-  color: ${props => props.theme.colors.notFound.title};
+  color: ${(props) => props.theme.colors.notFound.title};
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 3rem;
-`
+`;
 
-export {
-  StyledPageNotFound,
-  Text
-}
+export { StyledPageNotFound, Text };

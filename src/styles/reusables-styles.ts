@@ -1,27 +1,26 @@
 import styled from "styled-components";
 
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
   height: 100%;
-`
+`;
 
 const RawButton = styled.button`
   background: none;
   display: flex;
   border: none;
   outline: none;
-`
+`;
 
 const ExpandButton = styled(RawButton)`
-  background: ${props => props.theme.colors.menu.expandButtonBackground};
+  background: ${(props) => props.theme.colors.menu.expandButtonBackground};
 
   width: 72px;
   height: 100%;
 
-  color: ${props => props.theme.colors.menu.expandButtonText};
+  color: ${(props) => props.theme.colors.menu.expandButtonText};
 
   align-items: center;
   justify-content: center;
@@ -29,10 +28,11 @@ const ExpandButton = styled(RawButton)`
   transition: background 200ms linear;
 
   &:hover {
-    background: ${props => props.theme.colors.menu.expandButtonBackgroundHover};
+    background: ${(props) =>
+      props.theme.colors.menu.expandButtonBackgroundHover};
     cursor: pointer;
   }
-`
+`;
 
 const RemoveButton = styled(RawButton)`
   width: 40px;
@@ -41,24 +41,24 @@ const RemoveButton = styled(RawButton)`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   cursor: pointer;
   border-radius: 4px;
 
   &:hover {
-    background: #1D1F22;
+    background: #1d1f22;
   }
-`
+`;
 
 const SaveButton = styled(RawButton)`
-  background: ${props => props.theme.colors.menu.saveButtonBackground};
+  background: ${(props) => props.theme.colors.menu.saveButtonBackground};
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: ${props => props.theme.colors.menu.saveButtonText};
-  
+  color: ${(props) => props.theme.colors.menu.saveButtonText};
+
   font-family: Roboto;
   font-size: 15px;
   font-style: normal;
@@ -66,21 +66,15 @@ const SaveButton = styled(RawButton)`
   line-height: normal;
 
   padding-right: 16px;
-  
+
   border-radius: 4px;
 
   transition: background 200ms linear;
 
   &:hover {
-    background: ${props => props.theme.colors.menu.saveButtonBackgroundHover};
+    background: ${(props) => props.theme.colors.menu.saveButtonBackgroundHover};
     cursor: pointer;
   }
-`
+`;
 
-export {
-  Wrapper,
-  RawButton,
-  ExpandButton,
-  SaveButton,
-  RemoveButton
-}
+export { Wrapper, RawButton, ExpandButton, SaveButton, RemoveButton };

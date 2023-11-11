@@ -1,19 +1,18 @@
 import styled from "styled-components";
 
-
 const StyledTextArea = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const Writable = styled.textarea`
-  background: ${props => props.theme.colors.input.textArea.background};
+  background: none;
 
   width: 100%;
   height: 100%;
 
-  color: ${props => props.theme.colors.input.textArea.text};
+  color: ${(props) => props.theme.colors.input.textArea.text};
 
   font-family: Roboto Mono;
   font-size: 14px;
@@ -35,14 +34,12 @@ const Writable = styled.textarea`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.colors.input.textArea.scroll.background};
+    background: ${(props) =>
+      props.theme.colors.input.textArea.scroll.background};
     border-radius: 0px;
 
     transition: background 200ms linear;
   }
-`
+`;
 
-export {
-  StyledTextArea,
-  Writable
-}
+export { StyledTextArea, Writable };

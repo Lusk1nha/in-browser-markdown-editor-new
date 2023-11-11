@@ -1,13 +1,12 @@
 import { Colors } from "./colors";
 import { IStyledComponentsTheme } from "./theme";
 
-
 const LightTheme: IStyledComponentsTheme = {
   colors: {
     background: Colors.White,
     spinner: {
       content: Colors.ChineseBlack,
-      bar: Colors.FireOpal
+      bar: Colors.FireOpal,
     },
     notFound: {
       title: Colors.FireOpal,
@@ -46,25 +45,25 @@ const LightTheme: IStyledComponentsTheme = {
         sunIconActivated: Colors.White,
         sunIconInactivated: Colors.BlackCoral,
         moonIconActivated: Colors.White,
-        moonIconInactivated: Colors.BlackCoral
+        moonIconInactivated: Colors.BlackCoral,
       },
       textArea: {
         background: Colors.White,
         text: Colors.Onyx,
         scroll: {
           background: Colors.Cultured,
-          backgroundHover: Colors.FireOpal
-        }
-      }
+          backgroundHover: Colors.FireOpal,
+        },
+      },
     },
     content: {
       topLabel: {
         background: Colors.Cultured,
-        text: Colors.HTMLCSSGray
+        text: Colors.HTMLCSSGray,
       },
       separator: Colors.Platinum,
-    }
-  }
-}
+    },
+  },
+};
 
-export { LightTheme }
+export { LightTheme };

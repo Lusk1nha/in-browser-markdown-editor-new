@@ -12,36 +12,32 @@ interface ISidebarProviderProps {
 
 const AppSidebarContext = createContext<ISidebarContext>({
   on: false,
-  onSidebarOpenChange: () => console.warn('Not defined allowed...')
+  onSidebarOpenChange: () => console.warn("Not defined allowed..."),
 });
 
-const sidebarLocalStorage = localStorage.getItem('sidebar');
+const sidebarLocalStorage = localStorage.getItem("sidebar");
 const defaultSideBar: boolean = isTrue(sidebarLocalStorage) ?? false;
 
 function AppSidebarProvider({ children }: ISidebarProviderProps) {
   const [on, setOn] = useState(defaultSideBar);
 
   React.useEffect(() => {
-    localStorage.setItem('sidebar', on.toString())
-  }, [on])
+    localStorage.setItem("sidebar", on.toString());
+  }, [on]);
 
   const onSidebarOpenChange = React.useCallback(() => {
-    setOn(prevState => !prevState)
-  }, [])
+    setOn((prevState) => !prevState);
+  }, []);
 
   return (
     <AppSidebarContext.Provider value={{ on, onSidebarOpenChange }}>
       {children}
     </AppSidebarContext.Provider>
-  )
+  );
 }
 
 function isTrue(value: string | undefined | null) {
-  return value?.toLowerCase() === "true"
+  return value?.toLowerCase() === "true";
 }
 
-
-export {
-  AppSidebarProvider,
-  AppSidebarContext
-}
+export { AppSidebarProvider, AppSidebarContext };

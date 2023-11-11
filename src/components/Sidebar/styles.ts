@@ -3,70 +3,72 @@ import { RawButton } from "../../styles/reusables-styles";
 
 type StyledSideBarProps = {
   $on: boolean;
-}
+};
 
 const StyledSideBar = styled.aside<StyledSideBarProps>`
   max-width: 280px;
-  width: ${props => props.$on === true ? '280px' : '0'};
-  background: ${props => props.theme.colors.menu.sidebar};
+  width: ${(props) => (props.$on === true ? "280px" : "0")};
+  background: ${(props) => props.theme.colors.menu.sidebar};
   height: 100%;
 
   display: flex;
   flex-direction: column;
 
-  padding: ${props => props.$on === true ? '27px' : '0'};
+  padding: ${(props) => (props.$on === true ? "27px" : "0")};
 
   gap: 27px;
 
   /* transition: width 80ms linear; */
 
-  ${props => !props.$on && `
+  ${(props) =>
+    !props.$on &&
+    `
     * {
       visibility: hidden;
       opacity: 0;
     }
   `}
-`
+`;
 
 const SidebarHeader = styled.div`
   display: flex;
-  flex-direction: column; 
-`
+  flex-direction: column;
+`;
 
 const HeaderTitle = styled.h2`
-  color: ${props => props.theme.colors.menu.title};
+  color: ${(props) => props.theme.colors.menu.title};
   font-family: Commissioner;
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
   letter-spacing: 5px;
-`
+`;
 
 const SidebarMyDocumentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 29px;
-`
+`;
 
 const SidebarMyDocumentsTitle = styled.h3`
-  color: ${props => props.theme.colors.menu.myDocumentsText};
+  color: ${(props) => props.theme.colors.menu.myDocumentsText};
   font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   letter-spacing: 2px;
-`
+`;
 
 const SidebarNewDocumentButton = styled(RawButton)`
-  background: ${props => props.theme.colors.menu.saveButtonBackground};
+  background: ${(props) => props.theme.colors.menu.saveButtonBackground};
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: ${props => props.theme.colors.menu.saveButtonText};
+  color: ${(props) => props.theme.colors.menu.saveButtonText};
 
   font-family: Roboto;
   font-size: 15px;
@@ -81,16 +83,15 @@ const SidebarNewDocumentButton = styled(RawButton)`
   transition: background 200ms linear;
 
   &:hover {
-    background: ${props => props.theme.colors.menu.saveButtonBackgroundHover};
+    background: ${(props) => props.theme.colors.menu.saveButtonBackgroundHover};
     cursor: pointer;
   }
-`
+`;
 
 const SidebarThemeContainer = styled.div`
   display: flex;
   margin-top: auto;
-`
-
+`;
 
 export {
   StyledSideBar,
@@ -99,5 +100,5 @@ export {
   SidebarMyDocumentsContainer,
   SidebarMyDocumentsTitle,
   SidebarNewDocumentButton,
-  SidebarThemeContainer
-}
+  SidebarThemeContainer,
+};

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledMenu = styled.nav`
-  background: ${props => props.theme.colors.menu.navbar};
+  background: ${(props) => props.theme.colors.menu.navbar};
 
   width: 100%;
   min-height: 72px;
@@ -11,7 +11,7 @@ const StyledMenu = styled.nav`
   gap: 24px;
 
   padding-right: 16px;
-`
+`;
 
 const GroupTitleSeparator = styled.div`
   display: flex;
@@ -22,10 +22,10 @@ const GroupTitleSeparator = styled.div`
   @media screen and (max-width: 1050px) {
     display: none;
   }
-`
+`;
 
 const Title = styled.h1`
-  color: ${props => props.theme.colors.menu.title};
+  color: ${(props) => props.theme.colors.menu.title};
   font-family: Commissioner;
   font-size: 15px;
   font-style: normal;
@@ -34,19 +34,12 @@ const Title = styled.h1`
   letter-spacing: 5px;
   margin-right: 5px;
   text-transform: uppercase;
-`
+`;
 
 const Separator = styled.div`
-  background: ${props => props.theme.colors.menu.separator};
+  background: ${(props) => props.theme.colors.menu.separator};
   width: 1px;
   height: 60%;
 `;
 
-
-
-export {
-  StyledMenu,
-  GroupTitleSeparator,
-  Title,
-  Separator
-}
+export { StyledMenu, GroupTitleSeparator, Title, Separator };

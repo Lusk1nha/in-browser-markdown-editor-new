@@ -32,6 +32,6 @@ const GlobalStyle = createGlobalStyle`
   #root {
     width: 100%;
   }
-`
+`;
 
-export { GlobalStyle }
+export { GlobalStyle };

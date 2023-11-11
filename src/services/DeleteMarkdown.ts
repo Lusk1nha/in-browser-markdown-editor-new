@@ -1,5 +1,5 @@
 import { MarkdownsRepo } from "../repositories/markdowns";
-import Markdown from './Markdown';
+import Markdown from "./Markdown";
 
 interface IDeleteMarkdownRequest {
   markdown: Markdown;
@@ -12,19 +12,19 @@ class DeleteMarkdown {
       const { id } = markdown;
 
       if (!id) {
-        throw new Error('File ID cannot be empty!')
+        throw new Error("File ID cannot be empty!");
       }
 
       // Edit markdown with name and content
-      await markdownsRepo.delete(id)
+      await markdownsRepo.delete(id);
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message
+        throw error.message;
       }
 
-      throw new Error('Unexpected error!')
+      throw new Error("Unexpected error!");
     }
   }
 }
 
-export { DeleteMarkdown }
+export { DeleteMarkdown };

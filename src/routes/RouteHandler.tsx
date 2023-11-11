@@ -20,26 +20,22 @@ function RouteHandler() {
           path: Paths.NewMarkdown,
           element: NewMarkdown.Page,
           loader: NewMarkdown.Loader,
-          action: NewMarkdown.Action
+          action: NewMarkdown.Action,
         },
         {
           path: Paths.EditMarkdown,
           element: EditMarkdown.Page,
-          loader: EditMarkdown.Loader
+          loader: EditMarkdown.Loader,
         },
         {
           path: Paths.All,
-          element: PageNotFound.Page
-        }
-      ]
-    }
-  ])
+          element: PageNotFound.Page,
+        },
+      ],
+    },
+  ]);
 
-  return (
-    <RouterProvider router={router} />
-  )
+  return <RouterProvider router={router} />;
 }
 
-export {
-  RouteHandler
-}
+export { RouteHandler };

@@ -1,9 +1,7 @@
-
-
 enum Paths {
   NewMarkdown = "/",
   EditMarkdown = "/document/:id",
-  All = "*"
+  All = "*",
 }
 
-export { Paths }
+export { Paths };

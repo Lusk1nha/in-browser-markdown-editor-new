@@ -7,16 +7,16 @@ const StyledSpinner = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const SpinnerLabel = styled.span`
-  color: ${props => props.theme.colors.spinner.bar};
+  color: ${(props) => props.theme.colors.spinner.bar};
 
   font-size: 12px;
   font-weight: 400;
   margin: 8px 0px 0px;
   text-align: center;
-`
+`;
 
 const SpinnerContent = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const SpinnerContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const SpinnerBar = styled.div`
   width: 2.5rem;
@@ -34,7 +34,9 @@ const SpinnerBar = styled.div`
 
   border: 4px;
   border-style: solid;
-  border-color: ${props => props.theme.colors.spinner.bar} ${props => props.theme.colors.spinner.content} ${props => props.theme.colors.spinner.content};
+  border-color: ${(props) => props.theme.colors.spinner.bar}
+    ${(props) => props.theme.colors.spinner.content}
+    ${(props) => props.theme.colors.spinner.content};
 
   animation-name: spin;
   animation-duration: 1.3s;
@@ -49,11 +51,6 @@ const SpinnerBar = styled.div`
       transform: rotate(360deg);
     }
   }
-`
+`;
 
-export {
-  StyledSpinner,
-  SpinnerLabel,
-  SpinnerContent,
-  SpinnerBar
-}
+export { StyledSpinner, SpinnerLabel, SpinnerContent, SpinnerBar };

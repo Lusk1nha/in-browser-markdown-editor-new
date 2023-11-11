@@ -1,5 +1,3 @@
-
-
 export interface IStyledComponentsTheme {
   colors: {
     background: string;
@@ -70,16 +68,16 @@ export interface TextArea {
   scroll: {
     background: string;
     backgroundHover: string;
-  }
+  };
 }
 
 export interface Toggle {
-  background: string,
-  ballBackground: string,
-  sunIconActivated: string,
-  sunIconInactivated: string,
-  moonIconActivated: string,
-  moonIconInactivated: string
+  background: string;
+  ballBackground: string;
+  sunIconActivated: string;
+  sunIconInactivated: string;
+  moonIconActivated: string;
+  moonIconInactivated: string;
 }
 
 export interface Font {

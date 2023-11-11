@@ -3,9 +3,7 @@ import { useLocation } from "react-router-dom";
 
 function useParamQuery() {
   const { search } = useLocation();
-  return React.useMemo(() => new URLSearchParams(search), [search])
+  return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-export {
-  useParamQuery
-}
+export { useParamQuery };

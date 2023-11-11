@@ -13,20 +13,29 @@ interface IDocumentItemProps {
   name: string;
 }
 
-function DocumentItem({ id, title, redirectLink, label, name }: IDocumentItemProps) {
+function DocumentItem({
+  id,
+  title,
+  redirectLink,
+  label,
+  name,
+}: IDocumentItemProps) {
   return (
-    <DocumentContainer data-document-id={id} data-document-name={name} title={title}>
+    <DocumentContainer
+      data-document-id={id}
+      data-document-name={name}
+      title={title}
+    >
       <DocumentIcon className="document" />
 
       <Wrapper>
         <DocumentLabel title={label.title}>{label.text}</DocumentLabel>
-        <DocumentName title={name} onClick={() => redirectLink(id)}>{name}</DocumentName>
+        <DocumentName title={name} onClick={() => redirectLink(id)}>
+          {name}
+        </DocumentName>
       </Wrapper>
     </DocumentContainer>
-  )
+  );
 }
 
-export {
-  DocumentItem,
-  IDocumentItemProps
-}
+export { DocumentItem, IDocumentItemProps };

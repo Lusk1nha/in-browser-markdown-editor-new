@@ -1,6 +1,3 @@
-
-
-
 enum Colors {
   ChineseBlack = "#151619",
   DarkJungleGreen = "#1D1F22",
@@ -13,9 +10,7 @@ enum Colors {
   Cultured = "#F5F5F5",
   White = "#FFFFFF",
   FireOpal = "#E46643",
-  AtomicTangerine = "#F39765"
+  AtomicTangerine = "#F39765",
 }
 
-export {
-  Colors
-}
+export { Colors };

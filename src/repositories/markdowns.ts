@@ -6,80 +6,80 @@ class MarkdownsRepo {
   private table: string;
 
   constructor() {
-    this._storage = new LocalStorage('markdowns-app')
-    this.table = 'markdowns'
+    this._storage = new LocalStorage("markdowns-app");
+    this.table = "markdowns";
   }
 
   async getAll() {
     const items = await this._storage.get(this.table);
 
     if (!items) {
-      return []
+      return [];
     }
 
-    return items
+    return items;
   }
 
   async create(obj: Markdown) {
     let items = await this._storage.get(this.table);
 
-    if(!items) {
-      items = []
+    if (!items) {
+      items = [];
     }
 
-    items.push(obj)
+    items.push(obj);
 
     const response = await this._storage.create(this.table, items);
 
-    return response
+    return response;
   }
 
   async edit(id: string, obj: Markdown) {
-    let items = await this._storage.get(this.table) as Markdown[];
+    let items = (await this._storage.get(this.table)) as Markdown[];
 
-    if(!items) {
-      items = []
+    if (!items) {
+      items = [];
     }
 
-    const filteredItem = items?.filter(item => item.id === id);
+    const filteredItem = items?.filter((item) => item.id === id);
 
-    if(!filteredItem) {
-      throw new Error('Item could not be found')
+    if (!filteredItem) {
+      throw new Error("Item could not be found");
     }
 
-    const mappedItems = items?.map(item => {
-      if(item.id !== id) {
-        return item
+    const mappedItems = items?.map((item) => {
+      if (item.id !== id) {
+        return item;
       }
 
       return {
         ...item,
-        ...obj
-      }
-    })
+        ...obj,
+      };
+    });
 
     const response = await this._storage.create(this.table, mappedItems);
 
-    return response
+    return response;
   }
 
   async delete(id: string) {
-    let items = await this._storage.get(this.table) as Markdown[];
+    let items = (await this._storage.get(this.table)) as Markdown[];
 
-    if(!items) {
-      items = []
+    if (!items) {
+      items = [];
     }
 
-    const itemsWithoutId = items?.filter(item => item.id !== id);
+    const itemsWithoutId = items?.filter((item) => item.id !== id);
 
-    if(!itemsWithoutId) {
-      throw new Error('Item could not be found')
+    if (!itemsWithoutId) {
+      throw new Error("Item could not be found");
     }
 
     const response = await this._storage.create(this.table, itemsWithoutId);
 
-    return response
+    return response;
   }
 }
 
-export { MarkdownsRepo }
+export { MarkdownsRepo };

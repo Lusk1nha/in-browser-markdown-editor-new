@@ -1,22 +1,23 @@
 import styled from "styled-components";
 import { Wrapper } from "../../styles/reusables-styles";
 
-
 const DocumentContainer = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
   flex-grow: 1;
-`
+`;
 
 interface IDocumentWrapper {
   $isActive?: boolean;
 }
 
-const DocumentWrapper = styled(Wrapper) <IDocumentWrapper>`
+const DocumentWrapper = styled(Wrapper)<IDocumentWrapper>`
   position: relative;
-  
-  ${({ $isActive }) => $isActive && `
+
+  ${({ $isActive }) =>
+    $isActive &&
+    `
     &::after {
       content: '';
 
@@ -30,21 +31,21 @@ const DocumentWrapper = styled(Wrapper) <IDocumentWrapper>`
       position: absolute;
     }  
   `}
-`
+`;
 
 const DocumentLabel = styled.h5`
-  color: ${props => props.theme.colors.menu.documentNameLabel};
+  color: ${(props) => props.theme.colors.menu.documentNameLabel};
   font-family: Roboto;
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-`
+`;
 
 const DocumentName = styled.input`
   background: none;
 
-  color: ${props => props.theme.colors.menu.documentNameValue};
+  color: ${(props) => props.theme.colors.menu.documentNameValue};
 
   font-family: Roboto;
   font-size: 15px;
@@ -57,14 +58,9 @@ const DocumentName = styled.input`
   border: none;
   outline: none;
 
-  caret-color: ${props => props.theme.colors.menu.documentNameValueHover};
+  caret-color: ${(props) => props.theme.colors.menu.documentNameValueHover};
 
   transition: all 100ms ease;
-`
+`;
 
-export {
-  DocumentContainer,
-  DocumentWrapper,
-  DocumentLabel,
-  DocumentName
-}
+export { DocumentContainer, DocumentWrapper, DocumentLabel, DocumentName };

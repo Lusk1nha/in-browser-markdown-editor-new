@@ -1,4 +1,4 @@
-import { StyledForm } from "./styles"
+import { StyledForm } from "./styles";
 import { Menu } from "../../components/Menu/Menu";
 import { ActionFunction, LoaderFunction, useNavigate } from "react-router-dom";
 
@@ -22,8 +22,8 @@ function NewMarkdownPage() {
     defaultValues: {
       id: null,
       name: "",
-      content: ""
-    }
+      content: "",
+    },
   });
 
   const { isDirty } = formInstance.formState;
@@ -36,34 +36,49 @@ function NewMarkdownPage() {
 
     const { id } = await saveMarkdown.execute({ markdown });
 
-    useGoToEdit({ id, navigate })
+    useGoToEdit({ id, navigate });
   }
 
   function onRemove() {
     formInstance.reset({
       name: "",
-      content: ""
-    })
+      content: "",
+    });
   }
 
   const menuFunctionalities: (Functionality | null)[] = [
-    isDirty ?
-      {
-        onRender: (key) => (
-          <RemoveButton key={key} id="removeButton" type="button" aria-label="Click here to remove document" title="Click here to remove document" onClick={onRemove}>
-            <TrashBinIcon className="trashBin" />
-          </RemoveButton>
-        )
-      } : null,
+    isDirty
+      ? {
+          onRender: (key) => (
+            <RemoveButton
+              key={key}
+              id="removeButton"
+              type="button"
+              aria-label="Click here to remove document"
+              title="Click here to remove document"
+              onClick={onRemove}
+            >
+              <TrashBinIcon className="trashBin" />
+            </RemoveButton>
+          ),
+        }
+      : null,
     {
       onRender: (key) => (
-        <SaveButton key={key} id="saveButton" type="button" aria-label="Click here to save the document" title="Click here to save the document" onClick={onSave}>
+        <SaveButton
+          key={key}
+          id="saveButton"
+          type="button"
+          aria-label="Click here to save the document"
+          title="Click here to save the document"
+          onClick={onSave}
+        >
           <FileSaveIcon className="fileSave" />
           Save Changes
         </SaveButton>
-      )
-    }
-  ]
+      ),
+    },
+  ];
 
   return (
     <FormProvider {...formInstance}>
@@ -77,18 +92,18 @@ function NewMarkdownPage() {
         <Content
           textArea={{
             name: "content",
-            title: "Insert the document content here"
+            title: "Insert the document content here",
           }}
         />
       </StyledForm>
     </FormProvider>
-  )
+  );
 }
 
 export default Object.assign({
-  Page: (<NewMarkdownPage />)
+  Page: <NewMarkdownPage />,
 }) as {
   Page: React.ReactNode;
   Loader: LoaderFunction<unknown>;
-  Action: ActionFunction<unknown>
-}
+  Action: ActionFunction<unknown>;
+};

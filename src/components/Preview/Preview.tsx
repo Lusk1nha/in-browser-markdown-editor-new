@@ -1,7 +1,7 @@
 import { EyeCrossedIcon } from "../Icons/EyeCrossedIcon";
 import { EyeIcon } from "../Icons/EyeIcon";
-import { TopLabel } from "../TopLabel/TopLabel"
-import { StyledPreview } from "./styles"
+import { TopLabel } from "../TopLabel/TopLabel";
+import { StyledPreview } from "./styles";
 
 interface IPreviewProps {
   isPreview: boolean;
@@ -9,10 +9,11 @@ interface IPreviewProps {
 }
 
 function Preview({ isPreview, setIsPreview }: IPreviewProps) {
-
-  const componentIcon = !isPreview
-    ? <EyeIcon className="eye" />
-    : <EyeCrossedIcon className="crossedEye" />
+  const componentIcon = !isPreview ? (
+    <EyeIcon className="eye" />
+  ) : (
+    <EyeCrossedIcon className="crossedEye" />
+  );
 
   return (
     <StyledPreview>
@@ -23,17 +24,14 @@ function Preview({ isPreview, setIsPreview }: IPreviewProps) {
             name: "openPreview",
             icon: componentIcon,
             onClick() {
-              setIsPreview(prevState => !prevState)
+              setIsPreview((prevState) => !prevState);
             },
-            title: "Click here to open the preview"
-          }
+            title: "Click here to open the preview",
+          },
         ]}
       />
     </StyledPreview>
-  )
+  );
 }
 
-export {
-  Preview,
-  IPreviewProps
-}
+export { Preview, IPreviewProps };

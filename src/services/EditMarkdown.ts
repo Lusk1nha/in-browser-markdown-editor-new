@@ -1,5 +1,5 @@
 import { MarkdownsRepo } from "../repositories/markdowns";
-import Markdown from './Markdown';
+import Markdown from "./Markdown";
 
 interface IEditMarkdownRequest {
   markdown: Markdown;
@@ -12,17 +12,17 @@ class EditMarkdown {
       const { id, name, content, created } = markdown;
 
       if (!id) {
-        throw new Error('File ID cannot be empty!')
+        throw new Error("File ID cannot be empty!");
       }
 
       // Generate error when file name is empty
       if (!name) {
-        throw new Error('File name cannot be empty!')
+        throw new Error("File name cannot be empty!");
       }
 
       // Generate error when file content is empty
       if (!content) {
-        throw new Error('File content cannot be empty!')
+        throw new Error("File content cannot be empty!");
       }
 
       const now = new Date();
@@ -33,18 +33,18 @@ class EditMarkdown {
         name,
         content,
         created,
-        lastModified: now.toISOString()
-      })
+        lastModified: now.toISOString(),
+      });
 
-      return markdown
+      return markdown;
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message
+        throw error.message;
       }
 
-      throw new Error('Unexpected error!')
+      throw new Error("Unexpected error!");
     }
   }
 }
 
-export { EditMarkdown }
+export { EditMarkdown };
