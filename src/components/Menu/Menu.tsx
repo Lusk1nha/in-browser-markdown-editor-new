@@ -9,6 +9,7 @@ import { FunctionalitiesRender } from "../FunctionalitiesRender/FunctionalitiesR
 import { ExpandButton } from "../../styles/reusables-styles";
 import { CrossIcon } from "../Icons/CrossIcon";
 import { HamburgerMenuIcon } from "../Icons/HamburgerMenuIcon";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 // Define the properties that the Menu component accepts
 interface IMenuProps {
@@ -21,6 +22,7 @@ interface IMenuProps {
 function Menu({ title, name, functionalities }: IMenuProps) {
   // Access the sidebar context to get the state and function for sidebar control
   const { on, onSidebarOpenChange } = useContext(AppSidebarContext);
+  const strings = useContext(AppLocalizationContext);
 
   // Determine which icon to use based on the sidebar state
   const expandIcon = on ? (
@@ -34,8 +36,8 @@ function Menu({ title, name, functionalities }: IMenuProps) {
       {/* ExpandButton is a styled button for toggling the sidebar */}
       <ExpandButton
         type="button"
-        aria-label="Click here to expand sidebar"
-        title="Click here to expand sidebar"
+        aria-label={strings.ExpandButtonLabel}
+        title={strings.ExpandButtonTitle}
         onClick={onSidebarOpenChange}
       >
         {/* Render the determined expand icon */}
@@ -53,9 +55,9 @@ function Menu({ title, name, functionalities }: IMenuProps) {
       {/* EditableDocumentItem for rendering an editable document item in the menu */}
       <EditableDocumentItem
         name={name}
-        label="Document Name"
-        title="Insert here the name of the document"
-        placeholder="Insert a file name..."
+        label={strings.EditableDocumentItemLabel}
+        title={strings.EditableDocumentItemTitle}
+        placeholder={strings.EditableDocumentItemPlaceholder}
       />
 
       {/* FunctionalitiesRender for rendering a list of functionalities in the menu */}

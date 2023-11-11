@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 import { TopLabel } from "../TopLabel/TopLabel";
 import { StyledTextArea, Writable } from "./styles";
 import { Controller, useFormContext } from "react-hook-form";
@@ -11,6 +13,9 @@ interface ITextAreaProps {
 
 // TextArea component to render a text area input with optional top label
 function TextArea({ title, name, isFullScreen }: ITextAreaProps) {
+  // Access the localization context
+  const strings = useContext(AppLocalizationContext);
+
   // Access the form context to get the control function from react-hook-form
   const { control } = useFormContext();
 
@@ -18,7 +23,7 @@ function TextArea({ title, name, isFullScreen }: ITextAreaProps) {
     // StyledTextArea is a styled component that wraps the entire text area
     <StyledTextArea $isFullScreen={isFullScreen}>
       {/* TopLabel component for rendering an optional top label */}
-      <TopLabel text="Markdown" />
+      <TopLabel text={strings.TextAreaTopLaneTitle} />
 
       {/* Controller from react-hook-form for managing the controlled input */}
       <Controller

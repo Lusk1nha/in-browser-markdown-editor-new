@@ -5,8 +5,8 @@ import enTranslations from "./locales/en/translations.json";
 import ptBRTranslations from "./locales/pt-br/translations.json";
 
 i18n.use(initReactI18next).init({
-  fallbackLng: "en",
-  lng: "en",
+  fallbackLng: "pt",
+  lng: "pt",
   resources: {
     en: {
       translations: enTranslations,

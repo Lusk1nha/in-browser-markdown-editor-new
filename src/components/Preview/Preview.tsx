@@ -3,20 +3,23 @@ import { EyeCrossedIcon } from "../Icons/EyeCrossedIcon";
 import { EyeIcon } from "../Icons/EyeIcon";
 import { TopLabel } from "../TopLabel/TopLabel";
 import { PreviewContainer, StyledPreview } from "./styles";
+import { useContext } from "react";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 interface IPreviewProps {
   name: string;
   isPreview: boolean;
-  setIsPreview: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPreview(value: boolean): void;
 }
 
 function Preview({ name, isPreview, setIsPreview }: IPreviewProps) {
+  const strings = useContext(AppLocalizationContext);
+
   const formInstance = useFormContext();
 
   const { watch } = formInstance;
 
   const text = watch(name);
-  console.log(text);
 
   const componentIcon = !isPreview ? (
     <EyeIcon className="eye" />
@@ -27,20 +30,20 @@ function Preview({ name, isPreview, setIsPreview }: IPreviewProps) {
   return (
     <StyledPreview>
       <TopLabel
-        text="Preview"
+        text={strings.PreviewTopLaneTitle}
         functionalities={[
           {
             name: "openPreview",
             icon: componentIcon,
             onClick() {
-              setIsPreview((prevState) => !prevState);
+              setIsPreview(!isPreview);
             },
-            title: "Click here to open the preview",
+            title: strings.PreviewButtonOpenTitle,
           },
         ]}
       />
 
-      <PreviewContainer></PreviewContainer>
+      <PreviewContainer>{text}</PreviewContainer>
     </StyledPreview>
   );
 }

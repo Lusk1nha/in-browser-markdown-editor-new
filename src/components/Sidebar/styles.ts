@@ -43,6 +43,7 @@ const HeaderTitle = styled.h2`
   font-weight: 700;
   line-height: normal;
   letter-spacing: 5px;
+  text-transform: uppercase;
 `;
 
 const SidebarMyDocumentsContainer = styled.div`
@@ -59,6 +60,7 @@ const SidebarMyDocumentsTitle = styled.h3`
   font-weight: 500;
   line-height: normal;
   letter-spacing: 2px;
+  text-transform: uppercase;
 `;
 
 const SidebarNewDocumentButton = styled(RawButton)`

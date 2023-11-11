@@ -7,7 +7,6 @@ import { AppSidebarProvider } from "../../contexts/SidebarProvider/AppSidebarPro
 import { AppLocalizationProvider } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 function App() {
-
   return (
     <React.Fragment>
       {/* Apply global styles */}

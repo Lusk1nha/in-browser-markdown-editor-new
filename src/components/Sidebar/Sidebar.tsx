@@ -22,9 +22,13 @@ import { useNavigate } from "react-router-dom";
 
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { useGoToNew } from "../../hooks/useGoToNew";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 // Sidebar component to render a sidebar with header, document section, and theme toggle
 function Sidebar() {
+  // Access the localization context
+  const strings = useContext(AppLocalizationContext);
+
   // Access various contexts and hooks for data and functionality
   const { markdowns } = useContext(MarkdownContext);
   const { onThemeChange } = useContext(AppThemeContext);
@@ -41,17 +45,19 @@ function Sidebar() {
       {/* SidebarHeader is a styled component for the sidebar header */}
       <SidebarHeader>
         {/* HeaderTitle is a styled component for rendering the header title */}
-        <HeaderTitle>MARKDOWN</HeaderTitle>
+        <HeaderTitle>{strings.SideBarTitle}</HeaderTitle>
       </SidebarHeader>
 
       {/* SidebarMyDocumentsContainer is a styled component for the document section */}
       <SidebarMyDocumentsContainer>
         {/* SidebarMyDocumentsTitle is a styled component for the document section title */}
-        <SidebarMyDocumentsTitle>MY DOCUMENTS</SidebarMyDocumentsTitle>
+        <SidebarMyDocumentsTitle>
+          {strings.SidebarMyDocumentsTitle}
+        </SidebarMyDocumentsTitle>
 
         {/* SidebarNewDocumentButton is a styled button for creating a new document */}
         <SidebarNewDocumentButton type="button" onClick={redirectToNewDocument}>
-          + New Document
+          {strings.SidebarNewDocumentText}
         </SidebarNewDocumentButton>
 
         {/* DocumentRender component for rendering the list of documents */}
