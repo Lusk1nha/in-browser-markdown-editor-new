@@ -53,7 +53,7 @@ export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
             key={doc.id}
             id={doc.id}
             redirectLink={generateDocumentLink}
-            title={`Click here to access the document ${doc.name}`}
+            // title={strings?.DocumentItemTitle?.replace("{doc.name}", doc.name)}
             label={{
               text: mountLabel(doc.lastModified),
               title: new Date(doc.lastModified).toLocaleString(),
