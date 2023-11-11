@@ -1,14 +1,16 @@
 import { format } from "date-fns";
 import { enUS, ptBR } from "date-fns/locale";
 
+import i18n from "../../i18n/config";
+
 /**
  * Gets the locale for formatting based on the user's preference or a default.
  * @param {string} [defaultLocale="en-US"] - The default locale to be used if the user's locale is not available.
  * @returns {Object} The locale object for formatting.
  */
-function getLocale(defaultLocale = "en-US") {
+function getLocale() {
   // Retrieve the user's locale from the browser, or use the default
-  const userLocale = navigator.language ?? defaultLocale;
+  const userLocale = i18n.language;
 
   // Determine the locale to be used for formatting based on user's preference
   const locale = userLocale === "pt-BR" ? ptBR : enUS;
