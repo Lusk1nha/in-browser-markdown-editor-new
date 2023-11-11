@@ -8,12 +8,12 @@ const StyledTextArea = styled.div`
 `
 
 const Writable = styled.textarea`
-  background: ${props => props.theme.colors.content.textArea.background};
+  background: ${props => props.theme.colors.input.textArea.background};
 
   width: 100%;
   height: 100%;
 
-  color: ${props => props.theme.colors.content.textArea.text};
+  color: ${props => props.theme.colors.input.textArea.text};
 
   font-family: Roboto Mono;
   font-size: 14px;
@@ -28,13 +28,17 @@ const Writable = styled.textarea`
 
   padding: 1rem;
 
+  transition: background 200ms linear;
+
   &::-webkit-scrollbar {
     width: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #1d1f22;
+    background: ${props => props.theme.colors.input.textArea.scroll.background};
     border-radius: 0px;
+
+    transition: background 200ms linear;
   }
 `
 

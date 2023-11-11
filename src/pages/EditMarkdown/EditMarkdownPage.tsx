@@ -1,6 +1,4 @@
-import { Preview } from "../../components/Preview/Preview"
-import { TextArea } from "../../components/TextArea/TextArea"
-import { StyledContent, StyledForm } from "./styles"
+import { StyledForm } from "./styles"
 import { Menu } from "../../components/Menu/Menu";
 import { ActionFunction, LoaderFunction, defer, useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -18,6 +16,7 @@ import { LocalStorage } from "../../repositories/localStorage";
 import { EditMarkdown } from "../../services/EditMarkdown";
 import { DeleteMarkdown } from "../../services/DeleteMarkdown";
 import { useGoToNew } from "../../hooks/useGoToNew";
+import { Content } from "../../components/Content/Content";
 
 interface LoaderResponse {
   markdown: Markdown;
@@ -51,12 +50,10 @@ const getMarkdown = async (id: string) => {
 }
 
 function EditMarkdownPage() {
-  const [isPreviewFullScreen, setIsPreviewFullScreen] = useState<boolean>(false);
+  const loaderData = useLoaderData() as LoaderResponse;
+  const [markdown, setMarkdown] = useState<Markdown>(loaderData.markdown);
 
   const navigate = useNavigate();
-
-  const loaderData = useLoaderData() as LoaderResponse;
-  const [markdown, setMarkdown] = useState<Markdown>(loaderData.markdown)
 
   const location = useLocation();
 
@@ -125,17 +122,12 @@ function EditMarkdownPage() {
           functionalities={menuFunctionalities}
         />
 
-        <StyledContent id="content">
-          <TextArea
-            name="content"
-            title="Insert the document content here"
-          />
-
-          <Preview
-            isPreview={isPreviewFullScreen}
-            setIsPreview={setIsPreviewFullScreen}
-          />
-        </StyledContent>
+        <Content
+          textArea={{
+            name: "content",
+            title: "Insert the document content here"
+          }}
+        />
       </StyledForm>
     </FormProvider>
   )

@@ -1,10 +1,7 @@
-import { Preview } from "../../components/Preview/Preview"
-import { TextArea } from "../../components/TextArea/TextArea"
-import { StyledContent, StyledForm } from "./styles"
+import { StyledForm } from "./styles"
 import { Menu } from "../../components/Menu/Menu";
 import { ActionFunction, LoaderFunction, useNavigate } from "react-router-dom";
 
-import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Functionality } from "../../shared/types/Functionality";
@@ -16,6 +13,7 @@ import Markdown from "../../services/Markdown";
 import { SaveMarkdown } from "../../services/SaveMarkdown";
 
 import { useGoToEdit } from "../../hooks/useGoToEdit";
+import { Content } from "../../components/Content/Content";
 
 function NewMarkdownPage() {
   const navigate = useNavigate();
@@ -28,7 +26,7 @@ function NewMarkdownPage() {
     }
   });
 
-  const [isPreviewFullScreen, setIsPreviewFullScreen] = useState<boolean>(false);
+  const { isDirty } = formInstance.formState;
 
   async function onSave() {
     const saveMarkdown = new SaveMarkdown();
@@ -48,14 +46,15 @@ function NewMarkdownPage() {
     })
   }
 
-  const menuFunctionalities: Functionality[] = [
-    {
-      onRender: (key) => (
-        <RemoveButton key={key} id="removeButton" type="button" aria-label="Click here to remove document" title="Click here to remove document" onClick={onRemove}>
-          <TrashBinIcon className="trashBin" />
-        </RemoveButton>
-      )
-    },
+  const menuFunctionalities: (Functionality | null)[] = [
+    isDirty ?
+      {
+        onRender: (key) => (
+          <RemoveButton key={key} id="removeButton" type="button" aria-label="Click here to remove document" title="Click here to remove document" onClick={onRemove}>
+            <TrashBinIcon className="trashBin" />
+          </RemoveButton>
+        )
+      } : null,
     {
       onRender: (key) => (
         <SaveButton key={key} id="saveButton" type="button" aria-label="Click here to save the document" title="Click here to save the document" onClick={onSave}>
@@ -75,17 +74,12 @@ function NewMarkdownPage() {
           functionalities={menuFunctionalities}
         />
 
-        <StyledContent id="content">
-          <TextArea
-            name="content"
-            title="Insert the document content here"
-          />
-
-          <Preview
-            isPreview={isPreviewFullScreen}
-            setIsPreview={setIsPreviewFullScreen}
-          />
-        </StyledContent>
+        <Content
+          textArea={{
+            name: "content",
+            title: "Insert the document content here"
+          }}
+        />
       </StyledForm>
     </FormProvider>
   )

@@ -13,7 +13,7 @@ import { HamburgerMenuIcon } from "../Icons/HamburgerMenuIcon";
 interface IMenuProps {
   name: string;
   title: string;
-  functionalities: Functionality[];
+  functionalities: (Functionality | null)[];
 }
 
 function Menu({ title, name, functionalities }: IMenuProps) {

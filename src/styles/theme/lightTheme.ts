@@ -9,6 +9,9 @@ const LightTheme: IStyledComponentsTheme = {
       content: Colors.ChineseBlack,
       bar: Colors.FireOpal
     },
+    notFound: {
+      title: Colors.FireOpal,
+    },
     menu: {
       navbar: Colors.CharlestonGreen,
       sidebar: Colors.DarkJungleGreen,
@@ -44,6 +47,14 @@ const LightTheme: IStyledComponentsTheme = {
         sunIconInactivated: Colors.BlackCoral,
         moonIconActivated: Colors.White,
         moonIconInactivated: Colors.BlackCoral
+      },
+      textArea: {
+        background: Colors.White,
+        text: Colors.Onyx,
+        scroll: {
+          background: Colors.Cultured,
+          backgroundHover: Colors.FireOpal
+        }
       }
     },
     content: {
@@ -52,10 +63,6 @@ const LightTheme: IStyledComponentsTheme = {
         text: Colors.HTMLCSSGray
       },
       separator: Colors.Platinum,
-      textArea: {
-        background: Colors.White,
-        text: Colors.Onyx
-      }
     }
   }
 }

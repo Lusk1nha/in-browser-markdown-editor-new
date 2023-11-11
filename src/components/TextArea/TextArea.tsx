@@ -35,5 +35,6 @@ function TextArea({ title, name }: ITextAreaProps) {
 
 
 export {
-  TextArea
+  TextArea,
+  ITextAreaProps
 }

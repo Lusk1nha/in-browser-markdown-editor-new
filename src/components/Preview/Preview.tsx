@@ -34,5 +34,6 @@ function Preview({ isPreview, setIsPreview }: IPreviewProps) {
 }
 
 export {
-  Preview
+  Preview,
+  IPreviewProps
 }

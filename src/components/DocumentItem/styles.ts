@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 
 const DocumentContainer = styled.li`
+  width: 100%;
   display: flex;
   gap: 16px;
   align-items: center;
-  flex-grow: 1;
 
   text-decoration: none;
   list-style: none;

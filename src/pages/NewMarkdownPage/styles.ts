@@ -8,13 +8,6 @@ const StyledForm = styled(Form)`
   flex-direction: column;
 `
 
-const StyledContent = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-`
-
 export {
   StyledForm,
-  StyledContent
 }

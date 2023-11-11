@@ -16,11 +16,6 @@ class SaveMarkdown {
         throw new Error('File name cannot be empty!')
       }
 
-      // Generate error when file content is empty
-      if (!content) {
-        throw new Error('File content cannot be empty!')
-      }
-
       // Create markdown with name and content
       await markdownsRepo.create({
         id,

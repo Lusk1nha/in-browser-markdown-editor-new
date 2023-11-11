@@ -4,11 +4,16 @@ export interface IStyledComponentsTheme {
   colors: {
     background: string;
     spinner: Spinner;
+    notFound: NotFound;
     menu: Menu;
     input: Inputs;
     content: Content;
   };
   font?: Font;
+}
+
+export interface NotFound {
+  title: string;
 }
 
 export interface Menu {
@@ -45,13 +50,13 @@ export interface Spinner {
 }
 
 export interface Inputs {
-  toggle: Toggle
+  toggle: Toggle;
+  textArea: TextArea;
 }
 
 export interface Content {
   topLabel: TopLabel;
   separator: string;
-  textArea: TextArea;
 }
 
 export interface TopLabel {
@@ -62,6 +67,10 @@ export interface TopLabel {
 export interface TextArea {
   background: string;
   text: string;
+  scroll: {
+    background: string;
+    backgroundHover: string;
+  }
 }
 
 export interface Toggle {

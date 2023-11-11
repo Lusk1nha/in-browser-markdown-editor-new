@@ -4,7 +4,7 @@ import { FunctionalityButton, StyledFunctionalitiesRender } from "./styles"
 
 interface IFunctionalitiesRenderProps {
   name?: string;
-  buttons?: Functionality[];
+  buttons?: (Functionality | null)[];
   styles?: {
     gap?: string;
   }
@@ -16,8 +16,16 @@ function FunctionalitiesRender({ name, buttons, styles }: IFunctionalitiesRender
     ? `functionality-${name}-id`
     : `functionality-id`
 
-  function renderFunctionalities(buttons: Functionality[]) {
-    return buttons?.map((func, id) => {
+  function renderFunctionalities(buttons: (Functionality | null)[]) {
+    const nonNullButtons = buttons?.filter(button => {
+      if(button === null || button === undefined) {
+        return false
+      }
+
+      return true
+    }) as Functionality[];
+
+    return nonNullButtons?.map((func, id) => {
       const { name, title, onClick, icon, onRender } = func
 
       if (!onRender) {

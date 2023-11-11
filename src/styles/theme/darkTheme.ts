@@ -9,6 +9,9 @@ const DarkTheme: IStyledComponentsTheme = {
       content: Colors.ChineseBlack,
       bar: Colors.FireOpal
     },
+    notFound: {
+      title: Colors.AtomicTangerine,
+    },
     menu: {
       navbar: Colors.CharlestonGreen,
       sidebar: Colors.DarkJungleGreen,
@@ -44,6 +47,14 @@ const DarkTheme: IStyledComponentsTheme = {
         sunIconInactivated: Colors.BlackCoral,
         moonIconActivated: Colors.White,
         moonIconInactivated: Colors.BlackCoral
+      },
+      textArea: {
+        background: Colors.ChineseBlack,
+        text: Colors.LavenderGray,
+        scroll: {
+          background: Colors.DarkJungleGreen,
+          backgroundHover: Colors.AtomicTangerine
+        }
       }
     },
     content: {
@@ -51,11 +62,7 @@ const DarkTheme: IStyledComponentsTheme = {
         background: Colors.DarkJungleGreen,
         text: Colors.LavenderGray
       },
-      separator: Colors.BlackCoral,
-      textArea: {
-        background: Colors.ChineseBlack,
-        text: Colors.LavenderGray
-      }
+      separator: Colors.BlackCoral
     }
   }
 }
