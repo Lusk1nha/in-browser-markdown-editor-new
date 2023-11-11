@@ -5,13 +5,13 @@ import enTranslations from "./locales/en/translations.json";
 import ptBRTranslations from "./locales/pt-br/translations.json";
 
 i18n.use(initReactI18next).init({
-  fallbackLng: "pt",
-  lng: "pt",
+  fallbackLng: "en",
+  lng: "en",
   resources: {
     en: {
       translations: enTranslations,
     },
-    pt: {
+    ['pt-BR']: {
       translations: ptBRTranslations,
     },
   },
@@ -19,6 +19,6 @@ i18n.use(initReactI18next).init({
   defaultNS: "translations",
 });
 
-i18n.languages = ["en", "pt"];
+i18n.languages = ["en", "pt-BR"];
 
 export default i18n;
