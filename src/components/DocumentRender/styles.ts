@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-
-
-const StyledDocumentRender = styled.ul` 
-  max-height: 670px;
+const StyledDocumentRender = styled.ul`
+  max-height: 615px;
   min-height: 200px;
 
   display: flex;
@@ -33,9 +31,6 @@ const StyledDocumentRender = styled.ul`
     background-color: #e46643;
     border-radius: 4px;
   }
-`
+`;
 
-
-export {
-  StyledDocumentRender
-}
+export { StyledDocumentRender };

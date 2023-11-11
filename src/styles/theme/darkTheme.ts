@@ -1,13 +1,15 @@
 import { Colors } from "./colors";
 import { IStyledComponentsTheme } from "./theme";
 
-
 const DarkTheme: IStyledComponentsTheme = {
   colors: {
     background: Colors.ChineseBlack,
     spinner: {
       content: Colors.ChineseBlack,
-      bar: Colors.FireOpal
+      bar: Colors.FireOpal,
+    },
+    notFound: {
+      title: Colors.AtomicTangerine,
     },
     menu: {
       navbar: Colors.CharlestonGreen,
@@ -34,7 +36,7 @@ const DarkTheme: IStyledComponentsTheme = {
       documentDate: Colors.HTMLCSSGray,
       documentIcon: Colors.White,
       documentName: Colors.White,
-      documentNameHover: Colors.FireOpal
+      documentNameHover: Colors.FireOpal,
     },
     input: {
       toggle: {
@@ -43,21 +45,25 @@ const DarkTheme: IStyledComponentsTheme = {
         sunIconActivated: Colors.White,
         sunIconInactivated: Colors.BlackCoral,
         moonIconActivated: Colors.White,
-        moonIconInactivated: Colors.BlackCoral
-      }
+        moonIconInactivated: Colors.BlackCoral,
+      },
+      textArea: {
+        background: Colors.ChineseBlack,
+        text: Colors.LavenderGray,
+        scroll: {
+          background: Colors.DarkJungleGreen,
+          backgroundHover: Colors.AtomicTangerine,
+        },
+      },
     },
     content: {
       topLabel: {
         background: Colors.DarkJungleGreen,
-        text: Colors.LavenderGray
+        text: Colors.LavenderGray,
       },
       separator: Colors.BlackCoral,
-      textArea: {
-        background: Colors.ChineseBlack,
-        text: Colors.LavenderGray
-      }
-    }
-  }
-}
+    },
+  },
+};
 
-export { DarkTheme }
+export { DarkTheme };

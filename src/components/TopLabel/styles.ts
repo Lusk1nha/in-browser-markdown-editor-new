@@ -1,21 +1,20 @@
 import styled from "styled-components";
 import { RawButton } from "../../styles/reusables-styles";
 
-
 const StyledTopLabel = styled.div`
-  background: ${props => props.theme.colors.content.topLabel.background};
-  
+  background: ${(props) => props.theme.colors.content.topLabel.background};
+
   width: 100%;
   height: 42px;
 
   display: flex;
 
   padding: 0 1rem;
-`
+`;
 
 const Label = styled.h4`
-  color: ${props => props.theme.colors.content.topLabel.text};
-  
+  color: ${(props) => props.theme.colors.content.topLabel.text};
+
   font-family: Roboto;
   font-size: 14px;
   font-style: normal;
@@ -23,7 +22,7 @@ const Label = styled.h4`
   line-height: normal;
   letter-spacing: 2px;
   text-transform: uppercase;
-`
+`;
 
 const LeftElement = styled.div`
   width: 100%;
@@ -33,15 +32,10 @@ const LeftElement = styled.div`
   align-items: center;
 
   flex-grow: 1;
-`
+`;
 
 const ExpandButton = styled(RawButton)`
   cursor: pointer;
-`
+`;
 
-export {
-  StyledTopLabel,
-  Label,
-  LeftElement,
-  ExpandButton
-}
+export { StyledTopLabel, Label, LeftElement, ExpandButton };

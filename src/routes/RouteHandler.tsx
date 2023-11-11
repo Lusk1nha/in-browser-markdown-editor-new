@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import Layout from "../pages/Layout/Layout";
 
 import { ErrorPage } from "../pages/ErrorPage/ErrorPage";
@@ -6,35 +6,44 @@ import { ErrorPage } from "../pages/ErrorPage/ErrorPage";
 import NewMarkdown from "../pages/NewMarkdownPage/NewMarkdownPage";
 import EditMarkdown from "../pages/EditMarkdown/EditMarkdownPage";
 import { Paths } from "../shared/enums/Paths";
+import PageNotFound from "../pages/PageNotFound/PageNotFound";
 
+// RouteHandler component responsible for defining the application's routes
 function RouteHandler() {
-  const router = createBrowserRouter([
+  // Create a hash router using react-router-dom's createHashRouter
+  const router = createHashRouter([
     {
+      // Main route configuration for Layout
       path: Paths.NewMarkdown,
-      element: Layout.Page,
-      errorElement: <ErrorPage />,
-      loader: Layout.Loader,
+      id: "Layout",
+      element: Layout.Page, // Layout component to render for this route
+      errorElement: <ErrorPage />, // ErrorPage component to render in case of an error
       children: [
         {
-          path: '/',
-          element: NewMarkdown.Page,
-          loader: NewMarkdown.Loader,
-          action: NewMarkdown.Action
+          // Child route for creating a new Markdown
+          path: Paths.NewMarkdown,
+          element: NewMarkdown.Page, // NewMarkdownPage component to render for this route
+          loader: NewMarkdown.Loader, // Loader function for loading data before rendering the component
+          action: NewMarkdown.Action, // Action function to perform before rendering the component
         },
         {
+          // Child route for editing an existing Markdown
           path: Paths.EditMarkdown,
-          element: EditMarkdown.Page,
-          loader: EditMarkdown.Loader
-        }
-      ]
-    }
-  ])
+          element: EditMarkdown.Page, // EditMarkdownPage component to render for this route
+          loader: EditMarkdown.Loader, // Loader function for loading data before rendering the component
+        },
+        {
+          // Child route for any other path (PageNotFound)
+          path: Paths.All,
+          element: PageNotFound.Page, // PageNotFound component to render for this route
+        },
+      ],
+    },
+  ]);
 
-  return (
-    <RouterProvider router={router} />
-  )
+  // Use RouterProvider to provide the router to the entire application
+  return <RouterProvider router={router} />;
 }
 
-export {
-  RouteHandler
-}
+// Export the RouteHandler component for external use
+export { RouteHandler };

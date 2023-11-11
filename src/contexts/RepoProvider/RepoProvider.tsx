@@ -8,16 +8,12 @@ interface IRepoProviderProps {
 }
 
 function RepoProvider({ children }: IRepoProviderProps) {
-  const repo = new LocalStorage('markdowns', 'Database used to storage user markdowns');
+  const repo = new LocalStorage(
+    "markdowns",
+    "Database used to storage user markdowns",
+  );
 
-  return (
-    <RepoContext.Provider value={repo}>
-      {children}
-    </RepoContext.Provider>
-  )
+  return <RepoContext.Provider value={repo}>{children}</RepoContext.Provider>;
 }
 
-export {
-  RepoProvider,
-  RepoContext
-}
+export { RepoProvider, RepoContext };

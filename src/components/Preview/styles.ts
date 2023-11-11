@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
 const StyledPreview = styled.div`
-  flex: 1;
-  border-left: 1px solid ${props => props.theme.colors.content.separator};
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
-export {
-  StyledPreview
-}
+const PreviewContainer = styled.section`
+  width: 100%;
+  height: 100%;
+`;
+
+export { StyledPreview, PreviewContainer };
