@@ -17,9 +17,13 @@ import { Content } from "../../components/Content/Content";
 import { Suspense, useContext } from "react";
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 // NewMarkdownPage component for creating a new markdown document
 function NewMarkdownPage() {
+  // Access the localization context
+  const strings = useContext(AppLocalizationContext);
+
   // Access the MarkdownContext to get the loader function
   const { loader } = useContext(MarkdownContext);
 
@@ -77,8 +81,8 @@ function NewMarkdownPage() {
               key={key}
               id="removeButton"
               type="button"
-              aria-label="Click here to remove document"
-              title="Click here to remove document"
+              aria-label={strings.RemoveButtonLabel}
+              title={strings.RemoveButtonTitle}
               onClick={onRemove}
             >
               <TrashBinIcon className="trashBin" />
@@ -93,12 +97,12 @@ function NewMarkdownPage() {
           key={key}
           id="saveButton"
           type="button"
-          aria-label="Click here to save the document"
-          title="Click here to save the document"
+          aria-label={strings.SaveButtonLabel}
+          title={strings.SaveButtonTitle}
           onClick={onSave}
         >
           <FileSaveIcon className="fileSave" />
-          Save Changes
+          {strings.SaveButtonText}
         </SaveButton>
       ),
     },
@@ -119,7 +123,7 @@ function NewMarkdownPage() {
           <Suspense fallback={<Spinner />}>
             {/* Menu component for rendering the markdown menu */}
             <Menu
-              title="Markdown"
+              title={strings.MenuTitle}
               name="name"
               functionalities={menuFunctionalities}
             />
@@ -128,7 +132,7 @@ function NewMarkdownPage() {
             <Content
               textArea={{
                 name: "content",
-                title: "Insert the document content here",
+                title: strings.NewMarkdownContentTitle,
               }}
             />
           </Suspense>

@@ -24,6 +24,7 @@ import { useGoToNew } from "../../hooks/useGoToNew";
 import { Content } from "../../components/Content/Content";
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 // Define the structure of the loader response
 interface LoaderResponse {
@@ -65,6 +66,9 @@ const getMarkdown = async (id: string) => {
 
 // EditMarkdownPage component for editing a markdown document
 function EditMarkdownPage() {
+  // Access the localization context
+  const strings = useContext(AppLocalizationContext);
+
   // Access the markdown loader from the MarkdownContext
   const { loader: markdownsLoader } = useContext(MarkdownContext);
 
@@ -132,8 +136,8 @@ function EditMarkdownPage() {
           key={key}
           id="removeButton"
           type="button"
-          aria-label="Click here to remove document"
-          title="Click here to remove document"
+          aria-label={strings.RemoveButtonLabel}
+          title={strings.RemoveButtonTitle}
           onClick={onRemove}
         >
           <TrashBinIcon className="trashBin" />
@@ -146,12 +150,12 @@ function EditMarkdownPage() {
           key={key}
           id="saveButton"
           type="button"
-          aria-label="Click here to save the document"
-          title="Click here to save the document"
+          aria-label={strings.SaveButtonLabel}
+          title={strings.SaveButtonTitle}
           onClick={onSave}
         >
           <FileSaveIcon className="fileSave" />
-          Save Changes
+          {strings.SaveButtonText}
         </SaveButton>
       ),
     },
@@ -170,7 +174,7 @@ function EditMarkdownPage() {
         <StyledForm id="form" method="post">
           {/* Menu component with specified title, name, and functionalities */}
           <Menu
-            title="Markdown"
+            title={strings.MenuTitle}
             name="name"
             functionalities={menuFunctionalities}
           />
@@ -179,7 +183,7 @@ function EditMarkdownPage() {
           <Content
             textArea={{
               name: "content",
-              title: "Insert the document content here",
+              title: strings.EditMarkdownContentTitle,
             }}
           />
         </StyledForm>

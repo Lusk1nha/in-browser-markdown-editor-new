@@ -1,5 +1,6 @@
 import React from "react";
 import { createContext, useState } from "react";
+import { isTrue } from "../../shared/utils/DataTypes";
 
 // Define the shape of the context data
 interface ISidebarContext {
@@ -20,7 +21,9 @@ const AppSidebarContext = createContext<ISidebarContext>({
 
 // Retrieve the sidebar state from local storage or use a default value
 const sidebarLocalStorage = localStorage.getItem("sidebar");
-const defaultSideBar: boolean = isTrue(sidebarLocalStorage) ?? false;
+const defaultSideBar: boolean = sidebarLocalStorage
+  ? isTrue(sidebarLocalStorage)
+  : false;
 
 // Provider component for managing the sidebar state
 function AppSidebarProvider({ children }: ISidebarProviderProps) {
@@ -42,11 +45,6 @@ function AppSidebarProvider({ children }: ISidebarProviderProps) {
       {children}
     </AppSidebarContext.Provider>
   );
-}
-
-// Helper function to check if a string represents a true value
-function isTrue(value: string | undefined | null) {
-  return value?.toLowerCase() === "true";
 }
 
 // Export the provider component and the context for usage in other parts of the application

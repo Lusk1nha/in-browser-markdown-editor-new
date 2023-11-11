@@ -39,8 +39,6 @@ const Writable = styled.textarea`
 
   padding: 1rem;
 
-  transition: background 200ms linear;
-
   &::-webkit-scrollbar {
     width: 6px;
   }

@@ -1,11 +1,13 @@
-import { Suspense } from "react";
+import { Suspense, useContext } from "react";
 import { StyledDocumentRender } from "./styles";
 import { DocumentItem } from "../DocumentItem/DocumentItem";
 import Markdown from "../../services/Markdown";
 import { format } from "date-fns";
+import { enUS, ptBR } from "date-fns/locale";
 import { Spinner } from "../Spinner/Spinner";
 import { Paths } from "../../shared/enums/Paths";
 import { useNavigate } from "react-router-dom";
+import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 
 // Define the properties that the DocumentRender component accepts
 interface IDocumentRenderProps {
@@ -16,6 +18,7 @@ interface IDocumentRenderProps {
 export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
   // Hook to navigate between routes
   const navigate = useNavigate();
+  const strings = useContext(AppLocalizationContext);
 
   // Function to generate a link and navigate to the edit page
   function generateDocumentLink(id: string) {
@@ -23,10 +26,27 @@ export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
     navigate(pathWithId, { replace: true });
   }
 
-  // Function to format and mount the label based on the lastModified date
-  function mountLabel(date: Date | string) {
-    const inDate = new Date(date);
-    const formattedLabel = format(inDate, "dd MMMM yyyy");
+  /**
+   * Formats a date string or Date object into a human-readable label.
+   * @param {Date | string} date - The date to be formatted.
+   * @returns {string} The formatted date label.
+   */
+  function mountDateLabel(isoDate: string) {
+    // Default locale to be used in case navigator.language is not available
+    const defaultLocale = "en-US";
+
+    // Retrieve the user's locale from the browser, or use the default
+    const userLocale = navigator.language ?? defaultLocale;
+    
+    // Determine the locale to be used for formatting based on user's preference
+    const locale = userLocale === "en-US" ? enUS : ptBR;
+
+    // Format the date using the specified format and locale
+    const formattedLabel = format(new Date(isoDate), "dd MMMM yyyy", {
+      locale,
+    });
+
+    // Return the formatted date label
     return formattedLabel;
   }
 
@@ -53,9 +73,9 @@ export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
             key={doc.id}
             id={doc.id}
             redirectLink={generateDocumentLink}
-            title={`Click here to access the document ${doc.name}`}
+            title={strings?.DocumentItemTitle?.replace("{doc.name}", doc.name)}
             label={{
-              text: mountLabel(doc.lastModified),
+              text: mountDateLabel(doc.lastModified),
               title: new Date(doc.lastModified).toLocaleString(),
             }}
             name={doc.name}
