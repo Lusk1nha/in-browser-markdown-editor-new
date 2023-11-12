@@ -1,10 +1,43 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const Wrapper = styled.div`
+type WrapperProps = {
+  $maxHeight?: number | string;
+  $justifyContent?: "flex-start" | "flex-end" | "center";
+  $alignItems?: "flex-start" | "flex-end" | "center";
+  $flex?: number | "none" | "unset";
+};
+
+const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
   flex: 1;
   height: 100%;
+
+  ${(props) =>
+    props.$maxHeight !== null &&
+    props.$maxHeight !== undefined &&
+    css`
+      max-height: ${props.$maxHeight};
+    `}
+
+  ${(props) =>
+    props.$justifyContent &&
+    css`
+      justify-content: ${props.$justifyContent};
+    `}
+
+  ${(props) =>
+    props.$alignItems &&
+    css`
+      align-items: ${props.$alignItems};
+    `}
+
+    ${(props) =>
+    props.$flex !== null &&
+    props.$flex !== undefined &&
+    css`
+      flex: ${props.$flex};
+    `}
 `;
 
 const RawButton = styled.button`

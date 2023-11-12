@@ -63,6 +63,21 @@ const DarkTheme: IStyledComponentsTheme = {
       },
       separator: Colors.BlackCoral,
     },
+    textComponents: {
+      title: Colors.White,
+      text: Colors.LavenderGray,
+      subtitle: Colors.White,
+      numericList: Colors.LavenderGray,
+      boldSubtitle: Colors.White,
+      bulletList: Colors.LavenderGray,
+      bulletListBallColor: Colors.FireOpal,
+      blockQuoteBackground: Colors.CharlestonGreen,
+      blockQuoteText: Colors.White,
+      blockQuoteBorder: Colors.FireOpal,
+      highlightBoldText: Colors.FireOpal,
+      codeBlockBackground: Colors.CharlestonGreen,
+      codeBlockText: Colors.White,
+    },
   },
 };
 
