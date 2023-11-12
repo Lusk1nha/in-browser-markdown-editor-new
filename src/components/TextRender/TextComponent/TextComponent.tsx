@@ -5,7 +5,7 @@ interface ITextComponentProps {
 }
 
 function TextComponent({ children }: ITextComponentProps) {
-  return <StyledText>{children}</StyledText>;
+  return <StyledText className="text-component">{children}</StyledText>;
 }
 
 export { TextComponent };

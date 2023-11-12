@@ -15,7 +15,7 @@ function BoldSubTitleComponent({ children, size }: IBoldSubTitleProps) {
   const $size = size ?? "large";
 
   return (
-    <StyledBoldSubTitle as={elements[$size]} title={children} $size={$size}>
+    <StyledBoldSubTitle className="bold-subtitle-component" as={elements[$size]} title={children} $size={$size}>
       {children}
     </StyledBoldSubTitle>
   );

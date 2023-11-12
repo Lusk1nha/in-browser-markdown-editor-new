@@ -8,7 +8,7 @@ function HighlightBoldSubTitleComponent({
   children,
 }: IHighlightBoldSubTitleComponentProps) {
   return (
-    <StyledHighlightBoldSubTitleComponent title={children}>
+    <StyledHighlightBoldSubTitleComponent className="highlight-bold-component" title={children}>
       {children}
     </StyledHighlightBoldSubTitleComponent>
   );

@@ -6,7 +6,7 @@ interface ICodeBlockComponentProps {
 
 function CodeBlockComponent({ children }: ICodeBlockComponentProps) {
   return (
-    <StyledCodeBlockComponent>
+    <StyledCodeBlockComponent className="codeblock-component">
       <CodeText>{children}</CodeText>
     </StyledCodeBlockComponent>
   );

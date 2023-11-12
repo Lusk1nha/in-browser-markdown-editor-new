@@ -6,10 +6,10 @@ interface INumericListComponent {
 
 function NumericListComponent({ list }: INumericListComponent) {
   return (
-    <StyledNumericListComponent>
+    <StyledNumericListComponent className="numeric-list-component">
       {list.map((item, index) => {
         return (
-          <NumericText title={item} key={index}>
+          <NumericText data-numeric-index={index} className="numeric-list-item"  title={item} key={index}>
             {item}
           </NumericText>
         );

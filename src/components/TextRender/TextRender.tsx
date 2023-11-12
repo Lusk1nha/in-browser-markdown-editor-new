@@ -68,14 +68,14 @@ function TextRender({}: ITextRenderProps) {
       </HighlightBoldSubTitleComponent>
 
       <TextComponent>
-        This markdown editor allows for inline-code snippets, like this: `
-        <p>I'm inline</p>`. It also allows for larger code blocks like this:
+        {`This markdown editor allows for inline-code snippets, like this: \`
+        <p>I'm inline</p>\`. It also allows for larger code blocks like this:`}
       </TextComponent>
 
       <CodeBlockComponent>
         {`<main>
-    <h1>This is a larger code block</h1>
-</main>`}
+          <h1>This is a larger code block</h1>
+        </main>`}
       </CodeBlockComponent>
     </StyledTextRender>
   );

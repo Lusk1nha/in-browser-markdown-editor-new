@@ -5,7 +5,7 @@ interface ITitleComponentProps {
 }
 
 function SubTitleComponent({ children }: ITitleComponentProps) {
-  return <StyledSubTitle title={children}>{children}</StyledSubTitle>;
+  return <StyledSubTitle className="subtitle-component" title={children}>{children}</StyledSubTitle>;
 }
 
 export { SubTitleComponent };

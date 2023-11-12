@@ -6,8 +6,8 @@ interface IBlockQuoteComponentProps {
 
 function BlockQuoteComponent({ children }: IBlockQuoteComponentProps) {
   return (
-    <StyledBlockQuote title={children}>
-      <BlockText>{children}</BlockText>
+    <StyledBlockQuote className="block-quote-component" title={children}>
+      <BlockText className="block-quote-text">{children}</BlockText>
     </StyledBlockQuote>
   );
 }

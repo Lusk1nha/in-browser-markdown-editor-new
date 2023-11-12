@@ -21,7 +21,6 @@ function Preview({ name, isPreview, setIsPreview }: IPreviewProps) {
   const { watch } = formInstance;
 
   const text = watch(name);
-  console.log(text);
 
   const componentIcon = !isPreview ? (
     <EyeIcon className="eye" />
