@@ -1,12 +1,12 @@
-import { BlockQuoteComponent } from "../Preview/BlockQuoteComponent/BlockQuoteComponent";
-import { BoldSubTitleComponent } from "../Preview/BoldSubTitleComponent/BoldSubTitleComponent";
-import { BulletListComponent } from "../Preview/BulletListComponent/BulletListComponent";
-import { CodeBlockComponent } from "../Preview/CodeBlockComponent/CodeBlockComponent";
-import { HighlightBoldSubTitleComponent } from "../Preview/HighlightBoldSubtTitleComponent/HighlightBoldSubtTitleComponent";
-import { NumericListComponent } from "../Preview/NumericListComponent/NumericListComponent";
-import { SubTitleComponent } from "../Preview/SubTitleComponent/SubTitleComponent";
-import { TextComponent } from "../Preview/TextComponent/TextComponent";
-import { TitleComponent } from "../Preview/TitleComponent/TitleComponent";
+import { BlockQuoteComponent } from "./BlockQuoteComponent/BlockQuoteComponent";
+import { BoldSubTitleComponent } from "./BoldSubTitleComponent/BoldSubTitleComponent";
+import { BulletListComponent } from "./BulletListComponent/BulletListComponent";
+import { CodeBlockComponent } from "./CodeBlockComponent/CodeBlockComponent";
+import { HighlightBoldSubTitleComponent } from "./HighlightBoldSubtTitleComponent/HighlightBoldSubtTitleComponent";
+import { NumericListComponent } from "./NumericListComponent/NumericListComponent";
+import { SubTitleComponent } from "./SubTitleComponent/SubTitleComponent";
+import { TextComponent } from "./TextComponent/TextComponent";
+import { TitleComponent } from "./TitleComponent/TitleComponent";
 import { StyledTextRender } from "./styles";
 
 interface ITextRenderProps {
