@@ -7,9 +7,14 @@ import { StyledApp } from "./styles";
 import { Outlet } from "react-router-dom";
 
 import { MarkdownProvider } from "../../contexts/MarkdownProvider/MarkdownProvider";
+import i18n from "../../i18n/config";
 
 // Layout component defining the overall structure of the application
 function Layout() {
+  const lang = i18n.language;
+
+  console.log({ lang });
+
   return (
     // MarkdownProvider wraps the entire layout to provide markdown-related context
     <MarkdownProvider>
