@@ -2,10 +2,12 @@ enum StartExpressions {
   Title = "#",
   Subtitle = "##",
   BlockQuote = ">",
-  BoldSubTitle = "###",
-  BulletList = "-",
-  NumberedList = "1",
+  LargeBoldSubTitle = "###",
+  MediumBoldSubTitle = "####",
+  SmallBoldSubTitle = "#####",
+  HighlightBoldSubTitle = "######",
   Text = "",
+  BreakLine = "\n",
 }
 
 enum TextExpressions {

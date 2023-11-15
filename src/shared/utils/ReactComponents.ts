@@ -7,9 +7,9 @@ import React from "react";
  * @param {object} props - The props to be passed to the React component.
  * @returns {React.Component} The created React component.
  */
-function createComponent(component: React.ComponentType, props: object) {
+function createComponent(component: React.ComponentType, props?: object) {
   // Use React.createElement to instantiate a React component with the provided type and props.
-  return React.createElement(component, props);
+  return React.createElement(component, props ?? {});
 }
 
 export { createComponent };

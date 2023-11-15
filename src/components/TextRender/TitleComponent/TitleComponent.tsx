@@ -5,7 +5,12 @@ interface ITitleComponentProps {
 }
 
 function TitleComponent({ children }: ITitleComponentProps) {
-  return <StyledTitle className="title-component" title={children}>{children}</StyledTitle>;
+  console.log(children);
+  return (
+    <StyledTitle className="title-component" title={children}>
+      {children}
+    </StyledTitle>
+  );
 }
 
 export { TitleComponent };

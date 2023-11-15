@@ -18,9 +18,7 @@ const StyledTextRender = styled.div`
 
   display: flex;
   flex-direction: column;
-
-  gap: 1.313rem;
-
+  
   padding: 1rem;
 
   overflow: auto;

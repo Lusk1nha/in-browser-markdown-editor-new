@@ -4,9 +4,13 @@ import { TitleComponent } from "../../components/TextRender/TitleComponent/Title
 import { TextComponent } from "../../components/TextRender/TextComponent/TextComponent";
 
 import { createComponent } from "./ReactComponents";
+import { BreakLineComponent } from "../../components/TextRender/BreakLineComponent";
+import { SubTitleComponent } from "../../components/TextRender/SubTitleComponent/SubTitleComponent";
+import { BoldSubTitleComponent } from "../../components/TextRender/BoldSubTitleComponent/BoldSubTitleComponent";
+import { HighlightBoldSubTitleComponent } from "../../components/TextRender/HighlightBoldSubtTitleComponent/HighlightBoldSubtTitleComponent";
 
 /**
- * Splits the input text into an array of lines, removing empty lines.
+ * Splits the input text into an array of lines.
  *
  * @param {string} text - The input text to be processed.
  * @returns {string[]} An array containing non-empty lines from the input text.
@@ -14,18 +18,24 @@ import { createComponent } from "./ReactComponents";
 function getLines(text: string): string[] {
   const textByBreakLine = text.split("\n");
 
-  // Filter out empty lines by removing lines that contain only whitespace characters.
-  const textWithoutEmptyString = textByBreakLine.filter((line) => line.trim());
+  const mapBreakLines = textByBreakLine.map((line) =>
+    line === "" ? "\n" : line
+  );
 
-  // Return the array of non-empty lines.
-  return textWithoutEmptyString;
+  // Return the array of lines.
+  return mapBreakLines;
 }
 
+/**
+ * Processes an array of strings, extracts start expressions, and maps them to corresponding React components.
+ *
+ * @param {string[]} textInArray - An array of strings to be processed for start expressions.
+ * @returns {React.Component[]} An array of React components mapped from the start expressions in the input array.
+ */
 function getExpressions(textInArray: string[]) {
+  // Map each text in the array to an object containing the identified starting expression and the remaining text after removing the expression.
   const textWithStartExpression = textInArray.map((text) => {
     const { text: newText, expression } = checkForStartExpressions(text);
-
-    console.log({ newText, expression });
 
     return {
       text: newText,
@@ -33,11 +43,13 @@ function getExpressions(textInArray: string[]) {
     };
   });
 
+  // Map each object containing the identified starting expression and text to a React component.
   const components = textWithStartExpression.map(
     ({ text, expression }, index) =>
       startExpressionsMapByComponent(text, expression, index)
   );
 
+  // Return the array of React components.
   return components;
 }
 
@@ -56,29 +68,27 @@ function checkForStartExpressions(text: string): {
     StartExpressions.Title,
     StartExpressions.Subtitle,
     StartExpressions.BlockQuote,
-    StartExpressions.BoldSubTitle,
-    StartExpressions.BulletList,
-    StartExpressions.NumberedList,
+    StartExpressions.LargeBoldSubTitle,
+    StartExpressions.MediumBoldSubTitle,
+    StartExpressions.SmallBoldSubTitle,
+    StartExpressions.HighlightBoldSubTitle,
+    StartExpressions.Text,
+    StartExpressions.BreakLine,
   ];
 
   // Filter the startExpressions array to find the expression(s) that match the start of the input text.
-  const matchedExpressions = startExpressions.filter((expression) =>
-    text.startsWith(expression)
-  );
+  const matchedExpressions = startExpressions.filter((expression) => {
+    const textBySpaces = text.split(" ");
 
-  // If no expression matches the start of the text, default to StartExpressions.Text.
-  if (!matchedExpressions?.length) {
-    return {
-      text,
-      expression: StartExpressions.Text,
-    };
-  }
+    // Check if the first word in the text matches the current expression.
+    return textBySpaces[0] === expression;
+  });
 
   // Get the first matched expression.
   const expressionFounded = matchedExpressions[0];
 
-  // Remove the identified expression from the start of the text.
-  const textWithoutExpression = text.slice(text.indexOf(expressionFounded));
+  // Remove the identified expression from the start of the text and trim any leading spaces.
+  const textWithoutExpression = text.replace(expressionFounded, "").trimStart();
 
   // Return an object with the identified starting expression and the remaining text after removing the expression.
   return {
@@ -111,6 +121,37 @@ function startExpressionsMapByComponent(
     case StartExpressions.Title:
       // If the expression is Title, create a TitleComponent with the provided text and default props.
       return createComponent(TitleComponent, defaultProps);
+
+    case StartExpressions.Subtitle:
+      // If the expression is Subtitle, create a TitleComponent with the provided text and default props.
+      return createComponent(SubTitleComponent, defaultProps);
+
+    case StartExpressions.LargeBoldSubTitle:
+      // If the expression is LargeBoldSubTitle, create a BoldSubTitleComponent with the provided text and default props.
+      return createComponent(BoldSubTitleComponent, {
+        ...defaultProps,
+        size: "large",
+      });
+
+    case StartExpressions.MediumBoldSubTitle:
+      // If the expression is MediumBoldSubTitle, create a BoldSubTitleComponent with the provided text and default props.
+      return createComponent(BoldSubTitleComponent, {
+        ...defaultProps,
+        size: "medium",
+      });
+
+    case StartExpressions.SmallBoldSubTitle:
+      // If the expression is SmallBoldSubTitle, create a BoldSubTitleComponent with the provided text and default props.
+      return createComponent(BoldSubTitleComponent, {
+        ...defaultProps,
+        size: "small",
+      });
+
+    case StartExpressions.HighlightBoldSubTitle:
+      return createComponent(HighlightBoldSubTitleComponent, defaultProps);
+
+    case StartExpressions.BreakLine:
+      return createComponent(BreakLineComponent);
 
     default:
       // If the expression is not Title, use TextComponent with the provided text and default props.
