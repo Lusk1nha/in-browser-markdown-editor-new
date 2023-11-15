@@ -6,6 +6,8 @@ const StyledCodeBlockComponent = styled.div`
   padding: 1.5rem;
 
   border-radius: 0.25rem;
+  
+  margin: 0.25rem 0;
 `;
 
 const CodeText = styled.p`

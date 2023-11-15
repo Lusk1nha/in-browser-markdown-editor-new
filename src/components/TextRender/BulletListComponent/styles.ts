@@ -6,6 +6,8 @@ const StyledBulletList = styled.ul`
   flex-direction: column;
 
   list-style: none;
+
+  margin: 0 0 0.65rem;
 `;
 
 const BulletItem = styled.li`

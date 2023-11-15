@@ -10,9 +10,15 @@ enum StartExpressions {
   BreakLine = "\n",
 }
 
+enum LargeExpressions {
+  BulletList = "-",
+  NumberedList = "NaN",
+  CodeBlock = "```"
+}
+
 enum TextExpressions {
   Link = "[]()",
   Code = "``",
 }
 
-export { StartExpressions, TextExpressions };
+export { StartExpressions, LargeExpressions, TextExpressions };

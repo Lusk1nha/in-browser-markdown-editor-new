@@ -1,3 +1,9 @@
+import {
+  JSXElementConstructor,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { getExpressions, getLines } from "../../shared/utils/TextTransform";
 import { StyledTextRender } from "./styles";
 
@@ -6,12 +12,20 @@ interface ITextRenderProps {
 }
 
 function TextRender({ content }: ITextRenderProps) {
-  const textByLines = getLines(content);
+  const [components, setComponents] = useState<
+    ReactElement<{}, string | JSXElementConstructor<any>>[]
+  >([]);
 
-  const components = getExpressions(textByLines);
-  console.log({ components });
+  useEffect(() => {
+    const textByLines = getLines(content);
+    const expressionComponents = getExpressions(textByLines);
 
-  function renderComponents(components: any[]) {
+    setComponents(expressionComponents);
+  }, [content]);
+
+  function renderComponents(
+    components: ReactElement<{}, string | JSXElementConstructor<any>>[]
+  ) {
     return components.map((component) => {
       return component;
     });

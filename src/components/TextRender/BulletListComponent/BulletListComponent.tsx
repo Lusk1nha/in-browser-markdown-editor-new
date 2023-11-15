@@ -1,14 +1,21 @@
 import { BulletItem, StyledBulletList } from "./styles";
 
 interface IBulletListComponentProps {
-  list: string[];
+  list?: string[];
 }
 
 function BulletListComponent({ list }: IBulletListComponentProps) {
+  console.log(list);
+
   return (
     <StyledBulletList className="bullet-list-component">
-      {list.map((item, index) => (
-        <BulletItem data-bullet-index={index} className="bullet-list-item" title={item} key={index}>
+      {list?.map((item, index) => (
+        <BulletItem
+          data-bullet-index={index}
+          className="bullet-list-item"
+          title={item}
+          key={index}
+        >
           {item}
         </BulletItem>
       ))}

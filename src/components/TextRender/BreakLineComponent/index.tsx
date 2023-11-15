@@ -1,7 +1,7 @@
 import { StyledBreakLine } from "./styles";
 
 function BreakLineComponent() {
-  return <StyledBreakLine />;
+  return <StyledBreakLine className="break-line-component" />;
 }
 
 export { BreakLineComponent };
