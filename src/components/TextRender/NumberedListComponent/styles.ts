@@ -4,6 +4,8 @@ const StyledNumberedListComponent = styled.ol`
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
+
+  list-style: none;
 `;
 
 const NumericText = styled.li`

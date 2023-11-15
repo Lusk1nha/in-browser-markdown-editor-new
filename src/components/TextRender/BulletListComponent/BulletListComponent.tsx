@@ -5,8 +5,6 @@ interface IBulletListComponentProps {
 }
 
 function BulletListComponent({ list }: IBulletListComponentProps) {
-  console.log(list);
-
   return (
     <StyledBulletList className="bullet-list-component">
       {list?.map((item, index) => (
