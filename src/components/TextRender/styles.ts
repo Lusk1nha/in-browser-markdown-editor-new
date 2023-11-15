@@ -21,7 +21,7 @@ const StyledTextRender = styled.div`
 
   gap: 1.313rem;
 
-  padding: 1.375rem 4rem;
+  padding: 1rem;
 
   overflow: auto;
 

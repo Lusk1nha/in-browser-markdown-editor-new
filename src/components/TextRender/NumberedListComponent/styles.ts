@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledNumericListComponent = styled.ol`
+const StyledNumberedListComponent = styled.ol`
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
@@ -19,4 +19,4 @@ const NumericText = styled.li`
   line-height: 24px; /* 171.429% */
 `;
 
-export { StyledNumericListComponent, NumericText };
+export { StyledNumberedListComponent, NumericText };
