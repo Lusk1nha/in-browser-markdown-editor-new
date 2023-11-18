@@ -5,6 +5,7 @@ import { RouteHandler } from "../../routes/RouteHandler";
 import { AppThemeProvider } from "../../contexts/ThemeProvider/AppThemeProvider";
 import { AppSidebarProvider } from "../../contexts/SidebarProvider/AppSidebarProvider";
 import { AppLocalizationProvider } from "../../contexts/LocalizationProvider/LocalizationProvider";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <AppSidebarProvider>
             {/* Handle routes within the application */}
             <RouteHandler />
+            
+            <Toaster />
           </AppSidebarProvider>
         </AppThemeProvider>
       </AppLocalizationProvider>

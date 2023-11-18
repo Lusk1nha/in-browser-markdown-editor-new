@@ -79,6 +79,12 @@ const LightTheme: IStyledComponentsTheme = {
       codeBlockText: Colors.Onyx,
       codeString: Colors.Onyx,
     },
+    error: {
+      toaster: {
+        background: Colors.White,
+        message: Colors.Onyx,
+      },
+    },
   },
 };
 

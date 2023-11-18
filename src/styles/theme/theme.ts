@@ -7,8 +7,16 @@ export interface IStyledComponentsTheme {
     input: Inputs;
     content: Content;
     textComponents: TextComponents;
+    error: {
+      toaster: Toaster;
+    };
   };
   font?: Font;
+}
+
+export interface Toaster {
+  background: string;
+  message: string;
 }
 
 export interface NotFound {

@@ -1,3 +1,4 @@
+import { useCallMessage } from "../hooks/useCallMessage";
 import { MarkdownsRepo } from "../repositories/markdowns";
 import Markdown from "./Markdown";
 
@@ -15,11 +16,13 @@ class EditMarkdown {
       const { id, name, content, created } = markdown; // Extract properties from the provided Markdown object
 
       if (!id) {
+        useCallMessage("File ID cannot be empty!");
         throw new Error("File ID cannot be empty!"); // Throw an error if the ID is empty or undefined
       }
 
       // Generate error when file name is empty
       if (!name) {
+        useCallMessage("File name cannot be empty!");
         throw new Error("File name cannot be empty!"); // Throw an error if the name is empty or undefined
       }
 
@@ -40,6 +43,7 @@ class EditMarkdown {
         throw error.message; // If the error is an instance of Error, throw its message
       }
 
+      useCallMessage("Unexpected error!");
       throw new Error("Unexpected error!"); // If the error is not an instance of Error, throw a generic error message
     }
   }

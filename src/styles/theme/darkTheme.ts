@@ -77,7 +77,13 @@ const DarkTheme: IStyledComponentsTheme = {
       highlightBoldText: Colors.FireOpal,
       codeBlockBackground: Colors.CharlestonGreen,
       codeBlockText: Colors.White,
-      codeString: Colors.White
+      codeString: Colors.White,
+    },
+    error: {
+      toaster: {
+        background: Colors.ChineseBlack,
+        message: Colors.LavenderGray,
+      },
     },
   },
 };

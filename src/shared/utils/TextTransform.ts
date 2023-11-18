@@ -44,7 +44,6 @@ function getLinkInText(text: string) {
 
 function isLink(text: string): boolean {
   const match = getLinkInText(text);
-
   return match?.length > 0;
 }
 
