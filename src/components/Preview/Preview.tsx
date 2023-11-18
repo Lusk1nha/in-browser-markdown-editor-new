@@ -5,6 +5,7 @@ import { TopLabel } from "../TopLabel/TopLabel";
 import { PreviewContainer, StyledPreview } from "./styles";
 import { useContext } from "react";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
+import { TextRender } from "../TextRender/TextRender";
 
 interface IPreviewProps {
   name: string;
@@ -43,7 +44,9 @@ function Preview({ name, isPreview, setIsPreview }: IPreviewProps) {
         ]}
       />
 
-      <PreviewContainer>{text}</PreviewContainer>
+      <PreviewContainer>
+        <TextRender content={text} />
+      </PreviewContainer>
     </StyledPreview>
   );
 }

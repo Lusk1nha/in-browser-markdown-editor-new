@@ -6,12 +6,30 @@ export interface IStyledComponentsTheme {
     menu: Menu;
     input: Inputs;
     content: Content;
+    textComponents: TextComponents;
   };
   font?: Font;
 }
 
 export interface NotFound {
   title: string;
+}
+
+export interface TextComponents {
+  title: string;
+  text: string;
+  subtitle: string;
+  numericList: string;
+  boldSubtitle: string;
+  bulletList: string;
+  bulletListBallColor: string;
+  blockQuoteBackground: string;
+  blockQuoteText: string;
+  blockQuoteBorder: string;
+  highlightBoldText: string;
+  codeBlockBackground: string;
+  codeBlockText: string;
+  codeString: string;
 }
 
 export interface Menu {

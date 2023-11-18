@@ -63,6 +63,22 @@ const LightTheme: IStyledComponentsTheme = {
       },
       separator: Colors.Platinum,
     },
+    textComponents: {
+      title: Colors.Onyx,
+      text: Colors.HTMLCSSGray,
+      subtitle: Colors.Onyx,
+      numericList: Colors.HTMLCSSGray,
+      boldSubtitle: Colors.Onyx,
+      bulletList: Colors.HTMLCSSGray,
+      bulletListBallColor: Colors.FireOpal,
+      blockQuoteBackground: Colors.Cultured,
+      blockQuoteText: Colors.Onyx,
+      blockQuoteBorder: Colors.FireOpal,
+      highlightBoldText: Colors.FireOpal,
+      codeBlockBackground: Colors.Cultured,
+      codeBlockText: Colors.Onyx,
+      codeString: Colors.Onyx,
+    },
   },
 };
 
