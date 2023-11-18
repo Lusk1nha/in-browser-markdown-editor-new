@@ -29,6 +29,7 @@ export interface TextComponents {
   highlightBoldText: string;
   codeBlockBackground: string;
   codeBlockText: string;
+  codeString: string;
 }
 
 export interface Menu {

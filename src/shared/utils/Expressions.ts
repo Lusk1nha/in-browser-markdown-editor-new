@@ -1,11 +1,46 @@
-import { LargeExpressions, StartExpressions } from "../enums/Expressions";
+import {
+  InternalExpressions,
+  LargeExpressions,
+  StartExpressions,
+} from "../enums/Expressions";
 
-type UnionExpressions = LargeExpressions | StartExpressions;
+import { TitleComponent } from "../../components/TextRender/TitleComponent/TitleComponent";
+import { TextComponent } from "../../components/TextRender/TextComponent/TextComponent";
+
+import { createComponent } from "./ReactComponents";
+import { BreakLineComponent } from "../../components/TextRender/BreakLineComponent";
+import { SubTitleComponent } from "../../components/TextRender/SubTitleComponent/SubTitleComponent";
+import { BoldSubTitleComponent } from "../../components/TextRender/BoldSubTitleComponent/BoldSubTitleComponent";
+import { HighlightBoldSubTitleComponent } from "../../components/TextRender/HighlightBoldSubtTitleComponent/HighlightBoldSubtTitleComponent";
+import { BlockQuoteComponent } from "../../components/TextRender/BlockQuoteComponent/BlockQuoteComponent";
+import { CodeBlockComponent } from "../../components/TextRender/CodeBlockComponent/CodeBlockComponent";
+import { BulletListComponent } from "../../components/TextRender/BulletListComponent/BulletListComponent";
+
+import { NumberedListComponent } from "../../components/TextRender/NumberedListComponent/NumberedListComponent";
+import {
+  getLines,
+  getLinkInText,
+  isANumberAndDot,
+  isLink,
+} from "./TextTransform";
+import { CodeStringComponent } from "../../components/TextRender/CodeStringComponent/CodeStringComponent";
+import { ReactElement, JSXElementConstructor } from "react";
+import { LinkStringComponent } from "../../components/TextRender/LinkStringComponent/LinkStringComponent";
+
+type UnionExpressions =
+  | LargeExpressions
+  | StartExpressions
+  | InternalExpressions;
 
 type ExpressionType = {
-  text: string | string[];
+  text: (
+    | string
+    | ReactElement<{}, string | JSXElementConstructor<any>>
+    | null
+  )[];
   type: UnionExpressions;
-  start?: number;
+  list?: string[];
+  url?: string;
   end?: number;
 };
 
@@ -21,10 +56,9 @@ function mapExpressions(textInArray: string[]): ExpressionType[] {
 
   // Initialize the current index for iteration.
   let currentIndex = 0;
-  let copyTextInArray = [...textInArray];
 
   // Iterate through each line in the array.
-  while (textInArray?.length !== 0 && currentIndex < copyTextInArray?.length) {
+  while (textInArray?.length !== 0) {
     try {
       // Get the current line.
       const line = textInArray[0];
@@ -42,9 +76,10 @@ function mapExpressions(textInArray: string[]): ExpressionType[] {
       // If the line does not contain start or large expressions, treat it as simple text.
       if (!isStartExpression && !isLargeExpressions) {
         expressions.push({
-          text: line,
+          text: line.split(""),
           type: StartExpressions.Text,
         });
+
         textInArray.shift();
 
         continue;
@@ -132,14 +167,14 @@ function searchStartExpression(text: string): StartExpressions[] {
  */
 function searchLargeExpression(text: string): LargeExpressions[] {
   // Define an array of possible large expressions.
-  const largeExpression = [
+  const largeExpressions = [
     LargeExpressions.BulletList,
     LargeExpressions.NumberedList,
     LargeExpressions.CodeBlock,
   ];
 
   // Filter the largeExpression array to find the expression(s) that match the start of the input text.
-  const matchedExpressions = largeExpression.filter((expression) => {
+  const matchedExpressions = largeExpressions.filter((expression) => {
     if (expression === LargeExpressions.NumberedList) {
       return isANumberAndDot(text);
     }
@@ -166,7 +201,7 @@ function convertForStartExpressions(
 
   // Return an object with the identified starting expression and the remaining text after removing the expression.
   return {
-    text: textWithoutExpression,
+    text: textWithoutExpression.split(""),
     type,
   };
 }
@@ -200,7 +235,8 @@ function convertLargeExpressions(
 
         // Return a structured representation of the BulletList expression.
         return {
-          text: list,
+          text: text.split(""),
+          list,
           type,
           end: textInArray.length,
         };
@@ -212,7 +248,8 @@ function convertLargeExpressions(
 
         // Return a structured representation of the BulletList expression.
         return {
-          text: list,
+          text: text.split(""),
+          list,
           type,
           end: nonBullet,
         };
@@ -227,8 +264,6 @@ function convertLargeExpressions(
         return !isANumberAndDot(textBySpaces[0]);
       });
 
-      console.log({ textInArray, nonNumeric });
-
       // Check if there are no non-BulletList lines after the current index.
       if (nonNumeric === -1) {
         // Extract a subarray from the current index to the end of the textInArray.
@@ -238,7 +273,8 @@ function convertLargeExpressions(
 
         // Return a structured representation of the BulletList expression.
         return {
-          text: list,
+          text: text.split(""),
+          list,
           type,
           end: textInArray.length,
         };
@@ -250,7 +286,8 @@ function convertLargeExpressions(
 
         // Return a structured representation of the BulletList expression.
         return {
-          text: list,
+          text: text.split(""),
+          list,
           type,
           end: nonNumeric,
         };
@@ -266,7 +303,7 @@ function convertLargeExpressions(
       // If there is no closing CodeBlock, return the original text as a simple text expression.
       if (findCloseCodeBlock === -1) {
         return {
-          text,
+          text: text.split(""),
           type: StartExpressions.Text,
           end: 1,
         };
@@ -274,7 +311,7 @@ function convertLargeExpressions(
 
       // Return a structured representation of the CodeBlock expression.
       return {
-        text: textInArray.slice(1, findCloseCodeBlock).join("\n"),
+        text: textInArray.slice(1, findCloseCodeBlock).join("\n").split(""),
         type,
         end: findCloseCodeBlock + 1,
       };
@@ -282,7 +319,7 @@ function convertLargeExpressions(
 
     // If the type is not BulletList, NumberedList, or CodeBlock, return an empty ExpressionType.
     default: {
-      return { type: StartExpressions.Text, text: "" };
+      return { type: StartExpressions.Text, text: [""] };
     }
   }
 }
@@ -321,17 +358,214 @@ function matchExpression(text: string, expression: UnionExpressions): boolean {
 }
 
 /**
- * Checks if a given text starts with one or more digits followed by a dot.
+ * Processes an array of strings, extracts start expressions, and maps them to corresponding React components.
  *
- * @param {string} text - The input text to be checked.
- * @returns {boolean} True if the text starts with digits followed by a dot, otherwise false.
+ * @param {string} content - A string to be processed for start expressions.
+ * @returns {React.Component[]} An array of React components mapped from the start expressions in the input array.
  */
-function isANumberAndDot(text: string): boolean {
-  // Define a regular expression pattern for one or more digits followed by a dot.
-  const pattern = /^[0-9]+\./;
+function mountExpressions(content: string) {
+  // Convert the content to a string array separated by break lines.
+  const textByLines = getLines(content);
 
-  // Test if the text matches the specified pattern.
-  return pattern.test(text);
+  // Map the lines and convert them to Expressions.
+  const expressions: ExpressionType[] = mapExpressions(textByLines)?.map(
+    (expression, index) => {
+      const { text } = expression;
+      const joinedText = text.join("");
+
+      const findCodeStart = text.indexOf(InternalExpressions.Code);
+      const findCodeEnd = text.indexOf(
+        InternalExpressions.Code,
+        findCodeStart + 1
+      );
+
+      if (findCodeStart !== -1 && findCodeEnd !== -1) {
+        const codeText = getCodeString(
+          expression,
+          index,
+          findCodeStart,
+          findCodeEnd
+        );
+
+        return {
+          ...expression,
+          text: codeText,
+        };
+      }
+
+      const hasLink = isLink(joinedText);
+
+      if (hasLink) {
+        const linkText = getLinkString(expression, index);
+
+        return {
+          ...expression,
+          text: linkText,
+        };
+      }
+
+      return expression;
+    }
+  );
+
+  // Map each expression containing the identified expression type and text to a React component.
+  const components = expressions.map((expression, index) =>
+    expressionsMapByComponent(expression, index)
+  );
+
+  // Return the array of React components and expressions.
+  return {
+    expressions,
+    components,
+  };
 }
 
-export { mapExpressions, ExpressionType };
+/**
+ * Maps a text to a React component based on the provided starting expression.
+ *
+ * @param {string} text - The text to be associated with the React component.
+ * @param {StartExpressions} expression - The starting expression to determine the type of React component.
+ * @param {number} index - The index of the text, often used as a key for React components.
+ * @returns {React.Component} A React component with the specified text and default props.
+ */
+function expressionsMapByComponent(expression: ExpressionType, index: number) {
+  const { text, list, type } = expression;
+
+  // Define default props for the React components.
+  const defaultProps = {
+    children: text,
+    key: index,
+  };
+
+  // Use a switch statement to determine the type of starting expression and map it to the corresponding React component.
+  switch (type) {
+    case StartExpressions.Title:
+      return createComponent(TitleComponent, defaultProps);
+
+    case StartExpressions.Subtitle:
+      return createComponent(SubTitleComponent, defaultProps);
+
+    case StartExpressions.LargeBoldSubTitle:
+      return createComponent(BoldSubTitleComponent, {
+        ...defaultProps,
+        size: "large",
+      });
+
+    case StartExpressions.MediumBoldSubTitle:
+      return createComponent(BoldSubTitleComponent, {
+        ...defaultProps,
+        size: "medium",
+      });
+
+    case StartExpressions.SmallBoldSubTitle:
+      return createComponent(BoldSubTitleComponent, {
+        ...defaultProps,
+        size: "small",
+      });
+
+    case StartExpressions.HighlightBoldSubTitle:
+      return createComponent(HighlightBoldSubTitleComponent, defaultProps);
+
+    case StartExpressions.BlockQuote:
+      return createComponent(BlockQuoteComponent, defaultProps);
+
+    case StartExpressions.BreakLine:
+      return createComponent(BreakLineComponent, defaultProps);
+
+    case LargeExpressions.CodeBlock:
+      return createComponent(CodeBlockComponent, defaultProps);
+
+    case LargeExpressions.BulletList:
+      return createComponent(BulletListComponent, {
+        ...defaultProps,
+        list,
+      });
+
+    case LargeExpressions.NumberedList:
+      return createComponent(NumberedListComponent, {
+        ...defaultProps,
+        list,
+      });
+
+    default:
+      return createComponent(TextComponent, defaultProps);
+  }
+}
+
+function internalExpressionMapByComponent(
+  expression: ExpressionType,
+  index: number
+) {
+  const { text, type } = expression;
+
+  const defaultProps = {
+    children: text,
+    key: index,
+  };
+
+  switch (type) {
+    case InternalExpressions.Code:
+      return createComponent(CodeStringComponent, defaultProps);
+
+    case InternalExpressions.Link:
+      return createComponent(LinkStringComponent, {
+        ...defaultProps,
+        url: expression.url,
+      });
+
+    default:
+      return null;
+  }
+}
+
+function getCodeString(
+  expression: ExpressionType,
+  componentIndex: number,
+  startIndex: number,
+  endIndex: number
+) {
+  const { text } = expression;
+
+  const joinedText = text.slice(startIndex + 1, endIndex);
+
+  const internalExpression: ExpressionType = {
+    text: joinedText,
+    type: InternalExpressions.Code,
+  };
+
+  const component = internalExpressionMapByComponent(
+    internalExpression,
+    componentIndex
+  );
+
+  text.splice(startIndex, endIndex - startIndex + 1, component);
+
+  return text;
+}
+
+function getLinkString(expression: ExpressionType, componentIndex: number) {
+  const { text } = expression;
+
+  const match = getLinkInText(text.join(""));
+  const [fullText, linkText, url] = match;
+
+  const startIndex = match.index;
+  const endIndex = startIndex + fullText?.length;
+
+  const internalExpression: ExpressionType = {
+    text: linkText.split(""),
+    type: InternalExpressions.Link,
+    url,
+  };
+
+  const component = internalExpressionMapByComponent(
+    internalExpression,
+    componentIndex
+  );
+
+  text.splice(startIndex, endIndex - startIndex + 1, component);
+
+  return text;
+}
+
+export { mountExpressions, mapExpressions, ExpressionType };

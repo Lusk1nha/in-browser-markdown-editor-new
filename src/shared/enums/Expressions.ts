@@ -13,12 +13,12 @@ enum StartExpressions {
 enum LargeExpressions {
   BulletList = "-",
   NumberedList = "NaN",
-  CodeBlock = "```"
+  CodeBlock = "```",
 }
 
-enum TextExpressions {
+enum InternalExpressions {
   Link = "[]()",
-  Code = "``",
+  Code = "`",
 }
 
-export { StartExpressions, LargeExpressions, TextExpressions };
+export { StartExpressions, LargeExpressions, InternalExpressions };

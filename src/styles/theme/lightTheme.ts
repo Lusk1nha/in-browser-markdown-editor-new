@@ -77,6 +77,7 @@ const LightTheme: IStyledComponentsTheme = {
       highlightBoldText: Colors.FireOpal,
       codeBlockBackground: Colors.Cultured,
       codeBlockText: Colors.Onyx,
+      codeString: Colors.Onyx,
     },
   },
 };

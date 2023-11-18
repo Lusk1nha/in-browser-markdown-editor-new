@@ -4,7 +4,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { mountExpressions, getLines } from "../../shared/utils/TextTransform";
+import { mountExpressions } from "../../shared/utils/Expressions";
 import { StyledTextRender } from "./styles";
 
 interface ITextRenderProps {
@@ -17,9 +17,8 @@ function TextRender({ content }: ITextRenderProps) {
   >([]);
 
   useEffect(() => {
-    const textByLines = getLines(content);
-    const { components: mountedComponents } = mountExpressions(textByLines);
-    
+    const { components: mountedComponents } = mountExpressions(content);
+
     setComponents(mountedComponents);
   }, [content]);
 

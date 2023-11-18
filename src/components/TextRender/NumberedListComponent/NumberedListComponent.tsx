@@ -5,7 +5,6 @@ interface INumberedListComponent {
 }
 
 function NumberedListComponent({ list }: INumberedListComponent) {
-  console.log(list);
   return (
     <StyledNumberedListComponent className="numeric-list-component">
       {list?.map((item, index) => {

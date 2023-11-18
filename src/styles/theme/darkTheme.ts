@@ -77,6 +77,7 @@ const DarkTheme: IStyledComponentsTheme = {
       highlightBoldText: Colors.FireOpal,
       codeBlockBackground: Colors.CharlestonGreen,
       codeBlockText: Colors.White,
+      codeString: Colors.White
     },
   },
 };

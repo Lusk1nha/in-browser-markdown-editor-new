@@ -1,11 +1,15 @@
 import { StyledText } from "./styles";
 
 interface ITextComponentProps {
-  children?: React.ReactNode;
+  children?: string[];
 }
 
 function TextComponent({ children }: ITextComponentProps) {
-  return <StyledText className="text-component">{children}</StyledText>;
+  return (
+    <StyledText className="text-component" title={children?.join("")}>
+      {children}
+    </StyledText>
+  );
 }
 
 export { TextComponent };
