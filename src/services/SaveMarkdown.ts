@@ -1,4 +1,6 @@
+import { useCallMessage } from "../hooks/useCallMessage";
 import { MarkdownsRepo } from "../repositories/markdowns";
+
 import Markdown from "./Markdown";
 
 interface ISaveMarkdownRequest {
@@ -14,6 +16,7 @@ class SaveMarkdown {
 
       // Generate an error when the file name is empty
       if (!name) {
+        useCallMessage("File name cannot be empty!");
         throw new Error("File name cannot be empty!");
       }
 
@@ -35,6 +38,7 @@ class SaveMarkdown {
       }
 
       // Throw a generic error message for unexpected errors
+      useCallMessage("Unexpected error while saving Markdown!");
       throw new Error("Unexpected error while saving Markdown!");
     }
   }

@@ -39,22 +39,27 @@ function EditableDocumentItem({
         <Controller
           control={control}
           name={name}
+          rules={{
+            required: true,
+          }}
           render={({ field: { onBlur, onChange, value } }) => {
             return (
-              <DocumentName
-                id={`documentField-${name}`}
-                type="text"
-                title={title}
-                name={name}
-                value={value}
-                onBlur={() => {
-                  setIsBlur(false);
-                  onBlur();
-                }}
-                onFocus={() => setIsBlur(true)}
-                onChange={onChange}
-                placeholder={placeholder}
-              />
+              <div>
+                <DocumentName
+                  id={`documentField-${name}`}
+                  type="text"
+                  title={title}
+                  name={name}
+                  value={value}
+                  onBlur={() => {
+                    setIsBlur(false);
+                    onBlur();
+                  }}
+                  onFocus={() => setIsBlur(true)}
+                  onChange={onChange}
+                  placeholder={placeholder}
+                />
+              </div>
             );
           }}
         />

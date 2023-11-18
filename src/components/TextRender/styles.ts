@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledTextRender = styled.div`
   background: none;
 
+  max-width: 1000px;
   max-height: 810px;
 
   width: 100%;
@@ -18,8 +19,8 @@ const StyledTextRender = styled.div`
 
   display: flex;
   flex-direction: column;
-  
-  padding: 1rem;
+
+  padding: 1rem 3rem 1rem 1rem;
 
   overflow: auto;
 
