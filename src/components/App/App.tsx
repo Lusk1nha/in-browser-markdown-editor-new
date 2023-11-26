@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { GlobalStyle } from "../../styles/globalStyle";
 import { RouteHandler } from "../../routes/RouteHandler";
 
@@ -7,12 +7,33 @@ import { AppSidebarProvider } from "../../contexts/SidebarProvider/AppSidebarPro
 import { AppLocalizationProvider } from "../../contexts/LocalizationProvider/LocalizationProvider";
 import { Toaster } from "react-hot-toast";
 import { SupabaseProvider } from "../../contexts/SupabaseProvider/SupabaseProvider";
-import useCreateSupabaseClient from "../../hooks/useCreateSupabaseClient";
-import useSupabaseSession from "../../hooks/useSupabaseSession";
 
-function App() {
-  const supabaseClient = useCreateSupabaseClient();
-  const session = useSupabaseSession(supabaseClient);
+import { Session, SupabaseClient } from "@supabase/supabase-js";
+
+interface IAppProps {
+  supabaseClient: SupabaseClient;
+}
+
+function App({ supabaseClient }: IAppProps) {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  console.log(session);
 
   return (
     <React.Fragment>

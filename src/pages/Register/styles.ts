@@ -29,18 +29,30 @@ const Title = styled.h2`
   margin-bottom: 0.675rem;
 `;
 
-const FormRegister = styled.form`
+const ComponentSchema = styled.div`
   background-color: #1d1f22;
 
   max-width: 550px;
   width: 100%;
 
+  min-height: 300px;
+
   display: flex;
-  flex-direction: column;
+  align-items: center;
+
+  border-radius: 4px;
 
   padding: 2rem 1.865rem;
 
-  border-radius: 4px;
+  gap: 1rem;
+`;
+
+const FormRegister = styled.form`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
 
   display: flex;
   flex-direction: column;
@@ -109,6 +121,7 @@ const FormLink = styled(Link)`
 export {
   StyledRegister,
   Title,
+  ComponentSchema,
   FormRegister,
   SubmitButton,
   LinkContainer,

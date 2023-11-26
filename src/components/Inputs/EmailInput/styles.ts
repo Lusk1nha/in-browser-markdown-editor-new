@@ -23,7 +23,11 @@ const Label = styled.label`
   line-height: normal;
 `;
 
-const Input = styled.input`
+type InputProps = {
+  $isInvalid?: boolean;
+};
+
+const Input = styled.input<InputProps>`
   background: none;
   width: 100%;
   height: 45px;
@@ -49,6 +53,30 @@ const Input = styled.input`
   &:focus {
     border: 1px solid white;
   }
+
+  ${(props) =>
+    props.$isInvalid &&
+    `
+    border: 1px solid ${props.theme.colors.menu.documentNameValueHover};
+
+    &:focus {
+      border: 1px solid ${props.theme.colors.menu.documentNameValueHover};
+    }
+  `}
 `;
 
-export { StyledEmailInput, Label, Input };
+const ErrorMessage = styled.span`
+  color: #e46643;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+
+  /* Heading (M) */
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export { StyledEmailInput, Label, Input, ErrorMessage };

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 type WrapperProps = {
+  $gap?: string | number;
   $maxHeight?: number | string;
   $justifyContent?: "flex-start" | "flex-end" | "center";
   $alignItems?: "flex-start" | "flex-end" | "center";
@@ -37,6 +38,13 @@ const Wrapper = styled.div<WrapperProps>`
     props.$flex !== undefined &&
     css`
       flex: ${props.$flex};
+    `}
+
+    ${(props) =>
+    props.$gap !== null &&
+    props.$gap !== undefined &&
+    css`
+      gap: ${props.$gap};
     `}
 `;
 
