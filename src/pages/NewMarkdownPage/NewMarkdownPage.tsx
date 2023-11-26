@@ -1,6 +1,6 @@
 import { StyledContainerLoading, StyledForm } from "./styles";
 import { Menu } from "../../components/Menu/Menu";
-import { ActionFunction, LoaderFunction, useNavigate } from "react-router-dom";
+import { LoaderFunction, useNavigate } from "react-router-dom";
 
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -149,5 +149,4 @@ export default Object.assign({
 }) as {
   Page: React.ReactNode;
   Loader: LoaderFunction<unknown>;
-  Action: ActionFunction<unknown>;
 };
