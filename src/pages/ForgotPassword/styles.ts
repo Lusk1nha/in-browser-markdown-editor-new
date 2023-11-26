@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { RawButton } from "../../styles/reusables-styles";
 import { Link } from "react-router-dom";
 
-const StyledLogin = styled.section`
+const StyledForgotPassword = styled.section`
   width: 100%;
   height: 100%;
 
@@ -29,7 +29,7 @@ const Title = styled.h2`
   margin-bottom: 0.675rem;
 `;
 
-const FormLogin = styled.form`
+const FormForgotPassword = styled.form`
   background-color: #1d1f22;
 
   max-width: 550px;
@@ -105,9 +105,9 @@ const FormLink = styled(Link)`
 `;
 
 export {
-  StyledLogin,
+  StyledForgotPassword,
   Title,
-  FormLogin,
+  FormForgotPassword,
   SubmitButton,
   LinkContainer,
   FormText,

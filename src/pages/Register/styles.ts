@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { RawButton } from "../../styles/reusables-styles";
 import { Link } from "react-router-dom";
 
-const StyledLogin = styled.section`
+const StyledRegister = styled.section`
   width: 100%;
   height: 100%;
 
@@ -29,7 +29,7 @@ const Title = styled.h2`
   margin-bottom: 0.675rem;
 `;
 
-const FormLogin = styled.form`
+const FormRegister = styled.form`
   background-color: #1d1f22;
 
   max-width: 550px;
@@ -84,7 +84,7 @@ const LinkContainer = styled.div`
   flex-direction: column;
 
   gap: 0.475rem;
-`
+`;
 
 const FormText = styled.p`
   color: #c1c4cb;
@@ -98,6 +98,8 @@ const FormText = styled.p`
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+
+  text-align: right;
 `;
 
 const FormLink = styled(Link)`
@@ -105,9 +107,9 @@ const FormLink = styled(Link)`
 `;
 
 export {
-  StyledLogin,
+  StyledRegister,
   Title,
-  FormLogin,
+  FormRegister,
   SubmitButton,
   LinkContainer,
   FormText,

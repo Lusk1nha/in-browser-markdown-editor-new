@@ -14,6 +14,8 @@ import { Paths } from "../shared/enums/Paths";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import { ProtectedPage } from "../pages/ProtectedPage/ProtectedPage";
 import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 
 // RouteHandler component responsible for defining the application's routes
 function RouteHandler() {
@@ -42,7 +44,9 @@ function RouteHandler() {
         </Route>
 
         <Route path={Paths.Login} element={Login.Page} />
-        
+        <Route path={Paths.Register} element={Register.Page} />
+        <Route path={Paths.ForgotPassword} element={ForgotPassword.Page} />
+
         <Route path={Paths.All} element={PageNotFound.Page} />
       </>
     )

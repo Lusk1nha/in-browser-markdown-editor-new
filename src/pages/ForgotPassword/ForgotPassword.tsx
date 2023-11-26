@@ -1,25 +1,25 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { EmailInput } from "../../components/Inputs/EmailInput/EmailInput";
-import { PasswordInput } from "../../components/Inputs/PasswordInput/PasswordInput";
 import {
+  FormForgotPassword,
+  FormLink,
   FormText,
-  FormLogin,
-  StyledLogin,
+  LinkContainer,
+  StyledForgotPassword,
   SubmitButton,
   Title,
-  FormLink,
-  LinkContainer,
 } from "./styles";
+import { EmailInput } from "../../components/Inputs/EmailInput/EmailInput";
+
 import { Paths } from "../../shared/enums/Paths";
 
-export function Login() {
+function ForgotPassword() {
   const formInstance = useForm();
 
   return (
     <FormProvider {...formInstance}>
-      <StyledLogin>
-        <FormLogin>
-          <Title>Sign In</Title>
+      <StyledForgotPassword>
+        <FormForgotPassword>
+          <Title>Forgot Password</Title>
 
           <EmailInput
             name="email"
@@ -27,17 +27,11 @@ export function Login() {
             placeholder="Enter email"
           />
 
-          <PasswordInput
-            name="password"
-            label="Password"
-            placeholder="Enter password"
-          />
-
-          <SubmitButton>Submit</SubmitButton>
+          <SubmitButton>Reset Password</SubmitButton>
 
           <LinkContainer>
             <FormText>
-              Forgot <FormLink to={Paths.ForgotPassword}>password?</FormLink>
+              Already registered <FormLink to={Paths.Login}>sign in?</FormLink>
             </FormText>
 
             <FormText>
@@ -45,15 +39,15 @@ export function Login() {
               <FormLink to={Paths.Register}>create here</FormLink>
             </FormText>
           </LinkContainer>
-        </FormLogin>
-      </StyledLogin>
+        </FormForgotPassword>
+      </StyledForgotPassword>
     </FormProvider>
   );
 }
 
 // Export an object with properties Page, Loader, and Action for React Router usage
 export default Object.assign({
-  Page: <Login />,
+  Page: <ForgotPassword />,
 }) as {
   Page: React.ReactNode;
 };
