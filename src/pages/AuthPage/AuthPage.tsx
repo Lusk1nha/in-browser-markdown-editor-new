@@ -1,16 +1,17 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { Paths } from "../../shared/enums/Paths";
 import { useSession } from "@supabase/auth-helpers-react";
 
-function ProtectedPage() {
+function AuthPage() {
   const session = useSession();
-  const location = useLocation();
 
-  if (!session) {
-    return <Navigate to={Paths.Login} state={{ from: location }} />;
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  if (session) {
+    return <Navigate to={from} state={{ from: location }} />;
   }
 
   return <Outlet />;
 }
 
-export { ProtectedPage };
+export { AuthPage };

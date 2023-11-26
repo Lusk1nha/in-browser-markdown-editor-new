@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { RawButton } from "../../styles/reusables-styles";
+import { Link } from "react-router-dom";
 
 type StyledSideBarProps = {
   $on: boolean;
@@ -35,7 +36,7 @@ const SidebarHeader = styled.div`
   flex-direction: column;
 `;
 
-const HeaderTitle = styled.h2`
+const HeaderTitle = styled(Link)`
   color: ${(props) => props.theme.colors.menu.title};
   font-family: Commissioner;
   font-size: 15px;
@@ -44,6 +45,7 @@ const HeaderTitle = styled.h2`
   line-height: normal;
   letter-spacing: 5px;
   text-transform: uppercase;
+  text-decoration: none;
 `;
 
 const SidebarMyDocumentsContainer = styled.div`
@@ -95,6 +97,30 @@ const SidebarThemeContainer = styled.div`
   margin-top: auto;
 `;
 
+const SignOutButton = styled(RawButton)`
+  background-color: #2b2d31;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  color: ${(props) => props.theme.colors.menu.saveButtonText};
+
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  padding: 0.7rem 1rem;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+`;
+
 export {
   StyledSideBar,
   SidebarHeader,
@@ -103,4 +129,5 @@ export {
   SidebarMyDocumentsTitle,
   SidebarNewDocumentButton,
   SidebarThemeContainer,
+  SignOutButton,
 };

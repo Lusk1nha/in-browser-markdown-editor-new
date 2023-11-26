@@ -10,6 +10,7 @@ import {
   SidebarMyDocumentsTitle,
   SidebarNewDocumentButton,
   SidebarThemeContainer,
+  SignOutButton,
 } from "./styles";
 
 import DocumentRender from "../DocumentRender/DocumentRender";
@@ -18,14 +19,21 @@ import { AppThemeContext } from "../../contexts/ThemeProvider/AppThemeProvider";
 import { AppSidebarContext } from "../../contexts/SidebarProvider/AppSidebarProvider";
 import { MoonIcon } from "../Icons/MoonIcon";
 import { SunIcon } from "../Icons/SunIcon";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { useGoToNew } from "../../hooks/useGoToNew";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
+import { Wrapper } from "../../styles/reusables-styles";
+import { SignOutIcon } from "../Icons/SignOutIcon";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import AuthService from "../../services/AuthService";
+import { Paths } from "../../shared/enums/Paths";
 
 // Sidebar component to render a sidebar with header, document section, and theme toggle
 function Sidebar() {
+  const supabaseClient = useSupabaseClient();
+
   // Access the localization context
   const strings = useContext(AppLocalizationContext);
 
@@ -40,12 +48,19 @@ function Sidebar() {
     useGoToNew({ navigate });
   }
 
+  async function onSignOut() {
+    const authService = new AuthService(supabaseClient);
+    await authService.signOut();
+
+    redirect(Paths.Login);
+  }
+
   return (
     <StyledSideBar id="sidebar" $on={on}>
       {/* SidebarHeader is a styled component for the sidebar header */}
       <SidebarHeader>
         {/* HeaderTitle is a styled component for rendering the header title */}
-        <HeaderTitle>{strings.SideBarTitle}</HeaderTitle>
+        <HeaderTitle to={Paths.NewMarkdown}>{strings.SideBarTitle}</HeaderTitle>
       </SidebarHeader>
 
       {/* SidebarMyDocumentsContainer is a styled component for the document section */}
@@ -64,20 +79,29 @@ function Sidebar() {
         <DocumentRender markdowns={markdowns} />
       </SidebarMyDocumentsContainer>
 
-      {/* SidebarThemeContainer is a styled component for the theme toggle section */}
-      <SidebarThemeContainer>
-        {/* Toggle component for rendering the theme toggle */}
-        <Toggle
-          onClick={onThemeChange}
-          value={on}
-          offContent={<MoonIcon className="moon" />}
-          offContentActive={
-            <MoonIcon className="moonActive" fillColor="white" />
-          }
-          onContent={<SunIcon className="sun" />}
-          onContentActive={<SunIcon className="sunActive" fillColor="white" />}
-        />
-      </SidebarThemeContainer>
+      <Wrapper $gap="2rem">
+        {/* SidebarThemeContainer is a styled component for the theme toggle section */}
+        <SidebarThemeContainer>
+          {/* Toggle component for rendering the theme toggle */}
+          <Toggle
+            onClick={onThemeChange}
+            value={on}
+            offContent={<MoonIcon className="moon" />}
+            offContentActive={
+              <MoonIcon className="moonActive" fillColor="white" />
+            }
+            onContent={<SunIcon className="sun" />}
+            onContentActive={
+              <SunIcon className="sunActive" fillColor="white" />
+            }
+          />
+        </SidebarThemeContainer>
+
+        <SignOutButton onClick={onSignOut}>
+          <SignOutIcon />
+          Click here to sign out
+        </SignOutButton>
+      </Wrapper>
     </StyledSideBar>
   );
 }

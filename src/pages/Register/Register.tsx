@@ -46,15 +46,11 @@ function Register() {
     const { email, password, confirmPassword } = data;
     const authService = new AuthService(supabaseClient);
 
-    const response = await authService.signUp({
+    await authService.signUp({
       email,
       password,
       confirmPassword,
     });
-
-    console.log({ response });
-
-    return response;
   }
 
   const optionsEmail: RegisterOptions<FieldValues, string> = {
