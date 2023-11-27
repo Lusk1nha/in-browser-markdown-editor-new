@@ -5,7 +5,7 @@ import Markdown from "../../services/Markdown";
 
 import { Spinner } from "../Spinner/Spinner";
 import { Paths } from "../../shared/enums/Paths";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 import { formatDateToLocale } from "../../shared/utils/Locale";
 
@@ -15,15 +15,17 @@ interface IDocumentRenderProps {
 }
 
 // DocumentRender component to render a list of Markdown documents
-export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
+function DocumentRender({ markdowns }: IDocumentRenderProps) {
   // Hook to navigate between routes
   const navigate = useNavigate();
   const strings = useContext(AppLocalizationContext);
 
+  const location = useLocation();
+
   // Function to generate a link and navigate to the edit page
   function generateDocumentLink(id: string) {
     const pathWithId = Paths.EditMarkdown.replace(":id", id);
-    navigate(pathWithId, { replace: true });
+    navigate(pathWithId, { replace: true, state: { from: location } });
   }
 
   // Function to sort Markdowns by their lastModified date
@@ -61,3 +63,5 @@ export default function DocumentRender({ markdowns }: IDocumentRenderProps) {
     </StyledDocumentRender>
   );
 }
+
+export { DocumentRender };
