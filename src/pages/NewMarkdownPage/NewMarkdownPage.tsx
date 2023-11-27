@@ -10,7 +10,6 @@ import { TrashBinIcon } from "../../components/Icons/TrashBinIcon";
 import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 
 import Markdown from "../../services/Markdown";
-import { SaveMarkdown } from "../../services/SaveMarkdown";
 
 import { useGoToEdit } from "../../hooks/useGoToEdit";
 import { Content } from "../../components/Content/Content";
