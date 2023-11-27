@@ -5,7 +5,7 @@
  * @returns {string[]} An array containing non-empty lines from the input text.
  */
 function getLines(text: string): string[] {
-  const textByBreakLine = text.split("\n");
+  const textByBreakLine = text?.split("\n");
 
   const mapBreakLines = textByBreakLine.map((line) =>
     line === "" ? "\n" : line

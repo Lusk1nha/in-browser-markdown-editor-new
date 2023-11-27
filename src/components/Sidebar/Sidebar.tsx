@@ -13,7 +13,7 @@ import {
   SignOutButton,
 } from "./styles";
 
-import DocumentRender from "../DocumentRender/DocumentRender";
+import { DocumentRender } from "../DocumentRender/DocumentRender";
 
 import { AppThemeContext } from "../../contexts/ThemeProvider/AppThemeProvider";
 import { AppSidebarContext } from "../../contexts/SidebarProvider/AppSidebarProvider";

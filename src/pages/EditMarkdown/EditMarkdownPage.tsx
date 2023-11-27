@@ -17,7 +17,7 @@ import { RemoveButton, SaveButton } from "../../styles/reusables-styles";
 import { TrashBinIcon } from "../../components/Icons/TrashBinIcon";
 import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 import Markdown from "../../services/Markdown";
-import { LocalStorage } from "../../repositories/localStorage";
+
 import { EditMarkdown } from "../../services/EditMarkdown";
 import { DeleteMarkdown } from "../../services/DeleteMarkdown";
 import { useGoToNew } from "../../hooks/useGoToNew";
@@ -25,6 +25,8 @@ import { Content } from "../../components/Content/Content";
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
+import MarkdownService from "../../services/MarkdownService";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 // Define the structure of the loader response
 interface LoaderResponse {
@@ -35,39 +37,29 @@ interface LoaderResponse {
 const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;
 
+  const supabaseClient = useSupabaseClient();
+
   if (!id) {
     throw new Error("Could not identify the document ID");
   }
 
-  const markdown = await getMarkdown(id);
+  const markdownService = new MarkdownService(supabaseClient);
+
+  const markdowns = await markdownService.getById(id);
+
+  const markdown = markdowns?.[0];
 
   return defer({
     markdown,
   });
 };
 
-/**
- * Function to fetch markdown data based on ID
- * @param {string} id string ID to fetch
- * @returns {Markdown} Return a Markdown item
- */
-const getMarkdown = async (id: string) => {
-  const storage = new LocalStorage("markdowns-app");
-  let markdowns = (await storage.get("markdowns")) as Markdown[];
-
-  if (!markdowns) {
-    markdowns = [];
-  }
-
-  const filteredMarkdown = markdowns.filter((markdown) => markdown.id === id);
-
-  return filteredMarkdown?.[0];
-};
-
 // EditMarkdownPage component for editing a markdown document
 function EditMarkdownPage() {
   // Access the localization context
   const strings = useContext(AppLocalizationContext);
+
+  const supabaseClient = useSupabaseClient();
 
   // Access the markdown loader from the MarkdownContext
   const { loader: markdownsLoader } = useContext(MarkdownContext);
@@ -85,6 +77,19 @@ function EditMarkdownPage() {
   const formInstance = useForm({
     defaultValues: markdown,
   });
+
+  /**
+   * Function to fetch markdown data based on ID
+   * @param {string} id string ID to fetch
+   * @returns {Markdown} Return a Markdown item
+   */
+  async function getMarkdown(id: string) {
+    const markdownService = new MarkdownService(supabaseClient);
+
+    const markdowns = await markdownService.getById(id);
+
+    return markdowns?.[0];
+  }
 
   // Use effect to update the form with the fetched markdown data
   useEffect(() => {
@@ -116,12 +121,10 @@ function EditMarkdownPage() {
 
   // Function to remove the markdown document
   async function onRemove() {
-    const { id } = formInstance.getValues();
+    const markdownService = new MarkdownService(supabaseClient);
 
-    const deleteMarkdown = new DeleteMarkdown();
-    const markdown = await getMarkdown(id);
+    markdownService.delete(markdown);
 
-    await deleteMarkdown.execute({ markdown });
     markdownsLoader();
 
     // Use custom hook to navigate to a new location
