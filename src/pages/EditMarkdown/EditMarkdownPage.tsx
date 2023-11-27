@@ -19,7 +19,6 @@ import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 import Markdown from "../../services/Markdown";
 
 import { EditMarkdown } from "../../services/EditMarkdown";
-import { DeleteMarkdown } from "../../services/DeleteMarkdown";
 import { useGoToNew } from "../../hooks/useGoToNew";
 import { Content } from "../../components/Content/Content";
 import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
