@@ -18,10 +18,12 @@ import { PasswordInput } from "../../components/Inputs/PasswordInput/PasswordInp
 import { EmailInput } from "../../components/Inputs/EmailInput/EmailInput";
 
 import { Paths } from "../../shared/enums/Paths";
-import AuthService from "../../services/AuthService";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
 import { Suspense } from "react";
 import { Spinner } from "../../components/Spinner/Spinner";
+
+import { signUp } from "../../models/auth";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 type RegisterValues = {
   email: string;
@@ -30,7 +32,7 @@ type RegisterValues = {
 };
 
 function Register() {
-  const supabaseClient = useSupabaseClient();
+  const supabase = useSupabaseClient();
 
   const formInstance = useForm<RegisterValues>({
     mode: "onSubmit",
@@ -44,9 +46,8 @@ function Register() {
 
   async function onSignUpUser(data: RegisterValues) {
     const { email, password, confirmPassword } = data;
-    const authService = new AuthService(supabaseClient);
 
-    await authService.signUp({
+    await signUp(supabase, {
       email,
       password,
       confirmPassword,
@@ -56,7 +57,7 @@ function Register() {
   const optionsEmail: RegisterOptions<FieldValues, string> = {
     required: "Email address is required",
     pattern: {
-      value: /\S+@\S+\.\S+/,
+      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
       message: "This field must be a valid email address",
     },
   };

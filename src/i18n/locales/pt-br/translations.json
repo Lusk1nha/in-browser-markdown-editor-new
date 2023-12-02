@@ -20,5 +20,8 @@
   "EditMarkdownContentTitle": "Modifique o conteúdo do documento aqui",
   "ErrorMessage": "Um erro ocorreu!",
   "TextAreaTopLaneTitle": "Documento",
-  "PreviewTopLaneTitle": "Visualização"
+  "PreviewTopLaneTitle": "Visualização",
+  "SignOutButtonLabel": "Clique aqui para sair do aplicativo",
+  "SignOutButtonTitle": "Clique aqui para sair do aplicativo",
+  "SignOutButtonText": "Sair"
 }

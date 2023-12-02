@@ -11,7 +11,7 @@ import { formatDateToLocale } from "../../shared/utils/Locale";
 
 // Define the properties that the DocumentRender component accepts
 interface IDocumentRenderProps {
-  markdowns?: Markdown[];
+  markdowns: Markdown[];
 }
 
 // DocumentRender component to render a list of Markdown documents
@@ -33,12 +33,6 @@ function DocumentRender({ markdowns }: IDocumentRenderProps) {
     return markdowns?.sort((markdownA, markdownB) =>
       markdownB.lastModified.localeCompare(markdownA.lastModified)
     );
-  }
-
-  // If there are no markdowns, return null
-  if (!markdowns) {
-    console.debug("No Markdown in Document Render!");
-    return null;
   }
 
   return (

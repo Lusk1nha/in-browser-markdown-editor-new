@@ -16,7 +16,10 @@ import { ProtectedPage } from "../pages/ProtectedPage/ProtectedPage";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
-import { AuthPage } from "../pages/AuthPage/AuthPage";
+
+import DocumentLayout from "../pages/DocumentLayout/DocumentLayout";
+import { AuthProtectedPages } from "../pages/AuthProtectedPages/AuthProtectedPages";
+import React from "react";
 
 // RouteHandler component responsible for defining the application's routes
 function RouteHandler() {
@@ -30,24 +33,17 @@ function RouteHandler() {
           element={Layout.Page}
         >
           <Route element={<ProtectedPage />}>
-            <Route
-              path={Paths.NewMarkdown}
-              element={NewMarkdown.Page}
-              loader={NewMarkdown.Loader}
-            />
-
-            <Route
-              path={Paths.EditMarkdown}
-              element={EditMarkdown.Page}
-              loader={EditMarkdown.Loader}
-            />
+            <Route element={DocumentLayout.Page}>
+              <Route path={Paths.NewMarkdown} element={NewMarkdown.Page} />
+              <Route path={Paths.EditMarkdown} element={EditMarkdown.Page} errorElement={<React.Fragment><div>Error</div></React.Fragment>} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route element={<AuthPage />}>
-          <Route path={Paths.Login} element={Login.Page} />
-          <Route path={Paths.Register} element={Register.Page} />
-          <Route path={Paths.ForgotPassword} element={ForgotPassword.Page} />
+          <Route element={<AuthProtectedPages />}>
+            <Route path={Paths.Login} element={Login.Page} />
+            <Route path={Paths.Register} element={Register.Page} />
+            <Route path={Paths.ForgotPassword} element={ForgotPassword.Page} />
+          </Route>
         </Route>
 
         <Route path={Paths.All} element={PageNotFound.Page} />

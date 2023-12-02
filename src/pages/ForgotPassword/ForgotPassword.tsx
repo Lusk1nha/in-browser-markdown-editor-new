@@ -18,9 +18,10 @@ import { EmailInput } from "../../components/Inputs/EmailInput/EmailInput";
 
 import { Paths } from "../../shared/enums/Paths";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import AuthService from "../../services/AuthService";
+
 import { Suspense } from "react";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { resetPassword } from "../../models/auth";
 
 type ForgotPasswordValues = {
   email: string;
@@ -28,7 +29,7 @@ type ForgotPasswordValues = {
 };
 
 function ForgotPassword() {
-  const supabaseClient = useSupabaseClient();
+  const supabase = useSupabaseClient();
 
   const formInstance = useForm<ForgotPasswordValues>({
     mode: "onSubmit",
@@ -41,9 +42,8 @@ function ForgotPassword() {
 
   async function onForgotPassword(data: ForgotPasswordValues) {
     const { email } = data;
-    const authService = new AuthService(supabaseClient);
 
-    await authService.resetPassword({
+    await resetPassword(supabase, {
       email,
     });
   }
@@ -51,7 +51,7 @@ function ForgotPassword() {
   const optionsEmail: RegisterOptions<FieldValues, string> = {
     required: "Email address is required",
     pattern: {
-      value: /\S+@\S+\.\S+/,
+      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
       message: "This field must be a valid email address",
     },
   };

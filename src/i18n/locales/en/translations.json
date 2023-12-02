@@ -20,5 +20,8 @@
   "EditMarkdownContentTitle": "Edit the document content here",
   "ErrorMessage": "An error has occurred!",
   "TextAreaTopLaneTitle": "Markdown",
-  "PreviewTopLaneTitle": "Preview"
+  "PreviewTopLaneTitle": "Preview",
+  "SignOutButtonLabel": "Click here to sign out",
+  "SignOutButtonTitle": "Click here to sign out",
+  "SignOutButtonText": "Sign Out"
 }

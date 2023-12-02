@@ -104,7 +104,7 @@ const SignOutButton = styled(RawButton)`
 
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 
   color: ${(props) => props.theme.colors.menu.saveButtonText};
 
@@ -113,6 +113,8 @@ const SignOutButton = styled(RawButton)`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  gap: 1rem;
 
   padding: 0.7rem 1rem;
 

@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSession } from "@supabase/auth-helpers-react";
 
-function AuthPage() {
+function AuthProtectedPages() {
   const session = useSession();
 
   const location = useLocation();
@@ -14,4 +14,4 @@ function AuthPage() {
   return <Outlet />;
 }
 
-export { AuthPage };
+export { AuthProtectedPages };

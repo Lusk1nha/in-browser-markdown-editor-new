@@ -1,15 +1,7 @@
 import React from "react";
 import { StyledContainerLoading, StyledForm } from "./styles";
 import { Menu } from "../../components/Menu/Menu";
-import {
-  ActionFunction,
-  LoaderFunction,
-  defer,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Suspense, useContext, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Functionality } from "../../shared/types/Functionality";
@@ -18,64 +10,64 @@ import { TrashBinIcon } from "../../components/Icons/TrashBinIcon";
 import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 import Markdown from "../../services/Markdown";
 
-import { EditMarkdown } from "../../services/EditMarkdown";
 import { useGoToNew } from "../../hooks/useGoToNew";
 import { Content } from "../../components/Content/Content";
-import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
-import MarkdownService from "../../services/MarkdownService";
+
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { getById, remove, update } from "../../models/markdown";
 
-// Define the structure of the loader response
-interface LoaderResponse {
-  markdown: Markdown;
-}
-
-// Loader function to fetch the markdown data
-const loader: LoaderFunction = async ({ params }) => {
-  const { id } = params;
-
-  const supabaseClient = useSupabaseClient();
-
-  if (!id) {
-    throw new Error("Could not identify the document ID");
-  }
-
-  const markdownService = new MarkdownService(supabaseClient);
-
-  const markdowns = await markdownService.getById(id);
-
-  const markdown = markdowns?.[0];
-
-  return defer({
-    markdown,
-  });
+type MarkdownFormValues = {
+  userId?: string;
+  id?: string;
+  name: string;
+  content?: string;
 };
 
-// EditMarkdownPage component for editing a markdown document
+enum StatusPage {
+  READY,
+  LOADING,
+  ERROR,
+}
+
 function EditMarkdownPage() {
-  // Access the localization context
-  const strings = useContext(AppLocalizationContext);
-
-  const supabaseClient = useSupabaseClient();
-
-  // Access the markdown loader from the MarkdownContext
-  const { loader: markdownsLoader } = useContext(MarkdownContext);
-
   // Get the markdown data from the loader
-  const loaderData = useLoaderData() as LoaderResponse;
-  const [markdown, setMarkdown] = useState<Markdown>(loaderData.markdown);
+  const [markdown, setMarkdown] = useState<Markdown | null>(null);
+  const [status, setStatus] = useState<keyof typeof StatusPage>("LOADING");
 
   // Initialize necessary hooks from react-router-dom
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = useParams();
 
-  // Create a form instance using react-hook-form
-  const formInstance = useForm({
-    defaultValues: markdown,
+  // Access the localization context
+  const strings = useContext(AppLocalizationContext);
+
+  const supabase = useSupabaseClient();
+
+  const formInstance = useForm<MarkdownFormValues>({
+    defaultValues: {},
   });
+
+  useEffect(() => {
+    if (id) {
+      getMarkdown(id)
+        .catch(() => setStatus("ERROR"))
+        .finally(() => setStatus("READY"));
+    }
+  }, [id]);
+
+  if (status === "LOADING") {
+    return (
+      <StyledContainerLoading>
+        <Spinner />
+      </StyledContainerLoading>
+    );
+  }
+
+  if (status === "ERROR") {
+    return <div>Error</div>;
+  }
 
   /**
    * Function to fetch markdown data based on ID
@@ -83,51 +75,39 @@ function EditMarkdownPage() {
    * @returns {Markdown} Return a Markdown item
    */
   async function getMarkdown(id: string) {
-    const markdownService = new MarkdownService(supabaseClient);
+    const markdown = await getById(supabase, id);
 
-    const markdowns = await markdownService.getById(id);
+    if (!markdown) {
+      throw new Error("Cannot get markdown for " + id);
+    }
 
-    return markdowns?.[0];
+    formInstance.reset({
+      userId: markdown.userId,
+      id: markdown.id,
+      content: markdown.content ?? "",
+      name: markdown.name,
+    });
+
+    setMarkdown(markdown);
   }
-
-  // Use effect to update the form with the fetched markdown data
-  useEffect(() => {
-    async function updateMarkdown(id: string) {
-      const markdown = await getMarkdown(id);
-
-      formInstance.reset(markdown);
-      setMarkdown(markdown);
-    }
-
-    if (id) {
-      updateMarkdown(id);
-    }
-  }, [location]);
 
   // Function to save changes to the markdown document
   async function onSave() {
-    const editMarkdown = new EditMarkdown();
+    const { id, name, content } = formInstance.getValues();
 
-    const { id, name, content, created, lastModified } =
-      formInstance.getValues();
+    const markdown = new Markdown({ id, name, content });
 
-    await editMarkdown.execute({
-      markdown: { id, name, content, created, lastModified },
-    });
-
-    markdownsLoader();
+    await update(supabase, { markdown });
   }
 
   // Function to remove the markdown document
   async function onRemove() {
-    const markdownService = new MarkdownService(supabaseClient);
+    if (markdown) {
+      remove(supabase, { markdown });
 
-    markdownService.delete(markdown);
-
-    markdownsLoader();
-
-    // Use custom hook to navigate to a new location
-    useGoToNew({ navigate });
+      // Use custom hook to navigate to a new location
+      useGoToNew({ navigate });
+    }
   }
 
   // Define functionalities for the Menu component
@@ -197,9 +177,6 @@ function EditMarkdownPage() {
 // Export an object with Page, Loader, and Action properties
 export default Object.assign({
   Page: <EditMarkdownPage />,
-  Loader: loader,
 }) as {
   Page: React.ReactNode;
-  Loader: LoaderFunction<unknown>;
-  Action: ActionFunction<unknown>;
 };

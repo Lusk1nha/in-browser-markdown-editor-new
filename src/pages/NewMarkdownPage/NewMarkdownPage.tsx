@@ -1,6 +1,6 @@
 import { StyledContainerLoading, StyledForm } from "./styles";
 import { Menu } from "../../components/Menu/Menu";
-import { LoaderFunction, useNavigate } from "react-router-dom";
+import { LoaderFunction } from "react-router-dom";
 
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -11,30 +11,29 @@ import { FileSaveIcon } from "../../components/Icons/FileSaveIcon";
 
 import Markdown from "../../services/Markdown";
 
-import { useGoToEdit } from "../../hooks/useGoToEdit";
 import { Content } from "../../components/Content/Content";
 import { Suspense, useContext } from "react";
-import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import MarkdownService from "../../services/MarkdownService";
 
-// NewMarkdownPage component for creating a new markdown document
+import { create } from "../../models/markdown";
+
+type MarkdownFormValues = {
+  userId?: string;
+  id?: string | null;
+  name: string;
+  content?: string;
+};
+
 function NewMarkdownPage() {
+  const supabase = useSupabaseClient();
+
   // Access the localization context
   const strings = useContext(AppLocalizationContext);
 
-  const supabaseClient = useSupabaseClient();
-
-  // Access the MarkdownContext to get the loader function
-  const { loader } = useContext(MarkdownContext);
-
-  // React Router's navigate function for navigation
-  const navigate = useNavigate();
-
   // Create a form instance using react-hook-form
-  const formInstance = useForm({
+  const formInstance = useForm<MarkdownFormValues>({
     defaultValues: {
       id: null,
       name: "",
@@ -52,28 +51,17 @@ function NewMarkdownPage() {
     const { name, content } = formInstance.getValues();
     const markdown = new Markdown({ name, content });
 
-    const markdownService = new MarkdownService(supabaseClient);
-
-    // Execute the SaveMarkdown service to save the new markdown
-    await markdownService.create(markdown);
-
-    // Trigger the loader to refresh the markdown list
-    loader();
-
-    // Navigate to the edit page for the newly created markdown
-    useGoToEdit({ id: markdown.id, navigate });
+    create(supabase, { markdown });
   }
 
   // Handler for removing content from the form
   function onRemove() {
     // Reset the form values
     formInstance.reset({
+      id: null,
       name: "",
       content: "",
     });
-
-    // Trigger the loader to refresh the markdown list
-    loader();
   }
 
   // Define menu functionalities based on form dirtiness

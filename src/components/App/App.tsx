@@ -18,6 +18,8 @@ interface IAppProps {
 function App({ supabaseClient }: IAppProps) {
   const session = useSupabaseSession(supabaseClient);
 
+  if (session === undefined) return;
+
   return (
     <React.Fragment>
       {/* Apply global styles */}
