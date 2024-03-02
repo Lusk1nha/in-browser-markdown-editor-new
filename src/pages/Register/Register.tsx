@@ -1,17 +1,16 @@
-import {
-  FieldValues,
-  FormProvider,
-  RegisterOptions,
-  useForm,
-} from "react-hook-form";
+import { z } from "zod";
+
+import { FormProvider, useForm } from "react-hook-form";
 import {
   ComponentSchema,
   FormLink,
   FormRegister,
   FormText,
   LinkContainer,
+  SpinnerContainer,
   StyledRegister,
   SubmitButton,
+  SystemErrorMessage,
   Title,
 } from "./styles";
 import { PasswordInput } from "../../components/Inputs/PasswordInput/PasswordInput";
@@ -19,112 +18,129 @@ import { EmailInput } from "../../components/Inputs/EmailInput/EmailInput";
 
 import { Paths } from "../../shared/enums/Paths";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Spinner } from "../../components/Spinner/Spinner";
 
 import { signUp } from "../../models/auth";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
-type RegisterValues = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+const createRegisterSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, "Email address is required")
+      .email("This field must be a valid email address"),
+
+    password: z
+      .string()
+      .min(1, "Password is required")
+      .regex(
+        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+        "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+      ),
+
+    confirmPassword: z.string().min(1, "Is necessary to confirm the password"),
+  })
+  .required()
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormData = z.infer<typeof createRegisterSchema>;
 
 function Register() {
   const supabase = useSupabaseClient();
+  const navigate = useNavigate();
 
-  const formInstance = useForm<RegisterValues>({
+  const [error, setError] = useState<string | null>(null);
+
+  const formInstance = useForm<RegisterFormData>({
     mode: "onSubmit",
+    resolver: zodResolver(createRegisterSchema),
   });
 
   const {
     handleSubmit,
-    watch,
     formState: { isSubmitting },
   } = formInstance;
 
-  async function onSignUpUser(data: RegisterValues) {
-    const { email, password, confirmPassword } = data;
+  async function handleSignUpUser(data: RegisterFormData) {
+    try {
+      const body = createRegisterSchema.parse(data);
 
-    await signUp(supabase, {
-      email,
-      password,
-      confirmPassword,
-    });
-  }
+      const { email, password, confirmPassword } = body;
 
-  const optionsEmail: RegisterOptions<FieldValues, string> = {
-    required: "Email address is required",
-    pattern: {
-      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-      message: "This field must be a valid email address",
-    },
-  };
+      const response = await signUp(supabase, {
+        email,
+        password,
+        confirmPassword,
+      });
 
-  const optionsPassword: RegisterOptions<FieldValues, string> = {
-    required: "Password is required",
-    pattern: {
-      value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-      message:
-        "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
-    },
-  };
+      console.log("Response from sign up successful", response);
 
-  const optionsConfirm: RegisterOptions<FieldValues, string> = {
-    required: "Is necessary to confirm the password",
-    validate: (value: string) => {
-      if (value !== watch("password")) {
-        return "Password do not match";
+      navigate(Paths.NewMarkdown);
+    } catch (error) {
+      setError("Authentication failed for login");
+
+      if (error instanceof Error) {
+        throw new Error(error?.message);
       }
 
-      return undefined;
-    },
-  };
+      throw new Error("Authentication failed for login");
+    }
+  }
 
   return (
     <FormProvider {...formInstance}>
       <StyledRegister>
         <ComponentSchema>
           <Suspense fallback={<Spinner label="Loading..." />}>
-            {isSubmitting ? (
-              <Spinner label="Registering..." />
-            ) : (
-              <FormRegister onSubmit={handleSubmit(onSignUpUser)}>
-                <Title>Sign Up</Title>
+            <FormRegister onSubmit={handleSubmit(handleSignUpUser)}>
+              <Title>Sign Up</Title>
 
-                <EmailInput
-                  name="email"
-                  label="Email Address"
-                  placeholder="Enter an email address"
-                  options={optionsEmail}
-                />
+              {isSubmitting ? (
+                <SpinnerContainer>
+                  <Spinner label="Registering..." />
+                </SpinnerContainer>
+              ) : (
+                <>
+                  <EmailInput
+                    name="email"
+                    label="Email Address"
+                    placeholder="Enter an email address"
+                  />
 
-                <PasswordInput
-                  name="password"
-                  label="Password"
-                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                  placeholder="Enter password"
-                  options={optionsPassword}
-                />
+                  <PasswordInput
+                    name="password"
+                    label="Password"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    placeholder="Enter password"
+                  />
 
-                <PasswordInput
-                  name="confirmPassword"
-                  label="Confirm password"
-                  placeholder="Enter password to confirm"
-                  options={optionsConfirm}
-                />
+                  <PasswordInput
+                    name="confirmPassword"
+                    label="Confirm password"
+                    placeholder="Enter password to confirm"
+                  />
 
-                <SubmitButton type="submit">Sign Up</SubmitButton>
+                  {error && <SystemErrorMessage>{error}</SystemErrorMessage>}
+                </>
+              )}
 
-                <LinkContainer>
-                  <FormText>
-                    Already registered{" "}
-                    <FormLink to={Paths.Login}>sign in?</FormLink>
-                  </FormText>
-                </LinkContainer>
-              </FormRegister>
-            )}
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                Sign Up
+              </SubmitButton>
+
+              <LinkContainer>
+                <FormText>
+                  Already registered{" "}
+                  <FormLink to={Paths.Login}>sign in?</FormLink>
+                </FormText>
+              </LinkContainer>
+            </FormRegister>
           </Suspense>
         </ComponentSchema>
       </StyledRegister>

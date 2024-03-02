@@ -18,6 +18,8 @@ interface IAppProps {
 function App({ supabaseClient }: IAppProps) {
   const session = useSupabaseSession(supabaseClient);
 
+  console.log({ session });
+
   if (session === undefined) return;
 
   return (

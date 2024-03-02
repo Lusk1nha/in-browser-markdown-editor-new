@@ -11,6 +11,7 @@
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@supabase/auth-helpers-react": "^0.4.2",
     "@supabase/supabase-js": "^2.38.5",
     "@types/styled-components": "^5.1.28",
@@ -27,7 +28,8 @@
     "react-router-dom": "^6.16.0",
     "styled-components": "^6.0.8",
     "supabase": "^1.113.3",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

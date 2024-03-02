@@ -35,7 +35,15 @@ function RouteHandler() {
           <Route element={<ProtectedPage />}>
             <Route element={DocumentLayout.Page}>
               <Route path={Paths.NewMarkdown} element={NewMarkdown.Page} />
-              <Route path={Paths.EditMarkdown} element={EditMarkdown.Page} errorElement={<React.Fragment><div>Error</div></React.Fragment>} />
+              <Route
+                path={Paths.EditMarkdown}
+                element={EditMarkdown.Page}
+                errorElement={
+                  <React.Fragment>
+                    <div>Error</div>
+                  </React.Fragment>
+                }
+              />
             </Route>
           </Route>
 

@@ -39,8 +39,8 @@ async function signIn(
     password,
   });
 
-  if (error) {
-    throw new Error(error.message);
+  if (error?.name === "AuthApiError") {
+    return null;
   }
 
   return data;

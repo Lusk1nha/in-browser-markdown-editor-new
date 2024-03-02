@@ -96,7 +96,7 @@ const LinkContainer = styled.div`
   flex-direction: column;
 
   gap: 0.475rem;
-`
+`;
 
 const FormText = styled.p`
   color: #c1c4cb;
@@ -116,6 +116,29 @@ const FormLink = styled(Link)`
   color: ${(props) => props.theme.colors.menu.saveButtonBackground};
 `;
 
+const SpinnerContainer = styled.div`
+  width: 100%;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SystemErrorMessage = styled.span`
+  color: red;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+
+  /* Heading (M) */
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
 export {
   StyledForgotPassword,
   Title,
@@ -125,4 +148,6 @@ export {
   LinkContainer,
   FormText,
   FormLink,
+  SpinnerContainer,
+  SystemErrorMessage,
 };
