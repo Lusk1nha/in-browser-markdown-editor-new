@@ -1,37 +1,46 @@
-import {
-  FieldValues,
-  FormProvider,
-  RegisterOptions,
-  useForm,
-} from "react-hook-form";
+import { z } from "zod";
+
+import { FormProvider, useForm } from "react-hook-form";
 import {
   ComponentSchema,
   FormForgotPassword,
   FormLink,
   FormText,
   LinkContainer,
+  SpinnerContainer,
   StyledForgotPassword,
   SubmitButton,
+  SystemErrorMessage,
   Title,
 } from "./styles";
 import { EmailInput } from "../../components/Inputs/EmailInput/EmailInput";
 
 import { Paths } from "../../shared/enums/Paths";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import AuthService from "../../services/AuthService";
-import { Suspense } from "react";
-import { Spinner } from "../../components/Spinner/Spinner";
 
-type ForgotPasswordValues = {
-  email: string;
-  password: string;
-};
+import { Suspense, useState } from "react";
+import { Spinner } from "../../components/Spinner/Spinner";
+import { resetPassword } from "../../models/auth";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const createForgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email address is required")
+    .email("This field must be a valid email address"),
+});
+
+type ForgotPasswordData = z.infer<typeof createForgotPasswordSchema>;
 
 function ForgotPassword() {
-  const supabaseClient = useSupabaseClient();
+  const supabase = useSupabaseClient();
 
-  const formInstance = useForm<ForgotPasswordValues>({
+  const [error, setError] = useState<string | null>(null);
+
+  const formInstance = useForm<ForgotPasswordData>({
     mode: "onSubmit",
+    resolver: zodResolver(createForgotPasswordSchema),
   });
 
   const {
@@ -39,56 +48,68 @@ function ForgotPassword() {
     formState: { isSubmitting },
   } = formInstance;
 
-  async function onForgotPassword(data: ForgotPasswordValues) {
-    const { email } = data;
-    const authService = new AuthService(supabaseClient);
+  async function onForgotPassword(data: ForgotPasswordData) {
+    try {
+      const body = createForgotPasswordSchema.parse(data);
 
-    await authService.resetPassword({
-      email,
-    });
+      const { email } = body;
+
+      const response = await resetPassword(supabase, {
+        email,
+      });
+
+      console.log("Response from sign up successful", response);
+    } catch (error) {
+      setError("Authentication failed for login");
+
+      if (error instanceof Error) {
+        throw new Error(error?.message);
+      }
+
+      throw new Error("Authentication failed for login");
+    }
   }
-
-  const optionsEmail: RegisterOptions<FieldValues, string> = {
-    required: "Email address is required",
-    pattern: {
-      value: /\S+@\S+\.\S+/,
-      message: "This field must be a valid email address",
-    },
-  };
 
   return (
     <FormProvider {...formInstance}>
       <StyledForgotPassword>
         <ComponentSchema>
           <Suspense fallback={<Spinner label="Loading..." />}>
-            {isSubmitting ? (
-              <Spinner label="Resetting..." />
-            ) : (
-              <FormForgotPassword onSubmit={handleSubmit(onForgotPassword)}>
-                <Title>Forgot Password</Title>
+            <FormForgotPassword onSubmit={handleSubmit(onForgotPassword)}>
+              <Title>Forgot Password</Title>
 
-                <EmailInput
-                  name="email"
-                  label="Email Address"
-                  placeholder="Enter email"
-                  options={optionsEmail}
-                />
+              {isSubmitting ? (
+                <SpinnerContainer>
+                  <Spinner label="Resetting..." />
+                </SpinnerContainer>
+              ) : (
+                <>
+                  <EmailInput
+                    name="email"
+                    label="Email Address"
+                    placeholder="Enter email"
+                  />
 
-                <SubmitButton type="submit">Reset Password</SubmitButton>
+                  {error && <SystemErrorMessage>{error}</SystemErrorMessage>}
+                </>
+              )}
 
-                <LinkContainer>
-                  <FormText>
-                    Already registered{" "}
-                    <FormLink to={Paths.Login}>sign in?</FormLink>
-                  </FormText>
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                Reset Password
+              </SubmitButton>
 
-                  <FormText>
-                    Don't have a account?{" "}
-                    <FormLink to={Paths.Register}>create here</FormLink>
-                  </FormText>
-                </LinkContainer>
-              </FormForgotPassword>
-            )}
+              <LinkContainer>
+                <FormText>
+                  Already registered{" "}
+                  <FormLink to={Paths.Login}>sign in?</FormLink>
+                </FormText>
+
+                <FormText>
+                  Don't have a account?{" "}
+                  <FormLink to={Paths.Register}>create here</FormLink>
+                </FormText>
+              </LinkContainer>
+            </FormForgotPassword>
           </Suspense>
         </ComponentSchema>
       </StyledForgotPassword>

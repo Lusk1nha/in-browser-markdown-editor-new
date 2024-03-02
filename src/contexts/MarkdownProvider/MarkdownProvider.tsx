@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import Markdown from "../../services/Markdown";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import MarkdownService from "../../services/MarkdownService";
+import { getAll } from "../../models/markdown";
 
 // Define the shape of the context data
 export interface IMarkdownContext {
@@ -28,7 +28,7 @@ function MarkdownProvider({ children }: IMarkdownProviderProps) {
   // Initialize state for markdowns and set its default value
   const [markdowns, setMarkdowns] = useState<Markdown[]>([]);
 
-  const supabaseClient = useSupabaseClient();
+  const supabase = useSupabaseClient();
 
   // Use effect to load markdowns on component mount
   useEffect(() => {
@@ -45,15 +45,13 @@ function MarkdownProvider({ children }: IMarkdownProviderProps) {
 
   // Async function to load markdowns and update the state
   async function loader() {
-    const markdownService = new MarkdownService(supabaseClient);
-
-    // Use the GetMarkdowns service to fetch markdowns
-    const markdownsInStorage = await markdownService.getAll();
+    const markdownsStorage = await getAll(supabase);
 
     // Update the state with the fetched markdowns
-    setMarkdowns(markdownsInStorage);
+    setMarkdowns(markdownsStorage);
 
-    return markdownsInStorage;
+    // Return the markdowns
+    return markdownsStorage;
   }
 
   // Provide the context values to the wrapped components

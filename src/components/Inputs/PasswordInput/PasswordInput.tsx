@@ -1,4 +1,4 @@
-import { FieldValues, RegisterOptions, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { StyledPasswordInput, Label, Input, ErrorMessage } from "./styles";
 
 interface IPasswordInputProps {
@@ -6,7 +6,6 @@ interface IPasswordInputProps {
   label?: string;
   title?: string;
   placeholder?: string;
-  options?: RegisterOptions<FieldValues, string>;
   isRequired?: boolean;
 }
 
@@ -15,7 +14,6 @@ function PasswordInput({
   label,
   title,
   placeholder,
-  options,
 }: IPasswordInputProps) {
   const { register, formState } = useFormContext();
 
@@ -25,14 +23,14 @@ function PasswordInput({
     <StyledPasswordInput>
       <Label htmlFor={name}>{label}</Label>
       <Input
-        {...register(name, options)}
+        {...register(name)}
         id={name}
         type="password"
         title={title}
         placeholder={placeholder}
         $isInvalid={errorMessage ? true : false}
       />
-      <ErrorMessage>{errorMessage}</ErrorMessage>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </StyledPasswordInput>
   );
 }

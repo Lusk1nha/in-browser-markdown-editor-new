@@ -37,7 +37,7 @@ function TextArea({ title, name, isFullScreen }: ITextAreaProps) {
               name={name}
               onBlur={onBlur}
               onChange={onChange}
-              value={value}
+              value={value ?? ""}
             />
           );
         }}

@@ -21,24 +21,25 @@ import { MoonIcon } from "../Icons/MoonIcon";
 import { SunIcon } from "../Icons/SunIcon";
 import { redirect, useNavigate } from "react-router-dom";
 
-import { MarkdownContext } from "../../contexts/MarkdownProvider/MarkdownProvider";
 import { useGoToNew } from "../../hooks/useGoToNew";
 import { AppLocalizationContext } from "../../contexts/LocalizationProvider/LocalizationProvider";
 import { Wrapper } from "../../styles/reusables-styles";
 import { SignOutIcon } from "../Icons/SignOutIcon";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import AuthService from "../../services/AuthService";
+
 import { Paths } from "../../shared/enums/Paths";
+import { signOut } from "../../models/auth";
+import useMarkdowns from "../../hooks/useMarkdowns";
 
 // Sidebar component to render a sidebar with header, document section, and theme toggle
 function Sidebar() {
-  const supabaseClient = useSupabaseClient();
+  const supabase = useSupabaseClient();
 
+  const markdowns = useMarkdowns(supabase);
+  
   // Access the localization context
   const strings = useContext(AppLocalizationContext);
 
-  // Access various contexts and hooks for data and functionality
-  const { markdowns } = useContext(MarkdownContext);
   const { onThemeChange } = useContext(AppThemeContext);
   const { on } = useContext(AppSidebarContext);
   const navigate = useNavigate();
@@ -48,10 +49,8 @@ function Sidebar() {
     useGoToNew({ navigate });
   }
 
-  async function onSignOut() {
-    const authService = new AuthService(supabaseClient);
-    await authService.signOut();
-
+  function onSignOut() {
+    signOut(supabase);
     redirect(Paths.Login);
   }
 
@@ -97,9 +96,13 @@ function Sidebar() {
           />
         </SidebarThemeContainer>
 
-        <SignOutButton onClick={onSignOut}>
+        <SignOutButton
+          title={strings.SignOutButtonTitle}
+          aria-label={strings.SignOutButtonLabel}
+          onClick={onSignOut}
+        >
           <SignOutIcon />
-          Click here to sign out
+          {strings.SignOutButtonText}
         </SignOutButton>
       </Wrapper>
     </StyledSideBar>

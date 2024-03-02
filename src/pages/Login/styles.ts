@@ -116,13 +116,38 @@ const FormLink = styled(Link)`
   color: ${(props) => props.theme.colors.menu.saveButtonBackground};
 `;
 
+const SpinnerContainer = styled.div`
+  width: 100%;
+  height: 200px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SystemErrorMessage = styled.span`
+  color: red;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+
+  /* Heading (M) */
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
 export {
   StyledLogin,
   Title,
+  SystemErrorMessage,
   ComponentSchema,
   FormLogin,
   SubmitButton,
   LinkContainer,
   FormText,
   FormLink,
+  SpinnerContainer,
 };

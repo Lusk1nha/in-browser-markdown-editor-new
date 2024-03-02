@@ -34,6 +34,9 @@ function AppLocalizationProvider({ children }: IAppLocalizationProviderProps) {
     ErrorMessage: t("ErrorMessage"),
     TextAreaTopLaneTitle: t("TextAreaTopLaneTitle"),
     PreviewTopLaneTitle: t("PreviewTopLaneTitle"),
+    SignOutButtonText: t("SignOutButtonText"),
+    SignOutButtonLabel: t("SignOutButtonLabel"),
+    SignOutButtonTitle: t("SignOutButtonTitle"),
   };
 
   return (
